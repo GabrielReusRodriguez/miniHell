@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/13 02:39:39 by greus-ro          #+#    #+#              #
-#    Updated: 2024/02/06 19:46:20 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/04/13 19:33:23 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ INC_DIR=../../inc
 BIN_DIR=../../bin/ft_get_next_line
 SRC_DIR=./src
 
-NAME		= ${BIN_DIR}/ft_get_next_line.a
+NAME		= ${BIN_DIR}/libft_get_next_line.a
 
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -MMD -MP

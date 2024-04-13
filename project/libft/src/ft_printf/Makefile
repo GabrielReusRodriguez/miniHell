@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/13 02:39:39 by greus-ro          #+#    #+#              #
-#    Updated: 2024/03/13 00:10:09 by gabriel          ###   ########.fr        #
+#    Updated: 2024/04/13 19:33:37 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ INC_DIR	= ../../inc
 BIN_DIR = ../../bin/ft_printf
 SRC_DIR	= ./src
 
-NAME		= ${BIN_DIR}/ft_printf.a
+NAME		= ${BIN_DIR}/libft_printf.a
 
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -MMD -MP

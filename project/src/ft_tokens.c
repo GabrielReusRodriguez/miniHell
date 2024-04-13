@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokens.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:58:37 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/11 19:33:51 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:18:11 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_token_set	ft_tokens_tokenize(t_string str)
 			i++;
 			continue;
 		}
-		if (str[i] == "\"")
+		if (str[i] == '\"')
 		{
 			continue;
 		}

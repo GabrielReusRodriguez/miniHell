@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 01:34:53 by greus-ro          #+#    #+#              #
-#    Updated: 2024/04/11 18:42:03 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/04/13 19:33:15 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BIN_DIR=../../bin/ft
 SRC_DIR=./src
 INC_DIR=../../inc
 
-NAME=${BIN_DIR}/ft_utils.a
+NAME=${BIN_DIR}/libft_utils.a
 CFLAGS=-Wall -Wextra -Werror -MMD -MP
 
 
