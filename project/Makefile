@@ -26,7 +26,9 @@ OBJ_FILES=$(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 DEP_FILES=$(SRC_FILES:%.c=$(OBJ_DIR)/%.d)
 
 #CDEBUG = -g3 -fsanitize=address
-CDEBUG = -g -fsanitize=address
+#CDEBUG = -g -fsanitize=address
+CDEBUG = -g3
+
 #CFLAGS = -Werror -Wall  -Wextra -MMD -MP -L ${LIBFT_BIN}/ft_printf/  ${LIBFT_BIN}/ft/ ${CDEBUG} 
 CFLAGS = -Werror -Wall  -Wextra -MMD -MP ${CDEBUG} 
 LINK_FLAGS = -L${LIBFT_BIN}/ft_printf -L${LIBFT_BIN}/ft -lreadline -lft_printf -lft_utils ${CDEBUG}
@@ -51,7 +53,7 @@ ${LIBFT_FT}:
 ${LIBFT_PRINTF}:
 	make -C ${LIBFT_FT}
 
--include ${OBJ_DEPS}
+-include ${DEP_FILES}
 
 norminette:
 	norminette ${SRC_DIR} ${INC_DIR}

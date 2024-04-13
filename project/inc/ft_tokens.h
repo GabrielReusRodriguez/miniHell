@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:51:25 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 20:39:19 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 21:15:32 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ PAR_OPEN		(
 PAR_CLOSE		)
 */
 
-# define TOKEN_TYPE_UNKNOWN			0
+# define TOKEN_TYPE_UNKNOWN			99
 # define TOKEN_TYPE_FILE 			1
 # define TOKEN_TYPE_RED_TRUNCATE	2
 # define TOKEN_TYPE_RED_APPEND		3
