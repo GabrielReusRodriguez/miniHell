@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:51:25 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 21:15:32 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 21:56:12 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ PAR_CLOSE		)
 # define TOKEN_TYPE_RED_HERE_DOC	4
 # define TOKEN_TYPE_RED_INPUT		5
 # define TOKEN_TYPE_WORD			6
-# define TOKEN_TYPE_PIPE			7
-# define TOKEN_TYPE_AND				8
-# define TOKEN_TYPE_OR				9
-# define TOKEN_TYPE_PAR_OPEN		10
-# define TOKEN_TYPE_PAR_CLOSE		11
-# define TOKEN_TYPE_SEMICOLON		12
-# define TOKEN_TYPE_EMPTY			13
+# define TOKEN_TYPE_WORD_SQUOTE		7
+# define TOKEN_TYPE_WORD_DQUOTE		8
+# define TOKEN_TYPE_PIPE			9
+# define TOKEN_TYPE_AND				10
+# define TOKEN_TYPE_OR				11
+# define TOKEN_TYPE_PAR_OPEN		12
+# define TOKEN_TYPE_PAR_CLOSE		13
+# define TOKEN_TYPE_SEMICOLON		14
+# define TOKEN_TYPE_EMPTY			15
 
 typedef struct s_token
 {

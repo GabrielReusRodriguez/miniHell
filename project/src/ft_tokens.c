@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:58:37 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 21:52:19 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 21:59:04 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ void	ft_token_debug(t_token_set tokens)
 			printf("UNKNOWN");
 		if (token->type == TOKEN_TYPE_WORD)
 			printf("WORD");
+		if (token->type == TOKEN_TYPE_WORD_SQUOTE)
+			printf("WORD SQUOTE");
+		if (token->type == TOKEN_TYPE_WORD_DQUOTE)
+			printf("WORD DQUOTE");
+
 		printf("\n");	
 		node = node->next;
 	}
@@ -129,7 +134,7 @@ t_list  *ft_token_new_dquote(t_string str, size_t *pos)
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\"')
 		i++;
 	token->value =  ft_substr(str, *pos, i + 1);
-	token->type = TOKEN_TYPE_WORD;
+	token->type = TOKEN_TYPE_WORD_DQUOTE;
 	*pos = *pos + i + 1;
 	return (ft_lstnew(token));
 }
@@ -185,7 +190,7 @@ t_list  *ft_token_new_squote(t_string str, size_t *pos)
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
 		i++;
 	token->value =  ft_substr(str, *pos, i + 1);
-	token->type = TOKEN_TYPE_WORD;
+	token->type = TOKEN_TYPE_WORD_SQUOTE;
 	*pos = *pos + i + 1;
 	return (ft_lstnew(token));
 }
