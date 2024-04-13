@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokens.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:51:25 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/11 19:05:06 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:39:19 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ typedef struct s_token_set
 
 t_token_set	ft_tokens_tokenize(t_string str);
 t_token	ft_token_new(t_string str_token, int *i);
+void	ft_token_destroy_tokenlist(t_token_set *list);
+
 
 #endif

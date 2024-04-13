@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:29:47 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 20:00:00 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 20:39:55 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(void)
 {
 	t_string	line;
 	t_path		path;
+	t_token_set	line_tokens;
 
 /*
 	path = ft_env_getenvvar("PATH");
@@ -66,7 +67,8 @@ int	main(void)
 			ft_main_treat_line(line);
 			add_history(line);
 			//printf("La linea entrada es: %s\n", line);
-			ft_tokens_tokenize(line);
+			line_tokens = ft_tokens_tokenize(line);
+			ft_token_destroy_tokenlist(&line_tokens);
 		}
 		free (line);
 	}	
