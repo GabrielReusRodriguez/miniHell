@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:58:37 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 22:14:26 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 22:21:53 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "ft_tokens.h"
 #include "ft_parser.h"
 
+
+/*
+
+Metacharacters are: pipe ( | ), ampersand ( & ), semicolon ( ; ), less-than sign ( < ), greater-than sign ( > ), left parenthesis ( ( ), right parenthesis ( ) ), dollar sign ( $ ), backquote ( ` ), backslash ( \ ), right quote ( ' ), double quotation marks ( " ), newline character, space character, and tab character.
+*/
 
 void    ft_token_free(void *ptr)
 {

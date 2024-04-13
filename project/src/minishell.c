@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:29:47 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 20:39:55 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 22:26:13 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "ft_environment.h"
 #include "ft_path.h"
 #include "ft_tokens.h"
+#include "ft_command.h"
 
 #define PROMPT "minishell> "
 
@@ -33,9 +34,7 @@ https://03-jon-perez.gitbook.io/coding-library/c/readline
 void	ft_main_treat_line(t_string line)
 {
 	if (ft_strcmp(line, CMD_EXIT) == 0)
-	{
-		exit(EXIT_SUCCESS);
-	}
+        ft_command_exit();
 }
 
 //https://www.gnu.org/software/termutils/manual/termcap-1.3/html_chapter/termcap_2.html
