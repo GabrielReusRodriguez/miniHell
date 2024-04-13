@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:58:37 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 21:59:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/13 22:14:26 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,19 @@ t_list *ft_token_new_pipe(size_t *i)
 	return (ft_lstnew(token));
 }
 
+t_bool	ft_token_isquoteclosed(t_string str, size_t pos, char quote)
+{
+	size_t	i;
+
+	i = 1;
+	while (str[pos + i] != quote && str[pos + i] != '\0')
+		i++;
+	if (str[pos + i] == quote)
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 t_list  *ft_token_new_dquote(t_string str, size_t *pos)
 {
 	t_token *token;
@@ -130,6 +143,13 @@ t_list  *ft_token_new_dquote(t_string str, size_t *pos)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
+	if (ft_token_isquoteclosed(str, *pos, '\"') == FALSE)
+	{
+		token->value = ft_strdup("\"");
+		token->type = TOKEN_TYPE_EMPTY;
+		(*pos)++;
+		return (ft_lstnew(token));
+	}
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\"')
 		i++;
@@ -186,6 +206,13 @@ t_list  *ft_token_new_squote(t_string str, size_t *pos)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
+	if (ft_token_isquoteclosed(str, *pos, '\'') == FALSE)
+	{
+		token->value = ft_strdup("\'");
+		token->type = TOKEN_TYPE_EMPTY;
+		(*pos)++;
+		return (ft_lstnew(token));
+	}
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
 		i++;
@@ -207,6 +234,14 @@ void	*ft_token_add_token(t_list *node, t_token_set *token_list)
 	return (token_list);
 }
 
+/*
+	Si nos encontramos unas comillas, comprobamos que estén cerradas.
+	En caso que NO lo estén, simplemente pasamos al siguiente caracter y las ignoramos tal 
+	como marca el enunciado.
+
+	Por ahroa comentao el puntoy coma ya que parece que el enunciado dice que 
+	lo ignoremos.
+*/
 t_list	*ft_token_get_next_token(t_string str, size_t *pos)
 {
 	if (str[*pos] == '|')
@@ -215,8 +250,11 @@ t_list	*ft_token_get_next_token(t_string str, size_t *pos)
 		return (ft_token_new_dquote(str, pos));
 	if (str[*pos] == '\'')
 		return (ft_token_new_squote(str, pos));
+	/*
 	if (str[*pos] == ';')
 		return (ft_token_new_semicolon(pos));
+		*pos++;
+	*/
 	if (str[*pos] == '(')
 		return (ft_token_new_paropen(pos));
 	if (str[*pos] == ')')
