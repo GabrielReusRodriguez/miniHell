@@ -11,8 +11,8 @@ LIBFT_BIN = ${LIBFT_DIR}/bin
 LIBFT_PRINTF = ${LIBFT_BIN}/ft_printf/libft_printf.a
 LIBFT_FT	= ${LIBFT_BIN}/ft/libft_utils.a
 
-SRC_FILES =	minishell.c			\
-			ft_command.c		\
+SRC_FILES =	main.c				\
+			ft_cmd.c			\
 			ft_environment.c	\
 			ft_error.c			\
 			ft_parser.c			\

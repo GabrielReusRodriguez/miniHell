@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:29:47 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 22:26:13 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/15 20:11:10 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "ft_datatypes.h"
-#include "ft_printf.h"
-#include "libft.h"
-#include "ft_command.h"
 
+#include "ft_datatypes.h"
+#include "ft_minishell.h"
+#include "libft.h"
+#include "ft_cmd.h"
 #include "ft_environment.h"
 #include "ft_path.h"
 #include "ft_tokens.h"
-#include "ft_command.h"
 
-#define PROMPT "minishell> "
-
+//https://github.com/StefdeRijk/Minishell/
 /*
 Tutorial de readline
 https://03-jon-perez.gitbook.io/coding-library/c/readline
@@ -34,16 +32,19 @@ https://03-jon-perez.gitbook.io/coding-library/c/readline
 void	ft_main_treat_line(t_string line)
 {
 	if (ft_strcmp(line, CMD_EXIT) == 0)
-        ft_command_exit();
+        ft_cmd_exit();
 }
 
 //https://www.gnu.org/software/termutils/manual/termcap-1.3/html_chapter/termcap_2.html
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	t_string	line;
 	t_path		path;
 	t_token_set	line_tokens;
 
+    argc++;
+    (void)argv;
+    (void)env;
 /*
 	path = ft_env_getenvvar("PATH");
 	ft_printf("PATH: %s\n",path.value);
@@ -52,7 +53,7 @@ int	main(void)
 	ft_path_debug(path);
 	while(1)
 	{
-		line = readline(PROMPT);
+		line = readline(MINISHELL_PROMPT);
 		if (line == NULL)
 			break;
 		if(ft_strisempty(line) == FALSE)

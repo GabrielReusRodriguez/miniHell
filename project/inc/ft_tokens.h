@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:51:25 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 21:56:12 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/15 17:16:43 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,26 @@ PAR_OPEN		(
 PAR_CLOSE		)
 */
 
+enum e_token_type
+{
+    TOKEN_TYPE_UNKNOWN,
+    TOKEN_TYPE_FILE,
+    TOKEN_TYPE_RED_TRUNCATE,
+    TOKEN_TYPE_RED_APPEND,
+    TOKEN_TYPE_RED_HERE_DOC,
+    TOKEN_TYPE_RED_INPUT,
+    TOKEN_TYPE_WORD,
+    TOKEN_TYPE_WORD_SQUOTE,
+    TOKEN_TYPE_WORD_DQUOTE,
+    TOKEN_TYPE_PIPE,
+    TOKEN_TYPE_AND,
+    TOKEN_TYPE_OR,
+    TOKEN_TYPE_PAR_OPEN,
+    TOKEN_TYPE_PAR_CLOSE,
+    TOKEN_TYPE_SEMICOLON,
+    TOKEN_TYPE_EMPTY
+};
+/*
 # define TOKEN_TYPE_UNKNOWN			99
 # define TOKEN_TYPE_FILE 			1
 # define TOKEN_TYPE_RED_TRUNCATE	2
@@ -42,6 +62,7 @@ PAR_CLOSE		)
 # define TOKEN_TYPE_PAR_CLOSE		13
 # define TOKEN_TYPE_SEMICOLON		14
 # define TOKEN_TYPE_EMPTY			15
+*/
 
 typedef struct s_token
 {
