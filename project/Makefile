@@ -31,8 +31,6 @@ SRC_FILES =	main.c					\
 			ft_path.c				\
 			ft_ptr.c				\
 			ft_signal.c				\
-			ft_signal_input.c		\
-			ft_signal_exec.c		\
 			ft_tokens.c
 
 

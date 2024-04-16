@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:33:16 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/16 10:41:42 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:59:50 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ typedef int t_signal;
 //extern t_signal	last_signal_rcvd;
 //extern sig_atomic_t last_signal_rcvd;
 
+
+# define SIGNAL_MODE_BASH	0
+# define SIGNAL_MODE_CHILD	1
+
+
 /*
 	Signals are a positive int so... we can mark NO_SIGNAL as -1
 */
@@ -43,6 +48,8 @@ typedef int t_signal;
 
 	However, it is true to say that Ctrl+D signals an End of Transmission (EOT) event which will generally cause a program reading input to close the input file descriptor.
 */
+
+/*
 void		ft_signal_execmode(void);
 void		ft_signal_inputmode(void);
 void		ft_signal_sigint_exec_handler(int signal);
@@ -50,5 +57,31 @@ void		ft_signal_sigquit_exec_handler(int signal);
 void		ft_signal_sigint_input_handler(int signal);
 void		ft_signal_sigquit_input_handler(int signal);
 t_signal	ft_signal_getlastsignal(void);
+*/
+t_signal	ft_signal_getlastsignal(void);
+void		ft_signal_parent_handler(int signal);
+void		ft_signal_child_handler(int signal);
+void		ft_signal_set_signal_mode(int mode);
+
+
+
+/*
+Ejemplo:
+
+void	wait_signal(int i)
+{
+	struct sigaction	sa;
+
+	if (i)
+		sa.sa_handler = &signal_handler;
+	else
+		sa.sa_handler = &child_handler;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
+	sigaction(SIGTERM, &sa, NULL);
+}
+*/
+
 
 #endif

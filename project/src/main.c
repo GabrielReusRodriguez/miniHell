@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:29:47 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/16 10:23:20 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/16 22:02:08 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	main(int argc, char **argv, char **env)
 	ft_path_destroy(&path);
 	while(shell.status.run == TRUE)
 	{
-		ft_signal_inputmode();
+	//	ft_signal_inputmode();
+		ft_signal_set_signal_mode(SIGNAL_MODE_BASH);
 		line = readline(MINISHELL_PROMPT);
 		if (line == NULL)
 			break;
