@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:59:43 by gabriel           #+#    #+#             */
-/*   Updated: 2024/04/15 20:05:18 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/16 08:20:57 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,31 @@ stty -a nos muestra las propiedades de la bash.
 typedef struct 	s_minishell_cfg
 {
 	t_environment	env;
+	//t_path			path;
+	t_env_var		*path;
 	struct termios	termios;
 	
 }	t_minishell_cfg;
 
-t_bool	ft_minishell_cfg_load(t_minishell_cfg *cfg, char **env);
-t_bool	ft_minishell_cfg_unload(t_minishell_cfg *cfg);
-void	ft_minishell_cfg_debug(t_minishell_cfg *cfg);
+typedef struct s_minishell_status
+{
+	t_bool			run;
+	int				return_status;
+}	t_minishell_status;
+
+typedef struct s_minishell
+{
+	t_minishell_status	status;
+	t_minishell_cfg		cfg;
+}	t_minishell;
+
+t_minishell	ft_minishell_new(char **env);
+void		ft_minishell_destroy(t_minishell shell);
+t_bool		ft_minishell_cfg_load(t_minishell_cfg *cfg, char **env);
+t_bool		ft_minishell_cfg_unload(t_minishell_cfg *cfg);
+void		ft_minishell_cfg_debug(t_minishell_cfg *cfg);
+void		ft_minishell_stat_init(t_minishell_status *stat);
+void		ft_minishell_stat_destroy(t_minishell_status *stat);
+t_bool		ft_minishell_check(t_minishell shell);
 
 #endif

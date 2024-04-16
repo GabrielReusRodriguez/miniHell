@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_environment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:35:06 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/15 18:00:29 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/16 09:03:22 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_environment.h"
 #include "libft.h"
+#include "ft_ptr.h"
 
 t_env_var	ft_env_getenvvar(t_string var_name)
 {
@@ -37,7 +38,7 @@ static t_list	*ft_env_new_var(t_string str)
 	initial_pos = ft_istrchr(str, "=");
 	if (initial_pos  < 0)
 		return (ft_ptr_free(env));
-	env->var = ft_substr(str, 0, initial_pos + 1);
+	env->var = ft_substr(str, 0, initial_pos);
 	if (env->var == NULL)
 		return (ft_ptr_free(env));
 	env->value = ft_substr(str, initial_pos + 1 , size);
@@ -57,6 +58,7 @@ void	ft_env_freevar(void *arg)
 	var = (t_env_var *)arg;
 	free(var->value);
 	free(var->var);
+	free(var);
 }
 
 t_list	*ft_env_init(t_string *env)
@@ -65,6 +67,7 @@ t_list	*ft_env_init(t_string *env)
 	size_t		i;
 	t_list		*node;
 	
+	new_env = NULL;
 	i = 0;
 	while (env[i] != NULL)
 	{
@@ -78,4 +81,9 @@ t_list	*ft_env_init(t_string *env)
 		i++;
 	}
 	return (new_env);
+}
+
+void	ft_env_destroy(t_environment *env)
+{
+	ft_lstclear(&env->vars, ft_env_freevar);
 }

@@ -11,13 +11,28 @@ LIBFT_BIN = ${LIBFT_DIR}/bin
 LIBFT_PRINTF = ${LIBFT_BIN}/ft_printf/libft_printf.a
 LIBFT_FT	= ${LIBFT_BIN}/ft/libft_utils.a
 
-SRC_FILES =	main.c				\
-			ft_cmd.c			\
-			ft_environment.c	\
-			ft_error.c			\
-			ft_parser.c			\
-			ft_path.c			\
-			ft_ptr.c			\
+SRC_FILES =	main.c					\
+			ft_builtin.c			\
+			ft_builtin_cd.c			\
+			ft_builtin_echo.c		\
+			ft_builtin_env.c		\
+			ft_builtin_exit.c		\
+			ft_builtin_export.c		\
+			ft_builtin_pwd.c		\
+			ft_builtin_unset.c		\
+			ft_cmd.c				\
+			ft_environment.c		\
+			ft_environment2.c		\
+			ft_error.c				\
+			ft_minishell.c			\
+			ft_minishell_cfg.c		\
+			ft_minishell_stat.c		\
+			ft_parser.c				\
+			ft_path.c				\
+			ft_ptr.c				\
+			ft_signal.c				\
+			ft_signal_input.c		\
+			ft_signal_exec.c		\
 			ft_tokens.c
 
 
@@ -68,4 +83,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fcklean re norminette
+.PHONY: all clean fclean re norminette

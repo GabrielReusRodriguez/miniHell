@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd.h                                           :+:      :+:    :+:   */
+/*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/15 21:59:48 by greus-ro         ###   ########.fr       */
+/*   Created: 2024/04/15 22:44:14 by greus-ro          #+#    #+#             */
+/*   Updated: 2024/04/16 20:24:09 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CMD_H
-# define FT_CMD_H
+#include <stdlib.h>
+#include "ft_minishell.h"
 
-# include "ft_datatypes.h"
-
-typedef	enum e_cmd_type
+t_minishell	ft_minishell_new(char **env)
 {
-	TYPE_REDIR_INPUT,
-	TYPE_REDIR_OUTPUT,
-	TYPE_PIPE,
-	TYPE_AND,
-	TYPE_OR
-}	t_cmd_type;
-
-typedef struct s_cmd
-{
-	t_uchar		type;
-	t_string	cmd;
+	t_minishell	shell;
 	
-}	t_cmd;
+	ft_minishell_cfg_load(&shell.cfg, env);
+	ft_minishell_stat_init(&shell.status);
+	return (shell);
+}
 
+void		ft_minishell_destroy(t_minishell shell)
+{
+	ft_minishell_cfg_unload(&shell.cfg);
+}
 
-#endif
+t_bool		ft_minishell_check(t_minishell shell)
+{
+	if (shell.cfg.env.vars == NULL)
+		return (FALSE);
+	return (TRUE);
+}

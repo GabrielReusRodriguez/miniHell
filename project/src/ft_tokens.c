@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokens.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:58:37 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/13 22:21:53 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/16 20:01:22 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,10 @@ t_list *ft_token_new_word(t_string str, size_t *final_pos)
 	while (str[i] != '\0' && ft_parser_charinset(str[i],PARSER_SEPARATORS) \
 				== FALSE)
 		i++;
-	token->value =  ft_substr(str, word_init, i - word_init);
 	token->type = TOKEN_TYPE_WORD;
+	token->value =  ft_substr(str, word_init, i - word_init);
+	if (token->value == NULL)
+		return (NULL);
 	*final_pos = *final_pos + i;
 	return (ft_lstnew(token));
 }
@@ -123,6 +125,8 @@ t_list *ft_token_new_pipe(size_t *i)
 		return (NULL);
 	token->type = TOKEN_TYPE_PIPE;
 	token->value = ft_strdup("|");
+	if (token->value == NULL)
+		return (NULL);
 	(*i)++;
 	return (ft_lstnew(token));
 }
@@ -150,16 +154,20 @@ t_list  *ft_token_new_dquote(t_string str, size_t *pos)
 		return (NULL);
 	if (ft_token_isquoteclosed(str, *pos, '\"') == FALSE)
 	{
-		token->value = ft_strdup("\"");
 		token->type = TOKEN_TYPE_EMPTY;
+		token->value = ft_strdup("\"");
+		if (token->value == NULL)
+			return (NULL);
 		(*pos)++;
 		return (ft_lstnew(token));
 	}
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\"')
 		i++;
-	token->value =  ft_substr(str, *pos, i + 1);
 	token->type = TOKEN_TYPE_WORD_DQUOTE;
+	token->value =  ft_substr(str, *pos, i + 1);
+	if (token->value == NULL)
+		return (NULL);
 	*pos = *pos + i + 1;
 	return (ft_lstnew(token));
 }
@@ -173,6 +181,8 @@ t_list  *ft_token_new_semicolon(size_t *i)
 		return (NULL);
 	token->type = TOKEN_TYPE_SEMICOLON;
 	token->value = ft_strdup(";");
+	if (token->value == NULL)
+		return (NULL);
 	(*i)++;
 	return (ft_lstnew(token));
 }
@@ -186,6 +196,8 @@ t_list  *ft_token_new_paropen(size_t *i)
 		return (NULL);
 	token->type = TOKEN_TYPE_PAR_OPEN;
 	token->value = ft_strdup("(");
+	if (token->value == NULL)
+		return (NULL);
 	(*i)++;
 	return (ft_lstnew(token));
 }
@@ -199,7 +211,69 @@ t_list  *ft_token_new_parclose(size_t *i)
 		return (NULL);
 	token->type = TOKEN_TYPE_PAR_CLOSE;
 	token->value = ft_strdup(")");
+	if (token->value == NULL)
+		return (NULL);
 	(*i)++;
+	return (ft_lstnew(token));
+}
+
+t_list  *ft_token_new_redtruncate(size_t *i)
+{
+	t_token		*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if(token == NULL)
+		return (NULL);
+	token->type = TOKEN_TYPE_RED_TRUNCATE;
+	token->value = ft_strdup(">");
+	if (token->value == NULL)
+		return (NULL);
+	(*i)++;
+	return (ft_lstnew(token));
+}
+
+t_list  *ft_token_new_redappend(size_t *i)
+{
+	t_token		*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if(token == NULL)
+		return (NULL);
+	token->type = TOKEN_TYPE_RED_APPEND;
+	token->value = ft_strdup(">>");
+	if (token->value == NULL)
+		return (NULL);
+	(*i) = *i + 2;
+	return (ft_lstnew(token));
+}
+
+t_list  *ft_token_new_redinput(size_t *i)
+{
+	t_token		*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if(token == NULL)
+		return (NULL);
+	token->type = TOKEN_TYPE_RED_INPUT;
+	token->value = ft_strdup("<");
+	if (token->value == NULL)
+		return (NULL);
+	(*i)++;
+	return (ft_lstnew(token));
+}
+
+t_list  *ft_token_new_redheredoc(size_t *i)
+{
+	t_token		*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if(token == NULL)
+		return (NULL);
+	token->type = TOKEN_TYPE_RED_HERE_DOC;
+	token->value = ft_strdup("<<");
+	if (token->value == NULL)
+		return (NULL);
+	(*i)= *i + 2;
 	return (ft_lstnew(token));
 }
 
@@ -213,16 +287,20 @@ t_list  *ft_token_new_squote(t_string str, size_t *pos)
 		return (NULL);
 	if (ft_token_isquoteclosed(str, *pos, '\'') == FALSE)
 	{
-		token->value = ft_strdup("\'");
 		token->type = TOKEN_TYPE_EMPTY;
+		token->value = ft_strdup("\'");
+		if (token->value == NULL)
+			return (NULL);
 		(*pos)++;
 		return (ft_lstnew(token));
 	}
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
 		i++;
-	token->value =  ft_substr(str, *pos, i + 1);
 	token->type = TOKEN_TYPE_WORD_SQUOTE;
+	token->value =  ft_substr(str, *pos, i + 1);
+	if (token->value == NULL)
+		return (NULL);
 	*pos = *pos + i + 1;
 	return (ft_lstnew(token));
 }
@@ -262,6 +340,14 @@ t_list	*ft_token_get_next_token(t_string str, size_t *pos)
 	*/
 	if (str[*pos] == '(')
 		return (ft_token_new_paropen(pos));
+	if (str[*pos] == '<' && str[*pos + 1] == '<')
+		return (ft_token_new_redheredoc(pos));
+	if (str[*pos] == '<')
+		return (ft_token_new_redinput(pos));
+	if (str[*pos] == '>' && str[*pos + 1] == '>')
+		return (ft_token_new_redappend(pos));
+	if (str[*pos] == '>')
+		return (ft_token_new_redtruncate(pos));
 	if (str[*pos] == ')')
 		return (ft_token_new_parclose(pos));
 	return (ft_token_new_word(str + *pos, pos));

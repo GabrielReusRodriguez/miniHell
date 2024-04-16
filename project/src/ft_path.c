@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:00:02 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/11 16:01:14 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/16 08:21:14 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,29 @@ static size_t	ft_path_numfolders(t_string *folder)
 	return (size);
 }
 
-t_path	ft_path_getpath(void)
+t_path	ft_path_getpath(t_string str_path)
+{
+	t_path	path;
+
+	if (str_path == NULL)
+	{
+		path.folders = NULL;
+		path.total = 0;
+		return (path);
+	}
+	path.folders = ft_split(str_path, ':');
+	if (path.folders == NULL)
+		return (path);
+	path.total = ft_path_numfolders(path.folders);
+	path.folders = ft_path_normalize(path.folders, path.total);
+	return (path);
+}
+
+/*
+t_path	ft_path_getpath(t_string str_path);
 {
 	t_path		path;
-	t_env_var	env_path;
+	/t_env_var	env_path;
 	
 	env_path = ft_env_getenvvar("PATH");
 	if (env_path.value == NULL)
@@ -68,12 +87,16 @@ t_path	ft_path_getpath(void)
 	}
 	path.folders = ft_split(env_path.value, ':');
 	if (path.folders == NULL)
+	{
+		ft_env_freevar(&env_path);
 		return (path);
+	}
 	path.total = ft_path_numfolders(path.folders);
 	path.folders = ft_path_normalize(path.folders, path.total);
+	ft_env_freevar(&env_path);
 	return (path);
 }
-
+*/
 void	ft_path_debug(t_path path)
 {
 	size_t	i;
@@ -91,4 +114,19 @@ void	ft_path_debug(t_path path)
 		i++;
 	}
 	ft_printf("END Path\n");
+}
+
+void	ft_path_destroy(t_path *path)
+{
+	size_t		i;
+
+	i = 0;
+	while (path->folders[i] != NULL)
+	{
+		free (path->folders[i]);
+		i++;
+	}
+	free(path->folders);
+	path->folders = NULL;
+	path->total = 0;
 }

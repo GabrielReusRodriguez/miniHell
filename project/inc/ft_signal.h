@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:33:16 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/15 14:03:53 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:41:42 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <signal.h>
 
 typedef int t_signal;
+
+//https://en.wikipedia.org/wiki/Process_group
+//La idea seria hacer un kill y enviar la señal al grupo cuando ejecutemos.
+//https://stackoverflow.com/questions/42430023/unix-childs-process-group-id
 
 /*
 	This is the unique global var. Extern is to make it avaible in other
@@ -39,9 +43,12 @@ typedef int t_signal;
 
 	However, it is true to say that Ctrl+D signals an End of Transmission (EOT) event which will generally cause a program reading input to close the input file descriptor.
 */
-void	ft_signal_init(void);
-int		ft_signal_sigint_handler(int signal);
-int		ft_signal_sigquit_handler(int signal);
+void		ft_signal_execmode(void);
+void		ft_signal_inputmode(void);
+void		ft_signal_sigint_exec_handler(int signal);
+void		ft_signal_sigquit_exec_handler(int signal);
+void		ft_signal_sigint_input_handler(int signal);
+void		ft_signal_sigquit_input_handler(int signal);
 t_signal	ft_signal_getlastsignal(void);
 
 #endif
