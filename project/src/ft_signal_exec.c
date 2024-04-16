@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 12:18:50 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/15 21:32:34 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:25:52 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ void	ft_signal_sigint_exec_handler(int signal)
 {
 	(void)signal;
 	last_signal_rcvd = SIGINT;
-	rl_replace_line("",0);
-	rl_redisplay();
+	//kill(, signal);
+//	rl_replace_line("",0);
+//	rl_redisplay();
 }
 
 void	ft_signal_sigquit_exec_handler(int signal)
 {
 	(void)signal;
 	last_signal_rcvd = SIGQUIT;
-	printf("SIGQUIT\n");	
+//	printf("SIGQUIT\n");	
 }
 
 void	ft_signal_execmode(void)
