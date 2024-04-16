@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:31:44 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/16 22:23:45 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/16 22:33:37 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ void	ft_signal_child_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		
+		return ;
 	}
 	if (signal == SIGQUIT)
 	{
-		
+		return ;
 	}
 	if(signal == SIGTERM)
 	{
-		
+		return ;
 	}
 }
 /*
