@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:00:22 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/15 22:16:57 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/21 13:33:14 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ t_bool	ft_builin_isbuiltin(t_string cmd)
         return (TRUE);
     return (FALSE);
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:33:16 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/16 21:59:50 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/21 00:46:58 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef int t_signal;
 //extern sig_atomic_t last_signal_rcvd;
 
 
-# define SIGNAL_MODE_BASH	0
-# define SIGNAL_MODE_CHILD	1
+# define SIGNAL_MODE_INTERACTIVE 0
+# define SIGNAL_MODE_DEFAULT 2
+# define SIGNAL_MODE_NOOP 3
 
 
 /*

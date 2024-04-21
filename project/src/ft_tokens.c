@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokens.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:58:37 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/16 20:01:22 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:08:09 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    ft_token_free(void *ptr)
 	free (token);
 }
 
-void	ft_token_debug(t_token_set tokens)
+void	ft_tokens_debug(t_token_set tokens)
 {
 	t_list	*node;
 	t_token	*token;
@@ -81,13 +81,13 @@ void	ft_token_debug(t_token_set tokens)
 	printf("FIN DEBUG Tokens \n");
 }
 
-void	ft_token_destroy_tokenlist(t_token_set *list)
+void	ft_tokens_destroy_tokenlist(t_token_set *list)
 {
 	ft_lstclear(&list->tokens, ft_token_free);
 	list->total = 0;
 }
 
-t_list *ft_token_new_word(t_string str, size_t *final_pos)
+t_list *ft_tokenizer_new_word(t_string str, size_t *final_pos)
 {
 	t_token		*token;
 	size_t		i;
@@ -105,7 +105,7 @@ t_list *ft_token_new_word(t_string str, size_t *final_pos)
 		return (ft_lstnew(token));
 	}
 	word_init = i;
-	while (str[i] != '\0' && ft_parser_charinset(str[i],PARSER_SEPARATORS) \
+	while (str[i] != '\0' && ft_tokenizer_charinset(str[i],PARSER_SEPARATORS) \
 				== FALSE)
 		i++;
 	token->type = TOKEN_TYPE_WORD;
@@ -116,7 +116,7 @@ t_list *ft_token_new_word(t_string str, size_t *final_pos)
 	return (ft_lstnew(token));
 }
 
-t_list *ft_token_new_pipe(size_t *i)
+t_list *ft_tokenizer_new_pipe(size_t *i)
 {
 	t_token		*token;
 
@@ -131,7 +131,7 @@ t_list *ft_token_new_pipe(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_bool	ft_token_isquoteclosed(t_string str, size_t pos, char quote)
+t_bool	ft_tokenizer_isquoteclosed(t_string str, size_t pos, char quote)
 {
 	size_t	i;
 
@@ -144,7 +144,7 @@ t_bool	ft_token_isquoteclosed(t_string str, size_t pos, char quote)
 		return (FALSE);
 }
 
-t_list  *ft_token_new_dquote(t_string str, size_t *pos)
+t_list  *ft_tokenizer_new_dquote(t_string str, size_t *pos)
 {
 	t_token *token;
 	size_t  i;
@@ -152,7 +152,7 @@ t_list  *ft_token_new_dquote(t_string str, size_t *pos)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
-	if (ft_token_isquoteclosed(str, *pos, '\"') == FALSE)
+	if (ft_tokenizer_isquoteclosed(str, *pos, '\"') == FALSE)
 	{
 		token->type = TOKEN_TYPE_EMPTY;
 		token->value = ft_strdup("\"");
@@ -172,7 +172,7 @@ t_list  *ft_token_new_dquote(t_string str, size_t *pos)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_semicolon(size_t *i)
+t_list  *ft_tokenizer_new_semicolon(size_t *i)
 {
 	t_token		*token;
 
@@ -187,7 +187,7 @@ t_list  *ft_token_new_semicolon(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_paropen(size_t *i)
+t_list  *ft_tokenizer_new_paropen(size_t *i)
 {
 	t_token		*token;
 
@@ -202,7 +202,7 @@ t_list  *ft_token_new_paropen(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_parclose(size_t *i)
+t_list  *ft_tokenizer_new_parclose(size_t *i)
 {
 	t_token		*token;
 
@@ -217,7 +217,7 @@ t_list  *ft_token_new_parclose(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_redtruncate(size_t *i)
+t_list  *ft_tokenizer_new_redtruncate(size_t *i)
 {
 	t_token		*token;
 
@@ -232,7 +232,7 @@ t_list  *ft_token_new_redtruncate(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_redappend(size_t *i)
+t_list  *ft_tokenizer_new_redappend(size_t *i)
 {
 	t_token		*token;
 
@@ -247,7 +247,7 @@ t_list  *ft_token_new_redappend(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_redinput(size_t *i)
+t_list  *ft_tokenizer_new_redinput(size_t *i)
 {
 	t_token		*token;
 
@@ -262,7 +262,7 @@ t_list  *ft_token_new_redinput(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_redheredoc(size_t *i)
+t_list  *ft_tokenizer_new_redheredoc(size_t *i)
 {
 	t_token		*token;
 
@@ -277,7 +277,7 @@ t_list  *ft_token_new_redheredoc(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list  *ft_token_new_squote(t_string str, size_t *pos)
+t_list  *ft_tokenizer_new_squote(t_string str, size_t *pos)
 {
 	t_token *token;
 	size_t  i;
@@ -285,7 +285,7 @@ t_list  *ft_token_new_squote(t_string str, size_t *pos)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
-	if (ft_token_isquoteclosed(str, *pos, '\'') == FALSE)
+	if (ft_tokenizer_isquoteclosed(str, *pos, '\'') == FALSE)
 	{
 		token->type = TOKEN_TYPE_EMPTY;
 		token->value = ft_strdup("\'");
@@ -305,7 +305,7 @@ t_list  *ft_token_new_squote(t_string str, size_t *pos)
 	return (ft_lstnew(token));
 }
 
-void	*ft_token_add_token(t_list *node, t_token_set *token_list)
+void	*ft_tokenizer_add_token(t_list *node, t_token_set *token_list)
 {
 	if (node == NULL)
 	{
@@ -325,35 +325,35 @@ void	*ft_token_add_token(t_list *node, t_token_set *token_list)
 	Por ahroa comentao el puntoy coma ya que parece que el enunciado dice que 
 	lo ignoremos.
 */
-t_list	*ft_token_get_next_token(t_string str, size_t *pos)
+t_list	*ft_tokenizer_get_next_token(t_string str, size_t *pos)
 {
 	if (str[*pos] == '|')
-		return(ft_token_new_pipe(pos));
+		return(ft_tokenizer_new_pipe(pos));
 	if (str[*pos] == '\"')
-		return (ft_token_new_dquote(str, pos));
+		return (ft_tokenizer_new_dquote(str, pos));
 	if (str[*pos] == '\'')
-		return (ft_token_new_squote(str, pos));
+		return (ft_tokenizer_new_squote(str, pos));
 	/*
 	if (str[*pos] == ';')
 		return (ft_token_new_semicolon(pos));
 		*pos++;
 	*/
 	if (str[*pos] == '(')
-		return (ft_token_new_paropen(pos));
+		return (ft_tokenizer_new_paropen(pos));
 	if (str[*pos] == '<' && str[*pos + 1] == '<')
-		return (ft_token_new_redheredoc(pos));
+		return (ft_tokenizer_new_redheredoc(pos));
 	if (str[*pos] == '<')
-		return (ft_token_new_redinput(pos));
+		return (ft_tokenizer_new_redinput(pos));
 	if (str[*pos] == '>' && str[*pos + 1] == '>')
-		return (ft_token_new_redappend(pos));
+		return (ft_tokenizer_new_redappend(pos));
 	if (str[*pos] == '>')
-		return (ft_token_new_redtruncate(pos));
+		return (ft_tokenizer_new_redtruncate(pos));
 	if (str[*pos] == ')')
-		return (ft_token_new_parclose(pos));
-	return (ft_token_new_word(str + *pos, pos));
+		return (ft_tokenizer_new_parclose(pos));
+	return (ft_tokenizer_new_word(str + *pos, pos));
 }
 
-t_token_set	ft_tokens_tokenize(t_string str)
+t_token_set	ft_tokenizer(t_string str)
 {
 	t_token_set	token_list;
 	t_list		*node;
@@ -364,7 +364,7 @@ t_token_set	ft_tokens_tokenize(t_string str)
 	token_list.tokens = NULL;
 	while (str[i] != '\0')
 	{
-		while(str[i] != '\0' && ft_parser_charinset(str[i], PARSER_SEPARATORS))
+		while(str[i] != '\0' && ft_tokenizer_charinset(str[i], PARSER_SEPARATORS))
 			i++;
 		if (str[i] == '\0')
 			break ;
@@ -377,6 +377,73 @@ t_token_set	ft_tokens_tokenize(t_string str)
 		ft_lstadd_back(&token_list.tokens, node);
 		token_list.total++;
 	}
-	ft_token_debug(token_list);
+	ft_tokens_debug(token_list);
 	return (token_list);
+}
+
+t_token_set	ft_tokens_new(void)
+{
+	t_token_set token_set;
+
+	token_set.last_read_token = 	NULL;
+	token_set.tokens = NULL,
+	token_set.total = 0;
+	return (token_set);
+}
+
+t_bool	ft_tokens_iscmdseparator(t_token token)
+{
+	if (token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR || \
+			token.type == TOKEN_TYPE_PIPE || \
+			token.type == TOKEN_TYPE_SEMICOLON)
+			return (TRUE);
+	return (FALSE);
+}
+
+/*
+t_cmd	ft_tokens_get_next_comand(t_token_set *token_set)
+{
+	t_list	*node;
+	t_list	*command;
+	t_token	*token;
+	t_cmd	cmd;
+
+	cmd = ft_cmd_new();
+	if (token_set->last_read_token == NULL)
+		node = token_set->tokens;
+	else
+		node = token_set->last_read_token->next;
+	cmd.first_token = node;
+	while(node != NULL)
+	{
+		token_set->last_read_token = node;
+		token = (t_token *)node->content;
+		if (ft_tokens_iscmdseparator(*token) == TRUE)
+			break;
+		node = node->next;
+	}
+	cmd.last_token = node;
+	return (cmd);
+}
+*/
+
+t_bool		ft_tokens_isword(t_token token)
+{
+	if (token.type == TOKEN_TYPE_WORD || \
+			token.type == TOKEN_TYPE_WORD_SQUOTE || \
+			token.type == TOKEN_TYPE_WORD_SQUOTE)
+			return (TRUE);
+	return (FALSE);
+}
+
+t_token     *ft_tokens_clone(t_token token)
+{
+	t_token	*new_token;
+
+	new_token = (t_token*)malloc(sizeof(t_token));
+	if (new_token == NULL)
+		return (NULL);
+	new_token->type = token.type;
+	new_token->value = ft_strdup(token.type);
+	return(new_token);
 }
