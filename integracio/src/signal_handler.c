@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 21:31:44 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/19 08:12:05 by greus-ro         ###   ########.fr       */
+/*   Created: 2024/04/23 17:06:30 by greus-ro          #+#    #+#             */
+/*   Updated: 2024/04/23 17:08:02 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <signal.h>
 #include <readline/readline.h>
-
-#include "minishell.h"
+#include "signal_handler.h"
 
 /*
 Ctrl-C (in older Unixes, DEL) sends an INT signal ("interrupt", SIGINT); 

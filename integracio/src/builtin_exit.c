@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 08:17:45 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/19 08:51:12 by greus-ro         ###   ########.fr       */
+/*   Created: 2024/04/15 22:06:42 by greus-ro          #+#    #+#             */
+/*   Updated: 2024/04/20 13:07:42 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	parser_charinset(char c, char *set)
+void	builtin_exit(t_minishell *shell)
 {
-	size_t	i;
-
-	i = 0;
-	while (set[i] != '\0')
-	{
-		if (c == set[i])
-			return (true);
-		i++;
-	}
-	return (false);
+	exit (EXIT_SUCCESS);
+	shell->status.run = false;
 }

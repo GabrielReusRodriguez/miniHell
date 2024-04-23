@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/04/19 08:34:08 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/04/23 22:58:13 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,22 +55,25 @@ GNL_D	= gnl
 # 				  		Sources and build files								   #
 # **************************************************************************** #
 
-SRC		= 	main				\
-			parser				\
-			signal_handler		\
-			tokens				\
-			tokens_creator		\
-			tokens_creator2		\
-			tokens_debug		\
-
+SRC		= 	main 					\
+			minishell 				\
+			minishell_cfg			\
+			minishell_stat			\
+			environment ptr 		\
+		  	builtin_exit			\
+			signal_handler			\
+			tokenizer				\
+			tokenizer_parenthesis	\
+			tokenizer_quotes		\
+			tokenizer_redirect		\
+			tokenizer_separators	\
+			tokenizer_utils			\
+			tokens_utils			\
+			tokenset_utils
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
-GNL_F	= get_next_line get_next_line_utils
-GNL_SRC = $(addprefix $(GNLD)/, $(addsuffix .c, $(GNL_F)))
-GNL_OBJ = $(addprefix $(BUILD_D)/, $(addsuffix .c, $(SRC)))
-GNL_HDR	= $(GNL_D)/get_next_line.h
-HDR		= minishell.h 
-HDRS	= $(addprefix $(INC_D)/, $(HDR)) $(GNL_HDR)
+HDR		= minishell.h builtin.h datatypes.h environment.h ptr.h 
+HDRS	= $(addprefix $(INC_D)/, $(HDR)) 
 FT_LIB	= $(FT_D)/libft.a
 GNL_LIB = $(GNL_D)/gnl.a
 
@@ -92,19 +95,17 @@ gnl:
 
 $(BUILD_D)/%.o:	$(SRC_D)/%.c $(HDRS) Makefile | $(BUILD_D) 
 	@echo "$(YELLOW)CC: $< $(RST)"
-#	@$(CC) $(CFLAGS) -I $(FT_D) -I $(GNL_D) -I $(INC_D) -o $@ -c $<
-	@$(CC) $(CFLAGS) -I $(FT_D) -I $(INC_D) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I $(FT_D) -I $(GNL_D) -I $(INC_D) -o $@ -c $<
+#	@$(CC) $(CFLAGS) -I $(FT_D) -I $(INC_D) -o $@ -c $<
 
 $(BUILD_D):
 	@$(MKDIR) $(BUILD_D)
 
-all:	$(NAME) 
-
 #brew:
-	brew install readline
-	brew link --force readline
-	cpanm Term::ReadLine::Gnu
-	brew unlink readline
+#	brew install readline
+#	brew link --force readline
+#	cpanm Term::ReadLine::Gnu
+#	brew unlink readline
 
 clean:
 	@$(MAKE) --no-print-directory clean -C $(FT_D)
@@ -121,6 +122,8 @@ fclean:	clean
 
 re:	fclean all
 	@echo "$(GREEN)Cleaned and rebuilt $(NAME)! $(RST)"
+
+all:	$(NAME) 
 
 norm:
 	@norminette $(SRC_D) $(INC_D) | grep -v OK \

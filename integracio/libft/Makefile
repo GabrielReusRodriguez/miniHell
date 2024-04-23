@@ -28,7 +28,8 @@ SRC		= ft_islower ft_isupper ft_isalpha ft_isdigit ft_isalnum ft_isascii \
 		  ft_strncmp ft_memchr ft_memcmp ft_strnstr ft_atoi ft_calloc \
 		  ft_strdup ft_substr ft_strjoin ft_strtrim ft_split ft_itoa \
 		  ft_strmapi ft_striteri ft_putchar_fd ft_putstr_fd ft_putendl_fd \
-		  ft_putnbr_fd
+		  ft_putnbr_fd \
+		  ft_strcmp ft_istrchr
 SRCS	= $(addprefix $(SRC_D)/, $(addsuffix .c, $(SRC)))			
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
 BSRC	= ft_lstnew_bonus ft_lstadd_front_bonus ft_lstsize_bonus \

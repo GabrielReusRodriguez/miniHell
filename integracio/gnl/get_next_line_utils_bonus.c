@@ -6,13 +6,13 @@
 /*   By: abluis-m <abluis-m@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:11:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/01/04 21:01:30 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/04/19 00:31:57 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *s)
+size_t	gnl_strlen(const char *s)
 {
 	size_t	len;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-void	*ft_calloc(size_t nelem, size_t elsize)
+void	*gnl_calloc(size_t nelem, size_t elsize)
 {
 	register void	*ptr;
 	unsigned char	*bytes;
@@ -45,7 +45,7 @@ void	*ft_calloc(size_t nelem, size_t elsize)
 	return (ptr);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*gnl_strjoin(char *s1, char *s2)
 {
 	int		l1;
 	int		l2;
@@ -53,12 +53,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*join;
 
 	if (!s1)
-		s1 = ft_calloc(2, sizeof(char));
+		s1 = gnl_calloc(2, sizeof(char));
 	if (!s1)
 		return (NULL);
-	l1 = ft_strlen(s1);
-	l2 = ft_strlen(s2);
-	join = (char *)ft_calloc((l1 + l2 + 1), sizeof(char));
+	l1 = gnl_strlen(s1);
+	l2 = gnl_strlen(s2);
+	join = (char *)gnl_calloc((l1 + l2 + 1), sizeof(char));
 	if (!join)
 		return (ft_free(&s1));
 	i = -1;
@@ -71,7 +71,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (join);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*gnl_strchr(const char *s, int c)
 {
 	while (*s && *s != c)
 		s++;
@@ -81,7 +81,7 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*gnl_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	i;
@@ -89,7 +89,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
+	if (start > gnl_strlen(s))
 	{
 		sub = malloc(sizeof(char) * (1));
 		if (!sub)
@@ -97,12 +97,12 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		sub[0] = '\0';
 		return (sub);
 	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
+	if (gnl_strlen(s) - start < len)
+		len = gnl_strlen(s) - start;
 	sub = malloc(sizeof(char) * (len + 1));
 	if (!sub)
 		return (NULL);
-	while (start < ft_strlen(s) && i < len && s[start])
+	while (start < gnl_strlen(s) && i < len && s[start])
 		sub[i++] = s[start++];
 	sub[i] = '\0';
 	return (sub);

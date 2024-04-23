@@ -6,7 +6,7 @@
 /*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:54:47 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/18 12:32:31 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:20:27 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,8 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int		ft_strcmp(char *str, char *str1);
+int		ft_istrchr(char *src, char *c);
 
 #endif
