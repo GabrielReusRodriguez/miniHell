@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_separators.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:38:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 17:55:40 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/23 23:43:46 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 
-bool	ft_tokens_iscmdseparator(t_token token)
+bool	tokens_iscmdseparator(t_token token)
 {
 	if (token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR || \
 			token.type == TOKEN_TYPE_PIPE || \
@@ -23,7 +23,7 @@ bool	ft_tokens_iscmdseparator(t_token token)
 	return (false);
 }
 
-t_list	*ft_tokenizer_new_pipe(size_t *i)
+t_list	*tokenizer_new_pipe(size_t *i)
 {
 	t_token		*token;
 
@@ -38,7 +38,7 @@ t_list	*ft_tokenizer_new_pipe(size_t *i)
 	return (ft_lstnew(token));
 }
 
-t_list	*ft_tokenizer_new_semicolon(size_t *i)
+t_list	*tokenizer_new_semicolon(size_t *i)
 {
 	t_token		*token;
 

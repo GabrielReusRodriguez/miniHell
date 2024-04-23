@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:37:39 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/23 23:42:15 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,76 +63,65 @@ typedef struct s_token_set
 }	t_token_set;
 
 /*
-t_token_set	ft_tokenizer(t_string str);
-t_token_set	ft_tokens_new(t_string str_token, int *i);
-void		ft_tokens_destroy_tokenlist(t_token_set *list);
-bool		ft_tokenizer_charinset(char c, t_string set);
-bool		ft_tokens_isword(t_token token);
-t_token		*ft_tokens_clone(t_token token);
-void		ft_token_free(void *ptr);
-t_list		*ft_tokenizer_get_next_token(t_string str, size_t *pos);
-t_list		*ft_tokenizer_new_pipe(size_t *i);
-*/
-/*
 	tokenizer.c
 */
-t_token_set	ft_tokenizer(t_string str);
-t_list		*ft_tokenizer_get_next_token(t_string str, size_t *pos);
-t_list		*ft_tokenizer_new_word(t_string str, size_t *final_pos);
-t_list		*ft_tokenizer_new_pipe(size_t *i);
-t_list		*ft_tokenizer_new_semicolon(size_t *i);
+t_token_set	tokenizer(t_string str);
+t_list		*tokenizer_get_next_token(t_string str, size_t *pos);
+t_list		*tokenizer_new_word(t_string str, size_t *final_pos);
+t_list		*tokenizer_new_pipe(size_t *i);
+t_list		*tokenizer_new_semicolon(size_t *i);
 
 /*
 	tokenizer_quotes.c
 */
-t_list		*ft_tokenizer_new_dquote(t_string str, size_t *pos);
-t_list		*ft_tokenizer_new_squote(t_string str, size_t *pos);
+t_list		*tokenizer_new_dquote(t_string str, size_t *pos);
+t_list		*tokenizer_new_squote(t_string str, size_t *pos);
 
 /*
 	tokenizer_redirect.c
 */
-t_list		*ft_tokenizer_new_redheredoc(size_t *i);
-t_list		*ft_tokenizer_new_redinput(size_t *i);
-t_list		*ft_tokenizer_new_redappend(size_t *i);
-t_list		*ft_tokenizer_new_redtruncate(size_t *i);
+t_list		*tokenizer_new_redheredoc(size_t *i);
+t_list		*tokenizer_new_redinput(size_t *i);
+t_list		*tokenizer_new_redappend(size_t *i);
+t_list		*tokenizer_new_redtruncate(size_t *i);
 
 /*
 	tokenizer_separators.c
 */
-t_list		*ft_tokenizer_new_semicolon(size_t *i);
-t_list		*ft_tokenizer_new_pipe(size_t *i);
-bool		ft_tokens_iscmdseparator(t_token token);
+t_list		*tokenizer_new_semicolon(size_t *i);
+t_list		*tokenizer_new_pipe(size_t *i);
+bool		tokens_iscmdseparator(t_token token);
 
 /*
 	tokenizer_parenthesis.c
 */
-t_list		*ft_tokenizer_new_paropen(size_t *i);
-t_list		*ft_tokenizer_new_parclose(size_t *i);
+t_list		*tokenizer_new_paropen(size_t *i);
+t_list		*tokenizer_new_parclose(size_t *i);
 
 /*
 	tokens_utils.c
 */
 
-t_token_set	ft_tokens_new(void);
-void		ft_token_free(void *ptr);
-bool		ft_tokens_isword(t_token token);
-t_token		*ft_tokens_clone(t_token token);
+t_token_set	tokens_new(void);
+void		token_free(void *ptr);
+bool		tokens_isword(t_token token);
+t_token		*tokens_clone(t_token token);
 
 /*
 	tokenizer_utils.c
 */
 
-bool		ft_tokens_isword(t_token token);
-void		*ft_tokenizer_add_token(t_list *node, t_token_set *token_list);
-bool		ft_tokenizer_ischarclosed(t_string str, size_t pos, char quote);
-bool		ft_tokenizer_charinset(char c, t_string set);
+bool		tokens_isword(t_token token);
+void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
+bool		tokenizer_ischarclosed(t_string str, size_t pos, char quote);
+bool		tokenizer_charinset(char c, t_string set);
 
 /*
 	tokenset_utils.c
 */
-void		ft_tokens_destroy_tokenlist(t_token_set *list);
-void		*ft_tokenizer_add_token(t_list *node, t_token_set *token_list);
+void		tokens_destroy_tokenlist(t_token_set *list);
+void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
 
-void		ft_tokens_debug(t_token_set token_list);
+void		tokens_debug(t_token_set token_list);
 
 #endif

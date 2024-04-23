@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:32:11 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:17:28 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/23 23:42:57 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 
-t_list	*ft_tokenizer_new_dquote(t_string str, size_t *pos)
+t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 {
 	t_token	*token;
 	size_t	i;
@@ -22,7 +22,7 @@ t_list	*ft_tokenizer_new_dquote(t_string str, size_t *pos)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
-	if (ft_tokenizer_ischarclosed(str, *pos, '\"') == false)
+	if (tokenizer_ischarclosed(str, *pos, '\"') == false)
 	{
 		token->type = TOKEN_TYPE_EMPTY;
 		token->value = ft_strdup("\"");
@@ -42,7 +42,7 @@ t_list	*ft_tokenizer_new_dquote(t_string str, size_t *pos)
 	return (ft_lstnew(token));
 }
 
-t_list	*ft_tokenizer_new_squote(t_string str, size_t *pos)
+t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 {
 	t_token	*token;
 	size_t	i;
@@ -50,7 +50,7 @@ t_list	*ft_tokenizer_new_squote(t_string str, size_t *pos)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
-	if (ft_tokenizer_ischarclosed(str, *pos, '\'') == false)
+	if (tokenizer_ischarclosed(str, *pos, '\'') == false)
 	{
 		token->type = TOKEN_TYPE_EMPTY;
 		token->value = ft_strdup("\'");

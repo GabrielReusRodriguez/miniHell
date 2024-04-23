@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/23 23:32:26 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/23 23:47:37 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	treat_line(t_minishell *shell, t_string line)
 {
 	t_token_set token_set;
 
-	token_set = ft_tokenizer(line);
+	token_set = tokenizer(line);
 	if (ft_strcmp(line, BUILTIN_EXIT) == 0)
 		builtin_exit(shell);
-	ft_tokens_destroy_tokenlist(&token_set);
+	tokens_destroy_tokenlist(&token_set);
 }
 
 int	main(int argc, char **argv, char **env)

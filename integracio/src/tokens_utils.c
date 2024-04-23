@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:20:07 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/23 23:46:59 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 
-t_token_set	ft_tokens_new(void)
+t_token_set	tokens_new(void)
 {
 	t_token_set	token_set;
 
@@ -24,7 +24,7 @@ t_token_set	ft_tokens_new(void)
 	return (token_set);
 }
 
-void	ft_token_free(void *ptr)
+void	token_free(void *ptr)
 {
 	t_token	*token;
 
@@ -33,7 +33,7 @@ void	ft_token_free(void *ptr)
 	free (token);
 }
 
-bool	ft_tokens_isword(t_token token)
+bool	tokens_isword(t_token token)
 {
 	if (token.type == TOKEN_TYPE_WORD || \
 			token.type == TOKEN_TYPE_WORD_SQUOTE || \
@@ -42,7 +42,7 @@ bool	ft_tokens_isword(t_token token)
 	return (false);
 }
 
-t_token	*ft_tokens_clone(t_token token)
+t_token	*tokens_clone(t_token token)
 {
 	t_token	*new_token;
 
