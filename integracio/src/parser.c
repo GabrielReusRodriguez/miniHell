@@ -1,18 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 21:44:54 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/24 23:03:48 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "datatypes.h"
 #include "tokens.h"
+
+
+size_t  parser_count_cmds(t_token_set token_set)
+{
+	size_t	num_cmds;
+	t_token	*token;
+	t_list	*node;
+
+	num_cmds = 0;
+	node = token_set.tokens;
+	while (node != NULL)
+	{
+		token = (t_token *)node->content;
+		if (token->type == TOKEN_TYPE_AND || \
+				token->type == TOKEN_TYPE_SEMICOLON || \
+				token->type == TOKEN_TYPE_PIPE )
+			num_cmds++;
+		node = node->next;
+	}
+	return (num_cmds);
+}
+
+t_cmd
+
 
 //TODO: WORK IN PROGRESS.....
 /*

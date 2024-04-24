@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:20:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 21:48:02 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/24 23:00:55 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@ Clase a medio hacer, se necesita el include para el tokenizer...
 # include "tokens.h"
 
 # define PARSER_SEPARATORS "|&;"
+
+size_t  parser_count_cmds(t_token_set token_set);
+
 
 #endif

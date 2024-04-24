@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 21:47:31 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/24 23:17:28 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_cmd.h"
+#include "cmd.h"
 #include "tokens.h"
 #include "libft.h"
 
@@ -34,4 +34,16 @@ void	cmd_destroy(t_cmd *cmd)
 bool	ft_cmd_isvalid(t_cmd cmd)
 {
 	return (true);
+}
+
+void    cmd_destroy_set(t_cmd_set *cmd_set)
+{
+    size_t  i;
+
+    i = 0;
+    while (i< cmd_set->num_cmds)
+    {
+        cmd_destroy(cmd_set->cmds + i);
+        i++;
+    }
 }

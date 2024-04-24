@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd.h                                           :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 21:47:16 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/24 23:14:33 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,16 @@ typedef struct s_cmd
 	int			status;
 }	t_cmd;
 
-t_cmd	ft_cmd_new(void);
-void	ft_cmd_destroy(t_cmd *cmd);
-bool	ft_cmd_isvalid(t_cmd cmd);
-bool	ft_cmd_isbuiltin(t_cmd cmd);
+typedef struct s_cmd_set
+{
+    size_t  num_cmds;
+    t_cmd   *cmds;
+}   t_cmd_set;
+
+t_cmd	cmd_new(void);
+void	cmd_destroy(t_cmd *cmd);
+bool	cmd_isvalid(t_cmd cmd);
+bool	cmd_isbuiltin(t_cmd cmd);
+void    cmd_destroy_set(t_cmd_set *cmd_set);
 
 #endif
