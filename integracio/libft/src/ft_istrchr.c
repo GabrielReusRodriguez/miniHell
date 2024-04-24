@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_istrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:29:03 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/20 18:19:59 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:37:58 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int	ft_istrchr(char *src, char *c)
 	}
 	return (-1);
 }
-

@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:16:41 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/20 18:24:48 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:59:19 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 #include <stdio.h>
 
-void *ptr_free(void *ptr)
+void	*ptr_free(void *ptr)
 {
 	free (ptr);
 	return (NULL);
 }
 
-void *ptr_freematrix(t_string *matrix)
+void	*ptr_freematrix(t_string *matrix)
 {
 	size_t	i;
 
-	if(matrix != NULL)
+	if (matrix != NULL)
 	{
 		i = 0;
 		while (matrix[i] != NULL)
@@ -41,7 +41,7 @@ void *ptr_freematrix(t_string *matrix)
 	return (NULL);
 }
 
-void *ptr_freematrix_wsize(t_string *matrix, size_t size)
+void	*ptr_freematrix_wsize(t_string *matrix, size_t size)
 {
 	size_t	i;
 

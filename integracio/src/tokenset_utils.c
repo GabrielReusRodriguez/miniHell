@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   tokenset_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:48:47 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/24 19:15:14 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokens.h"
+#include "debug.h"
 
 void	tokens_destroy_tokenlist(t_token_set *list)
 {
-	ft_lstclear(&list->tokens, token_free);
+	ft_lstclear(&list->tokens, token_free_node);
 	list->total = 0;
 }
 
@@ -39,47 +40,50 @@ void	tokens_debug(t_token_set tokens)
 	t_list	*node;
 	t_token	*token;
 
-	printf("INICIO DEBUG Tokens: \n");
-	node = tokens.tokens;
-	while (node != NULL)
+	if (DEBUG_MODE)
 	{
-		token = (t_token *)node->content;
-		printf("\t NODE value : _%s_\n", token->value);
-		printf("\t NODE type : _%d_ ", token->type);
-		if (token->type == TOKEN_TYPE_AND)
-			printf("AND");
-		if (token->type == TOKEN_TYPE_EMPTY)
-			printf("EMPTY");
-		if (token->type == TOKEN_TYPE_OR)
-			printf("OR");
-		if (token->type == TOKEN_TYPE_FILE)
-			printf("FILE");
-		if (token->type == TOKEN_TYPE_PAR_CLOSE)
-			printf("PATENTHESIS CLOSE");
-		if (token->type == TOKEN_TYPE_PAR_OPEN)
-			printf("PARENTHESIS OPEN");
-		if (token->type == TOKEN_TYPE_PIPE)
-			printf("PIPE");
-		if (token->type == TOKEN_TYPE_RED_APPEND)
-			printf("REDIRECTION OUT APPEND");
-		if (token->type == TOKEN_TYPE_RED_INPUT)
-			printf("REDIRECTION IN");
-		if (token->type == TOKEN_TYPE_RED_HERE_DOC)
-			printf("REDIRECTION IN HEREDOC");
-		if (token->type == TOKEN_TYPE_RED_TRUNCATE)
-			printf("REDIRECTION OUT TRUNCATE");
-		if (token->type == TOKEN_TYPE_SEMICOLON)
-			printf("SEMICOLON");
-		if (token->type == TOKEN_TYPE_UNKNOWN)
-			printf("UNKNOWN");
-		if (token->type == TOKEN_TYPE_WORD)
-			printf("WORD");
-		if (token->type == TOKEN_TYPE_WORD_SQUOTE)
-			printf("WORD SQUOTE");
-		if (token->type == TOKEN_TYPE_WORD_DQUOTE)
-			printf("WORD DQUOTE");
-		printf("\n");	
-		node = node->next;
+		printf("INICIO DEBUG Tokens: \n");
+		node = tokens.tokens;
+		while (node != NULL)
+		{
+			token = (t_token *)node->content;
+			printf("\t NODE value : _%s_\n", token->value);
+			printf("\t NODE type : _%d_ ", token->type);
+			if (token->type == TOKEN_TYPE_AND)
+				printf("AND");
+			if (token->type == TOKEN_TYPE_EMPTY)
+				printf("EMPTY");
+			if (token->type == TOKEN_TYPE_OR)
+				printf("OR");
+			if (token->type == TOKEN_TYPE_FILE)
+				printf("FILE");
+			if (token->type == TOKEN_TYPE_PAR_CLOSE)
+				printf("PATENTHESIS CLOSE");
+			if (token->type == TOKEN_TYPE_PAR_OPEN)
+				printf("PARENTHESIS OPEN");
+			if (token->type == TOKEN_TYPE_PIPE)
+				printf("PIPE");
+			if (token->type == TOKEN_TYPE_RED_APPEND)
+				printf("REDIRECTION OUT APPEND");
+			if (token->type == TOKEN_TYPE_RED_INPUT)
+				printf("REDIRECTION IN");
+			if (token->type == TOKEN_TYPE_RED_HERE_DOC)
+				printf("REDIRECTION IN HEREDOC");
+			if (token->type == TOKEN_TYPE_RED_TRUNCATE)
+				printf("REDIRECTION OUT TRUNCATE");
+			if (token->type == TOKEN_TYPE_SEMICOLON)
+				printf("SEMICOLON");
+			if (token->type == TOKEN_TYPE_UNKNOWN)
+				printf("UNKNOWN");
+			if (token->type == TOKEN_TYPE_WORD)
+				printf("WORD");
+			if (token->type == TOKEN_TYPE_WORD_SQUOTE)
+				printf("WORD SQUOTE");
+			if (token->type == TOKEN_TYPE_WORD_DQUOTE)
+				printf("WORD DQUOTE");
+			printf("\n");
+			node = node->next;
+		}
+		printf("FIN DEBUG Tokens \n");
 	}
-	printf("FIN DEBUG Tokens \n");
 }

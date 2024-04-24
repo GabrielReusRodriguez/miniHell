@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:48:07 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/24 21:39:36 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token_set	tokenizer(t_string str)
 	while (str[i] != '\0')
 	{
 		while (str[i] != '\0' && tokenizer_charinset(str[i], \
-				PARSER_SEPARATORS))
+				TOKENS_SEPARATORS) == true)
 			i++;
 		if (str[i] == '\0')
 			break ;
@@ -85,26 +85,25 @@ t_list	*tokenizer_new_word(t_string str, size_t *final_pos)
 	t_token		*token;
 	size_t		i;
 	size_t		word_init;
+	t_list		*token_node;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
 	i = 0;
-	if (str[i] == '\0')
-	{
-		token->type = TOKEN_TYPE_EMPTY;
-		token->value = NULL;
-		*final_pos = *final_pos + i;
-		return (ft_lstnew(token));
-	}
 	word_init = i;
-	while (str[i] != '\0' && tokenizer_charinset(str[i], PARSER_SEPARATORS) \
+	while (str[i] != '\0' && tokenizer_charinset(str[i], TOKENS_SEPARATORS) \
+				== false && tokenizer_charinset(str[i], PARSER_SEPARATORS) \
+				== false && tokenizer_charinset(str[i], "\"\'") \
 				== false)
 		i++;
 	token->type = TOKEN_TYPE_WORD;
 	token->value = ft_substr(str, word_init, i - word_init);
 	if (token->value == NULL)
-		return (NULL);
+		return (token_free(token));
 	*final_pos = *final_pos + i;
-	return (ft_lstnew(token));
+	token_node = ft_lstnew(token);
+	if (token_node == NULL)
+		return (token_free(token));
+	return (token_node);
 }

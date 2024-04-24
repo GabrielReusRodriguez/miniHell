@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_redirect.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:30:05 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:43:26 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/24 21:23:31 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 t_list	*tokenizer_new_redtruncate(size_t *i)
 {
 	t_token		*token;
+	t_list		*token_node;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
@@ -24,14 +25,18 @@ t_list	*tokenizer_new_redtruncate(size_t *i)
 	token->type = TOKEN_TYPE_RED_TRUNCATE;
 	token->value = ft_strdup(">");
 	if (token->value == NULL)
-		return (NULL);
+		return (token_free(token));
 	(*i)++;
-	return (ft_lstnew(token));
+	token_node = ft_lstnew(token);
+	if (token_node == NULL)
+		return (token_free(token));
+	return (token_node);
 }
 
 t_list	*tokenizer_new_redappend(size_t *i)
 {
 	t_token		*token;
+	t_list		*token_node;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
@@ -39,14 +44,18 @@ t_list	*tokenizer_new_redappend(size_t *i)
 	token->type = TOKEN_TYPE_RED_APPEND;
 	token->value = ft_strdup(">>");
 	if (token->value == NULL)
-		return (NULL);
+		return (token_free(token));
 	(*i) = *i + 2;
-	return (ft_lstnew(token));
+	token_node = ft_lstnew(token);
+	if (token_node == NULL)
+		return (token_free(token));
+	return (token_node);
 }
 
 t_list	*tokenizer_new_redinput(size_t *i)
 {
 	t_token		*token;
+	t_list		*token_node;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
@@ -54,14 +63,18 @@ t_list	*tokenizer_new_redinput(size_t *i)
 	token->type = TOKEN_TYPE_RED_INPUT;
 	token->value = ft_strdup("<");
 	if (token->value == NULL)
-		return (NULL);
+		return (token_free(token));
 	(*i)++;
-	return (ft_lstnew(token));
+	token_node = ft_lstnew(token);
+	if (token_node == NULL)
+		return (token_free(token));
+	return (token_node);
 }
 
 t_list	*tokenizer_new_redheredoc(size_t *i)
 {
 	t_token		*token;
+	t_list		*token_node;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
@@ -69,7 +82,10 @@ t_list	*tokenizer_new_redheredoc(size_t *i)
 	token->type = TOKEN_TYPE_RED_HERE_DOC;
 	token->value = ft_strdup("<<");
 	if (token->value == NULL)
-		return (NULL);
+		return (token_free(token));
 	(*i) = *i + 2;
-	return (ft_lstnew(token));
+	token_node = ft_lstnew(token);
+	if (token_node == NULL)
+		return (token_free(token));
+	return (token_node);
 }

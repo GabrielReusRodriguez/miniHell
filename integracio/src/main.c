@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/23 23:47:37 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:40:19 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void	treat_line(t_minishell *shell, t_string line)
 {
-	t_token_set token_set;
+	t_token_set	token_set;
 
 	token_set = tokenizer(line);
 	if (ft_strcmp(line, BUILTIN_EXIT) == 0)
@@ -37,8 +37,9 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	shell = minishell_new(env);
-	while (1)
+	while (shell.status.run == true)
 	{
+		signal_set_mode(SIGNAL_MODE_INTERACTIVE);
 		line = readline(MINISHELL_PROMPT);
 		//TODO: print error message
 		if (line == NULL)
@@ -53,5 +54,6 @@ int	main(int argc, char **argv, char **env)
 		}
 		free(line);
 	}
-	return (EXIT_SUCCESS);
+	minishell_destroy(shell);
+	return (shell.status.return_status);
 }

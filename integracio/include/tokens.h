@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:42:15 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/24 21:31:29 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ t_list		*tokenizer_new_parclose(size_t *i);
 */
 
 t_token_set	tokens_new(void);
-void		token_free(void *ptr);
+void		token_free_node(void *ptr);
+void		*token_free(t_token *ptr);
 bool		tokens_isword(t_token token);
 t_token		*tokens_clone(t_token token);
 

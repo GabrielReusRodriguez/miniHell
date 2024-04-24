@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:46:59 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/24 21:24:04 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ t_token_set	tokens_new(void)
 	return (token_set);
 }
 
-void	token_free(void *ptr)
+void	*token_free(t_token *token)
 {
-	t_token	*token;
-
-	token = (t_token *)ptr;
-	free (token->value);
-	free (token);
+	if (token != NULL)
+	{
+		if (token->value != NULL)
+			free (token->value);
+		free (token);
+	}
+	return (NULL);
 }
 
 bool	tokens_isword(t_token token)
@@ -51,5 +53,20 @@ t_token	*tokens_clone(t_token token)
 		return (NULL);
 	new_token->type = token.type;
 	new_token->value = ft_strdup(token.value);
+	if (new_token->value == NULL)
+		return (token_free(new_token));
 	return (new_token);
+}
+
+void	token_free_node(void *ptr)
+{
+	t_token	*token;
+
+	token = (t_token *)ptr;
+	if (token != NULL)
+	{
+		if (token->value != NULL)
+			free (token->value);
+		free (token);
+	}
 }

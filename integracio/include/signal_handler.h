@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:08:27 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:39:55 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/23 17:12:16 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@
     the input file descriptor.
 */
 
-void		signal_parent_handler(int signal);
-void		signal_child_handler(int signal);
-void		signal_set_signal_mode(int mode);
+void		ft_signal_parent_handler(int signal);
+void		ft_signal_child_handler(int signal);
+void		ft_signal_set_signal_mode(int mode);
 
 /*
 Ejemplo:
