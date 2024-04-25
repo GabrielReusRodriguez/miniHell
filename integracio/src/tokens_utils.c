@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 21:24:04 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/26 00:17:20 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	*token_free(t_token *token)
 bool	tokens_isword(t_token token)
 {
 	if (token.type == TOKEN_TYPE_WORD || \
-			token.type == TOKEN_TYPE_WORD_SQUOTE || \
+			token.type == TOKEN_TYPE_WORD_DQUOTE || \
 			token.type == TOKEN_TYPE_WORD_SQUOTE)
 		return (true);
 	return (false);

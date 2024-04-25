@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/04/24 18:15:12 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/04/25 23:34:13 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME	= minishell
 # **************************************************************************** #
 
 CC		= gcc
-DFLAGS	= -g
+DFLAGS	+= -g
 DFLAGS	+= -fsanitize=address
 DFLAGS	+= -DDEBUG_MODE=1
 CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
@@ -58,6 +58,7 @@ GNL_D	= gnl
 # **************************************************************************** #
 
 SRC		= 	main 					\
+			cmd						\
 		  	minishell 				\
 		  	minishell_cfg 			\
 		  	minishell_stat 			\
@@ -65,6 +66,10 @@ SRC		= 	main 					\
 		  	ptr 					\
 		  	signal_handler 			\
 		  	builtin_exit			\
+			parser					\
+			parser_getters_cmd		\
+			parser_getters_redirect	\
+			parser_utils			\
 		  	tokenizer				\
 			tokenizer_parenthesis	\
 			tokenizer_quotes		\
@@ -72,7 +77,10 @@ SRC		= 	main 					\
 			tokenizer_separators	\
 			tokenizer_utils			\
 			tokens_utils			\
-			tokenset_utils
+			tokenset_utils			\
+			tokenizer_debug			\
+			cmd_debug				\
+
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
 HDR		= minishell.h builtin.h datatypes.h environment.h ptr.h  
@@ -84,7 +92,7 @@ GNL_LIB = $(GNL_D)/gnl.a
 # 							  		   Rules	   							   #
 # **************************************************************************** #
 
-$(NAME):	$(OBJS) $(HDRS) Makefile libft gnl
+$(NAME):	libft gnl $(OBJS) $(HDRS) Makefile 
 	@echo "$(WHITE)Compiling $(NAME) executable: $(RST)"
 	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) $(GNL_LIB) -lreadline -o $(NAME)
 	@echo "$(GREEN)Binary $(NAME) compiled! $(RST)"
@@ -140,4 +148,4 @@ norm:
 	@norminette $(SRC_D) $(INC_D) | grep -v OK \
 		|| echo "$(GREEN)Norminette: OK $(RST)"
 
-.PHONY:	norm clean fclean re all libft gnl
+.PHONY:	norm clean fclean re all bonus libft gnl

@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenset_utils.c                                   :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/25 23:17:34 by gabriel          ###   ########.fr       */
+/*   Created: 2024/04/25 15:59:21 by greus-ro          #+#    #+#             */
+/*   Updated: 2024/04/25 23:30:47 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "tokens.h"
-#include "debug.h"
 
-void	tokens_destroy_tokenlist(t_token_set *list)
+bool	parser_iscmdseparator(t_token token)
 {
-	ft_lstclear(&list->tokens, token_free_node);
-	list->total = 0;
-}
-
-/*
-void	*ft_tokenizer_add_token(t_list *node, t_token_set *token_list)
-{
-	if (node == NULL)
+	if(token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
+			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
 	{
-		ft_tokens_destroy_tokenlist(token_list);
-		return (NULL);
+		return (true);
 	}
-	ft_lstadd_back(&token_list->tokens, node);
-	token_list->total++;
-	return (token_list);
+	return (false);
 }
-*/
-

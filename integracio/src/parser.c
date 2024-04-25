@@ -6,21 +6,48 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 23:03:48 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/26 00:20:04 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "datatypes.h"
 #include "tokens.h"
+#include "cmd.h"
+#include "parser.h"
 
+#include <stdio.h>
+
+void	*parser_get_cmds(t_token_set *token_set, t_cmd_set	*cmd_set)
+{
+	t_cmd		cmd;
+	size_t		i;
+
+	*cmd_set = cmd_create_set(*token_set);
+	if (cmd_set->cmds == NULL)
+		return (NULL);
+	i = 0;
+	while (i < cmd_set->num_cmds)
+	{
+		if (parser_get_next_cmd(token_set, &cmd) == NULL || cmd_isvalid(cmd) == false)
+		{
+			cmd_destroy_set(cmd_set);
+			return (NULL);
+		}
+		cmd_set->cmds[i] = cmd;
+		i++;
+	}
+	return (cmd_set);
+}
 
 size_t  parser_count_cmds(t_token_set token_set)
 {
-	size_t	num_cmds;
 	t_token	*token;
+	size_t	num_cmds;
 	t_list	*node;
 
+	if (token_set.tokens == NULL)
+		return (0);
 	num_cmds = 0;
 	node = token_set.tokens;
 	while (node != NULL)
@@ -32,24 +59,53 @@ size_t  parser_count_cmds(t_token_set token_set)
 			num_cmds++;
 		node = node->next;
 	}
-	return (num_cmds);
+	return (num_cmds + 1);
 }
 
-t_cmd
+void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
+{
+	t_list	*node;
+	t_token	*token;
+	t_list	*first_token;
+	t_list	*last_token;
+
+	if (token_set->last_read_token == NULL)
+		node = token_set->tokens;
+	else
+		node = token_set->last_read_token->next;
+	first_token = node;
+	while(node != NULL)
+	{
+		token_set->last_read_token = node;
+		token = (t_token *)node->content;
+		if (parser_iscmdseparator(*token) == true)
+		{
+			last_token = node;
+			break;
+		}
+		node = node->next;
+	}
+	return (parse_create_cmd(first_token, last_token, cmd));
+}
+
+void	*parse_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
+{
+	*cmd = cmd_new();
+	cmd->red_in = parser_get_redir_input(&first_token, last_token);
+	if (cmd->red_in != NULL)
+		cmd->red_in_origin = parser_get_redir_input_origin(&first_token, \
+								last_token);
+	cmd->exec = parser_get_exec(&first_token, last_token);
+	cmd->args = parser_get_args(&first_token, last_token);
+	cmd->red_out = parser_get_redir_output(&first_token, last_token);
+	if (cmd->red_out != NULL)
+		cmd->red_out_dest = parser_get_redir_output_dest(&first_token, \
+								last_token);
+	return (cmd);
+}
 
 
 //TODO: WORK IN PROGRESS.....
-/*
-bool	ft_parser_isstopper(t_token token)
-{
-	if(token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
-			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
-	{
-		return (true);
-	}
-	return (false);
-}
-*/
 /* Valido que
 	tenga al menos una palabra
 	no acabe en pipe.
@@ -123,108 +179,9 @@ t_bool		ft_parser_has_morecmds(t_token_set token_set)
 	return (TRUE);
 }
 
-t_token	*ft_parser_get_exec(t_list **token_list_node, t_list *end_cmd)
-{
-	t_token	*cmd_token;
-	t_list	*node;
 
-	cmd_token = (t_token *)(*token_list_node)->content;
-	//Caso que empiece directamente por el comando.
-	if (ft_tokens_isword(*cmd_token) == TRUE)
-	{
-		(*token_list_node) = (*token_list_node)->next;
-		return (cmd_token);
-	}
-	//Caso que empiece por parantesis abierto. Habra 
-	//  que hacer un while para que salte
-	//	todos los parentesis abiertos /cerrados -> ((  o  () 
-	if (cmd_token->type == TOKEN_TYPE_PAR_OPEN)
-	{
-		node = (*token_list_node)->next;
-		cmd_token = (t_token *)node->content;
-		(*token_list_node) = (*token_list_node)->next;
-		return (cmd_token);
-	}
-	return (NULL);
-}
 
-t_list	*ft_parser_get_args(t_list **token_list_node, t_list *end_cmd)
-{
-	t_list		*args;
-	t_list		*node;
-	t_token		*token;
-	t_token		*new_token;
 
-	args = NULL;
-	token = ((*token_list_node)->content);
-	while ((*token_list_node) != end_cmd && \
-		(ft_tokens_isword(*token) == TRUE || \
-		token->type == TOKEN_TYPE_PAR_OPEN || \
-		token->type == TOKEN_TYPE_PAR_CLOSE ))
-	{
-		new_token = ft_tokens_clone(*token);
-		node = ft_lstnew(new_token);
-		if (node == NULL)
-		{
-			ft_lstclear(&args, ft_token_free);
-			return (NULL);
-		}
-		ft_lstadd_back(&args, node);
-		*token_list_node = (*token_list_node)->next;
-	}
-	return (args);
-}
-
-t_token *ft_parser_get_redir_input(t_list **token_list_node, t_list *end_cmd)
-{
-	t_token	*token;
-
-	if (*token_list_node == end_cmd)
-		return (NULL);
-	token = (t_token *)(*token_list_node)->content;
-	if (token->type == TOKEN_TYPE_RED_INPUT || \
-			token->type == TOKEN_TYPE_RED_HERE_DOC)
-	{
-		token_list_node = (*token_list_node)->next;
-		return (token);
-	}
-	return (NULL);
-}
-
-t_token	*ft_parser_get_redir_input_origin(t_list **token_list_node, \
-				t_list *end_cmd)
-{
-	t_token	*token;
-
-	if (*token_list_node == end_cmd)
-		return (NULL);
-	token = (t_token *)(*token_list_node)->content;
-	(*token_list_node) = (*token_list_node)->next;
-	return (token);
-}
-
-t_token	*ft_parser_get_redir_output(t_list **token_list_node, t_list *end_cmd)
-{
-	t_token	*token;
-
-	if (*token_list_node == end_cmd)
-		return (NULL);
-	token = (t_token *)(*token_list_node)->content;
-	(*token_list_node) = (*token_list_node)->next;
-	return (token);
-}
-
-t_token	*ft_parser_get_redir_output_dest(t_list **token_list_node, \
-			t_list *end_cmd)
-{
-	t_token	*token;
-
-	if (*token_list_node == end_cmd)
-		return (NULL);
-	token = (t_token *)(*token_list_node)->content;
-	(*token_list_node) = (*token_list_node)->next;
-	return (token);
-}
 
 t_token *ft_parser_get_stopper(t_list **token_list_node, t_list *end_cmd)
 {
