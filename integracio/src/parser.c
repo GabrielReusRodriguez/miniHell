@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 13:11:19 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/29 00:46:27 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,16 @@ void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 void	*parse_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 {
 	*cmd = cmd_new();
-	cmd->red_in = parser_get_redir_input(&first_token, last_token);
+	cmd->red_in = parser_get_redir_input(first_token, last_token);
 	if (cmd->red_in != NULL)
-		cmd->red_in_origin = parser_get_redir_input_origin(&first_token, \
-								last_token);
-	cmd->exec = parser_get_exec(&first_token, last_token);
-	cmd->args = parser_get_args(&first_token, last_token);
-	cmd->red_out = parser_get_redir_output(&first_token, last_token);
+		cmd->red_in_origin = parser_get_redir_input_origin(first_token, \
+								last_token, cmd->red_in);
+	cmd->exec = parser_get_exec(first_token, last_token);
+	cmd->args = parser_get_args(first_token, cmd->exec, last_token);
+	cmd->red_out = parser_get_redir_output(first_token, last_token);
 	if (cmd->red_out != NULL)
-		cmd->red_out_dest = parser_get_redir_output_dest(&first_token, \
-								last_token);
+		cmd->red_out_dest = parser_get_redir_output_dest(first_token, \
+								last_token, cmd->red_out);
 	return (cmd);
 }
 

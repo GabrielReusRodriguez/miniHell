@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 11:58:21 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/29 00:10:38 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,15 @@ bool		tokens_isword(t_token token);
 t_token		*tokens_clone(t_token token);
 
 /*
+    tokens_utils2.c
+*/
+bool	tokens_is_redir(t_token token);
+bool	tokens_is_parenthesis(t_token token);
+
+/*
 	tokenizer_utils.c
 */
 
-bool		tokens_isword(t_token token);
 void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
 bool		tokenizer_ischarclosed(t_string str, size_t pos, char quote);
 bool		tokenizer_charinset(char c, t_string set);
@@ -121,8 +126,13 @@ bool		tokenizer_charinset(char c, t_string set);
 	tokenset_utils.c
 */
 void		tokens_destroy_tokenlist(t_token_set *list);
-void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
-
+//void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
+t_list      *tokens_goto(t_list *token_list, t_token *token_searched, \
+                t_list *last_node);
+t_token_set token_set_new(void);
+/*
+    tokenizer_debug.c
+*/
 void		tokens_debug(t_token_set token_list);
 
 #endif

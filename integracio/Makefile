@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/04/27 12:36:07 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/04/29 00:11:01 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,10 +59,12 @@ GNL_D	= gnl
 
 SRC		= 	main 					\
 			cmd						\
+			cmd_validator			\
+		  	environment 			\
+			error_handler			\
 		  	minishell 				\
 		  	minishell_cfg 			\
 		  	minishell_stat 			\
-		  	environment 			\
 		  	ptr 					\
 		  	signal_handler 			\
 		  	builtin_exit			\
@@ -77,6 +79,7 @@ SRC		= 	main 					\
 			tokenizer_separators	\
 			tokenizer_utils			\
 			tokens_utils			\
+			tokens_utils2			\
 			tokenset_utils			\
 			tokenizer_debug			\
 			cmd_debug				
@@ -89,6 +92,7 @@ HDR		= 	minishell.h			\
 			datatypes.h			\
 			debug.h				\
 			environment.h		\
+			error_handler.h		\
 			parser.h			\
 			ptr.h				\
 			signal_handler.h	\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:38:30 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:46:20 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ t_token_set	tokenizer(t_string str)
 	size_t		i;
 
 	i = 0;
-	token_list.total = 0;
-	token_list.tokens = NULL;
-	token_list.last_read_token = NULL;
+    token_list = token_set_new();
 	while (str[i] != '\0')
 	{
 		while (str[i] != '\0' && tokenizer_charinset(str[i], \

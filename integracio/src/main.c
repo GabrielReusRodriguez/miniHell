@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/25 23:44:30 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/28 20:20:08 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,18 @@ void	treat_line(t_minishell *shell, t_string line)
 		tokens_destroy_tokenlist(&token_set);
 		return ;
 	}
-	i = 0;
-	while (i < cmd_set.num_cmds)
+	//if (cmd_validate_set(cmd_set) == true)
+	if (true)
 	{
-		cmd_debug(cmd_set.cmds[i]);
-		i++;
+	 	i = 0;
+		while (i < cmd_set.num_cmds)
+		{
+			cmd_debug(cmd_set.cmds[i]);
+			i++;
+		}
+		if (ft_strcmp(line, BUILTIN_EXIT) == 0)
+			builtin_exit(shell);   
 	}
-	if (ft_strcmp(line, BUILTIN_EXIT) == 0)
-		builtin_exit(shell);
 	tokens_destroy_tokenlist(&token_set);
 	cmd_destroy_set(&cmd_set);
 }

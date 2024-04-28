@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:04:45 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:41:18 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ typedef struct s_cmd_set
 	t_cmd	*cmds;
 }	t_cmd_set;
 
+/*
+    cmd.c
+*/
 t_cmd		cmd_new(void);
 void		cmd_destroy(t_cmd *cmd);
 bool		cmd_isvalid(t_cmd cmd);
@@ -53,5 +56,13 @@ bool		cmd_isbuiltin(t_cmd cmd);
 void		cmd_destroy_set(t_cmd_set *cmd_set);
 t_cmd_set	cmd_create_set(t_token_set token_set);
 
+/*
+    cmd_validator.c
+*/
+bool    cmd_validate_set(t_cmd_set cmd_set);
+
+/*
+    cmd_debug.c
+*/
 void		cmd_debug(t_cmd cmd);
 #endif
