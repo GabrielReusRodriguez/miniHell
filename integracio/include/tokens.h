@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/29 00:10:38 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/29 01:04:10 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_list		*tokenizer_new_redheredoc(size_t *i);
 t_list		*tokenizer_new_redinput(size_t *i);
 t_list		*tokenizer_new_redappend(size_t *i);
 t_list		*tokenizer_new_redtruncate(size_t *i);
+bool        tokens_is_redir(t_token token);
 
 /*
 	tokenizer_separators.c
@@ -97,22 +98,16 @@ bool		tokens_iscmdseparator(t_token token);
 */
 t_list		*tokenizer_new_paropen(size_t *i);
 t_list		*tokenizer_new_parclose(size_t *i);
+bool        tokens_is_parenthesis(t_token token);
 
 /*
 	tokens_utils.c
 */
-
 t_token_set	tokens_new(void);
 void		token_free_node(void *ptr);
 void		*token_free(t_token *ptr);
 bool		tokens_isword(t_token token);
 t_token		*tokens_clone(t_token token);
-
-/*
-    tokens_utils2.c
-*/
-bool	tokens_is_redir(t_token token);
-bool	tokens_is_parenthesis(t_token token);
 
 /*
 	tokenizer_utils.c

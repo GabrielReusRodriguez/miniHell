@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/04/29 00:11:01 by gabriel          ###   ########.fr        #
+#    Updated: 2024/04/29 01:04:23 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,6 @@ SRC		= 	main 					\
 			tokenizer_separators	\
 			tokenizer_utils			\
 			tokens_utils			\
-			tokens_utils2			\
 			tokenset_utils			\
 			tokenizer_debug			\
 			cmd_debug				
