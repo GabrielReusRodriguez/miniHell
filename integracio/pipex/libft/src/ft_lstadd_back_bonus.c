@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 15:59:21 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:14 by greus-ro         ###   ########.fr       */
+/*   Created: 2023/09/22 09:55:25 by abluis-m          #+#    #+#             */
+/*   Updated: 2023/09/22 13:28:07 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "libft.h"
 
-bool	parser_iscmdseparator(t_token token)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
-			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
+	t_list	*last;
+
+	if (!(*lst))
+		*lst = new;
+	else
 	{
-		return (true);
+		last = ft_lstlast(*lst);
+		last->next = new;
 	}
-	return (false);
 }

@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 15:59:21 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:14 by greus-ro         ###   ########.fr       */
+/*   Created: 2023/10/05 19:45:12 by abluis-m          #+#    #+#             */
+/*   Updated: 2023/10/06 00:20:17 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "libft.h"
 
-bool	parser_iscmdseparator(t_token token)
+int	ft_isalnum(int c)
 {
-	if (token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
-			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
-	{
-		return (true);
-	}
-	return (false);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }

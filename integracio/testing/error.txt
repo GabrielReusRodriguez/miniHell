@@ -1,0 +1,1 @@
+Gabriel Reus Rodriguez | Es " un segundo comando " > truncate | << here_doc /bin/pimpollo  > gabrielin

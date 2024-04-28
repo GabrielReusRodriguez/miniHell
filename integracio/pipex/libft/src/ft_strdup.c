@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 15:59:21 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:14 by greus-ro         ###   ########.fr       */
+/*   Created: 2023/10/07 01:54:39 by abluis-m          #+#    #+#             */
+/*   Updated: 2024/01/04 15:23:45 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "libft.h"
 
-bool	parser_iscmdseparator(t_token token)
+char	*ft_strdup(const char *s1)
 {
-	if (token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
-			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
+	char	*copy;
+	int		i;
+
+	copy = (char *)malloc((ft_strlen(s1) + 1) * sizeof (char));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		return (true);
+		copy[i] = s1[i];
+		i++;
 	}
-	return (false);
+	copy[i] = '\0';
+	return (copy);
 }

@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 15:59:21 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:14 by greus-ro         ###   ########.fr       */
+/*   Created: 2023/10/05 21:04:41 by abluis-m          #+#    #+#             */
+/*   Updated: 2023/10/06 00:18:50 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
-
-bool	parser_iscmdseparator(t_token token)
+int	ft_isprint(int c)
 {
-	if (token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
-			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
-	{
-		return (true);
-	}
-	return (false);
+	return (c >= 32 && c <= 126);
 }

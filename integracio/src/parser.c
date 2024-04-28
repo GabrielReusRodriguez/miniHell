@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/26 00:20:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/27 13:11:19 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 #include "cmd.h"
 #include "parser.h"
 
-#include <stdio.h>
+/*
+Chuleta gramaticas bash
+https://cmdse.github.io/pages/appendix/bash-grammar.html
+*/
 
 void	*parser_get_cmds(t_token_set *token_set, t_cmd_set	*cmd_set)
 {
@@ -29,7 +32,8 @@ void	*parser_get_cmds(t_token_set *token_set, t_cmd_set	*cmd_set)
 	i = 0;
 	while (i < cmd_set->num_cmds)
 	{
-		if (parser_get_next_cmd(token_set, &cmd) == NULL || cmd_isvalid(cmd) == false)
+		if (parser_get_next_cmd(token_set, &cmd) == NULL || \
+				cmd_isvalid(cmd) == false)
 		{
 			cmd_destroy_set(cmd_set);
 			return (NULL);
@@ -40,7 +44,7 @@ void	*parser_get_cmds(t_token_set *token_set, t_cmd_set	*cmd_set)
 	return (cmd_set);
 }
 
-size_t  parser_count_cmds(t_token_set token_set)
+size_t	parser_count_cmds(t_token_set token_set)
 {
 	t_token	*token;
 	size_t	num_cmds;
@@ -55,12 +59,35 @@ size_t  parser_count_cmds(t_token_set token_set)
 		token = (t_token *)node->content;
 		if (token->type == TOKEN_TYPE_AND || \
 				token->type == TOKEN_TYPE_SEMICOLON || \
-				token->type == TOKEN_TYPE_PIPE )
+				token->type == TOKEN_TYPE_PIPE)
 			num_cmds++;
 		node = node->next;
 	}
 	return (num_cmds + 1);
 }
+/*
+size_t	parser_count_cmds(t_token_set token_set)
+{
+	t_token	*token;
+	size_t	num_cmds;
+	t_list	*node;
+
+	if (token_set.tokens == NULL)
+		return (0);
+	num_cmds = 0;
+	node = token_set.tokens;
+	while (node != NULL)
+	{
+		token = (t_token *)node->content;
+		if (token->type == TOKEN_TYPE_AND || \
+				token->type == TOKEN_TYPE_SEMICOLON || \
+				token->type == TOKEN_TYPE_PIPE)
+			num_cmds++;
+		node = node->next;
+	}
+	return (num_cmds + 1);
+}
+*/
 
 void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 {
@@ -69,19 +96,22 @@ void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 	t_list	*first_token;
 	t_list	*last_token;
 
+	last_token = NULL;
 	if (token_set->last_read_token == NULL)
 		node = token_set->tokens;
 	else
+	{
 		node = token_set->last_read_token->next;
+	}
 	first_token = node;
-	while(node != NULL)
+	while (node != NULL)
 	{
 		token_set->last_read_token = node;
 		token = (t_token *)node->content;
 		if (parser_iscmdseparator(*token) == true)
 		{
 			last_token = node;
-			break;
+			break ;
 		}
 		node = node->next;
 	}
@@ -103,7 +133,6 @@ void	*parse_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 								last_token);
 	return (cmd);
 }
-
 
 //TODO: WORK IN PROGRESS.....
 /* Valido que

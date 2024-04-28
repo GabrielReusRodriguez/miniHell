@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_debug.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:10:08 by gabriel           #+#    #+#             */
-/*   Updated: 2024/04/25 23:53:25 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/27 12:14:49 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <stdio.h>
 #include "tokens.h"
 #include "cmd.h"
 #include "debug.h"
 
-void        cmd_debug(t_cmd cmd)
+void	cmd_debug(t_cmd cmd)
 {
 	t_list	*node;
-	t_token *token;
-	
+	t_token	*token;
+
 	if (DEBUG_MODE)
 	{
 		printf("CMD***********************\n");
@@ -30,23 +29,22 @@ void        cmd_debug(t_cmd cmd)
 			{
 				printf("\tRedirection input  +  ");
 				if (cmd.red_in_origin != NULL)
-					printf("file : %s",cmd.red_in_origin->value);
+					printf("file : %s", cmd.red_in_origin->value);
 				printf("\n");
 			}
 			if (cmd.red_in->type == TOKEN_TYPE_RED_HERE_DOC)
 			{
 				printf("\tRedirection input here_doc + ");
 				if (cmd.red_in_origin != NULL)
-					printf("lim : %s",cmd.red_in_origin->value);
+					printf("lim : %s", cmd.red_in_origin->value);
 				printf("\n");
 			}
 		}
 		if (cmd.exec != NULL)
 		{
-			printf("\t exec: %s\n", cmd.exec->value);
+			printf("\tExec: %s\n", cmd.exec->value);
 		}
-
-		if (cmd.args!= NULL)
+		if (cmd.args != NULL)
 		{
 			printf("\tARGs :\n");
 			node = cmd.args;
@@ -71,7 +69,7 @@ void        cmd_debug(t_cmd cmd)
 			{
 				printf("\tRedirection TRUNCATE + ");
 				if (cmd.red_out_dest != NULL)
-					printf("file : %s",cmd.red_out_dest->value);
+					printf("file : %s", cmd.red_out_dest->value);
 				printf("\n");
 			}
 		}

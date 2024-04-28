@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 15:59:21 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:14 by greus-ro         ###   ########.fr       */
+/*   Created: 2023/10/07 01:08:30 by abluis-m          #+#    #+#             */
+/*   Updated: 2024/01/04 15:09:49 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "libft.h"
 
-bool	parser_iscmdseparator(t_token token)
+char	*ft_strchr(const char *s, int c)
 {
-	if (token.type == TOKEN_TYPE_SEMICOLON || token.type == TOKEN_TYPE_PIPE || \
-			token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR)
+	char	*str;
+	int		i;
+
+	str = (char *)s;
+	i = 0;
+	while (str[i])
 	{
-		return (true);
+		if (str[i] == (char)c)
+			return (&str[i]);
+		i++;
 	}
-	return (false);
+	if ((char)c == '\0')
+		return (&str[i]);
+	else
+		return (NULL);
 }

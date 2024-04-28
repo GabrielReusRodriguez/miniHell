@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
+#    By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/04/27 12:36:07 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/04/25 17:07:42 by abluis-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,16 @@
 # 							Name of the executable							   #
 # **************************************************************************** #
 
-NAME	= minishell
+NAME	= pipex
 
 # **************************************************************************** #
 # 							Commands and flags  							   #
 # **************************************************************************** #
 
 CC		= gcc
-DFLAGS	+= -g
-DFLAGS	+= -fsanitize=address
 DFLAGS	+= -DDEBUG_MODE=1
-CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
+DFLAGS	+= -fsanitize=address # -g
+CFLAGS	= -Wall -Wextra -Werror $(DFLAGS)
 RM		= rm -f
 RMDIR	= rm -rf
 MKDIR	= mkdir -p
@@ -33,7 +32,7 @@ MKDIR	= mkdir -p
 #						  	Terminal Colors									   #
 # **************************************************************************** #
 
-RST		= \033[0;39m
+NOCOLOR = \033[0;39m
 GRAY    = \033[0;90m
 RED     = \033[0;91m
 GREEN   = \033[0;92m
@@ -51,110 +50,67 @@ SRC_D	= src
 BUILD_D	= build
 INC_D	= include
 FT_D	= libft
-GNL_D	= gnl
 
 # **************************************************************************** #
 # 				  		Sources and build files								   #
 # **************************************************************************** #
 
-SRC		= 	main 					\
-			cmd						\
-		  	minishell 				\
-		  	minishell_cfg 			\
-		  	minishell_stat 			\
-		  	environment 			\
-		  	ptr 					\
-		  	signal_handler 			\
-		  	builtin_exit			\
-			parser					\
-			parser_getters_cmd		\
-			parser_getters_redirect	\
-			parser_utils			\
-		  	tokenizer				\
-			tokenizer_parenthesis	\
-			tokenizer_quotes		\
-			tokenizer_redirect		\
-			tokenizer_separators	\
-			tokenizer_utils			\
-			tokens_utils			\
-			tokenset_utils			\
-			tokenizer_debug			\
-			cmd_debug				
+SRC		=	pipex_bonus \
+			util \
+			error \
+			debug \
+			heredoc \
+			parse_arg \
+			parse_quotes \
+			get_next_line \
+			get_next_line_utils 
 
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
-HDR		= 	minishell.h			\
-			builtin.h			\
-			cmd.h				\
-			datatypes.h			\
-			debug.h				\
-			environment.h		\
-			parser.h			\
-			ptr.h				\
-			signal_handler.h	\
-			tokens.h
-HDRS	= $(addprefix $(INC_D)/, $(HDR)) 
+HDR		= pipex.h
+HDRS	= $(addprefix $(INC_D)/, $(HDR))
 FT_LIB	= $(FT_D)/libft.a
-GNL_LIB = $(GNL_D)/gnl.a
 
 # **************************************************************************** #
 # 							  		   Rules	   							   #
 # **************************************************************************** #
 
-$(NAME):	libft gnl $(OBJS) $(HDRS) Makefile 
-	@echo "$(WHITE)Compiling $(NAME) executable: $(RST)"
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) $(GNL_LIB) -lreadline -o $(NAME)
-	@echo "$(GREEN)Binary $(NAME) compiled! $(RST)"
+$(NAME):	libft $(OBJS) $(HDRS) Makefile 
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) -o $(NAME)
+	@echo "$(GREEN)Binary $(NAME) compiled! $(NOCLOR)"
 
-#bonus:	$(NAME)
+bonus:	$(NAME)
 
 libft:
-	@echo "$(WHITE)Running LIBFT make bonus: $(RST)"
-	@$(MAKE) --no-print-directory bonus -C $(FT_D)
-
-gnl: 
-	@echo "$(WHITE)Running GNL make: $(RST)"
-	@$(MAKE) --no-print-directory -C $(GNL_D)
-
+	@echo "$(WHITE)Running LIBFT make: $(NOCOLOR)"
+	@$(MAKE) --no-print-directory -C $(FT_D)
+	
 $(BUILD_D)/%.o:	$(SRC_D)/%.c $(HDRS) Makefile | $(BUILD_D) 
-	@echo "$(YELLOW)CC: $< $(RST)"
-	@$(CC) $(CFLAGS) -I $(FT_D) -I $(GNL_D) -I $(INC_D) -o $@ -c $<
+	@echo "$(YELLOW)CC: $< $(NOCOLOR)"
+	@$(CC) $(CFLAGS) -I $(FT_D) -I $(INC_D) -o $@ -c $<
 
 $(BUILD_D):
 	@$(MKDIR) $(BUILD_D)
 
-#brew:
-#	brew install readline
-#	brew link --force readline
-#	cpanm Term::ReadLine::Gnu
-#	brew unlink readline
+all:	$(NAME)
 
 clean:
-	@echo "$(WHITE)Running LIBFT make clean: $(RST)"
+	@echo "$(WHITE)Running LIBFT make clean: $(NOCOLOR)"
 	@$(MAKE) --no-print-directory clean -C $(FT_D)
-	@echo "$(WHITE)Running GNL make clean: $(RST)"
-	@$(MAKE) --no-print-directory clean -C $(GNL_D)
-	@echo "$(WHITE)Running $(NAME) clean: $(RST)"
 	@$(RMDIR) $(BUILD_D)
-	@$(RM) $(GNL_LIB)
-	@echo "$(BLUE)Build files for $(NAME) cleaned! $(RST)"
+	@echo "$(BLUE)Build files for $(NAME) cleaned! $(NOCOLOR)"
 
 fclean:	clean
-	@echo "$(WHITE)Running LIBFT make fclean: $(RST)"
+	@echo "$(WHITE)Running LIBFT make fclean: $(NOCOLOR)"
 	@$(MAKE) --no-print-directory fclean -C $(FT_D)
-	@echo "$(WHITE)Running GNL make fclean: $(RST)"
-	@$(MAKE) --no-print-directory fclean -C $(GNL_D)
-	@echo "$(WHITE)Running $(NAME) fclean: $(RST)"
 	@$(RM) $(NAME)
-	@echo "$(CYAN)Binary files for $(NAME) cleaned! $(RST)"
+	@echo "$(CYAN)Binary files for $(NAME) cleaned! $(NOCOLOR)"
 
 re:	fclean all
-	@echo "$(GREEN)Cleaned and rebuilt $(NAME)! $(RST)"
-
-all:	$(NAME) 
+	@echo "$(GREEN)Cleaned and rebuilt $(NAME)! $(NOCOLOR)"
 
 norm:
 	@norminette $(SRC_D) $(INC_D) | grep -v OK \
-		|| echo "$(GREEN)Norminette: OK $(RST)"
+		|| echo "$(GREEN)Norminette: OK $(NOCOLOR)"
 
-.PHONY:	norm clean fclean re all bonus libft gnl
+.PHONY:	norm clean fclean re all bonus libft

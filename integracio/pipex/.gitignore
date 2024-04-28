@@ -1,0 +1,21 @@
+# Finder
+.DS_STORE
+
+# Object files
+*.o
+
+# Libraries
+*.a
+
+# Debug files
+*.dSYM/
+
+# Swap files
+*.swp
+
+# Compressed files
+*.tgz
+
+# Executables
+pipex
+*.out
