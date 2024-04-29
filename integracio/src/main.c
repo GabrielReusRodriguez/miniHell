@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/28 20:20:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/30 01:06:18 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	treat_line(t_minishell *shell, t_string line)
 	token_set = tokenizer(line);
 	if (token_set.tokens == NULL)
 		return ;
-	if (parser_get_cmds(&token_set, &cmd_set) == NULL)
+	if (parser_get_cmdset(&token_set, &cmd_set) == NULL)
 	{
 		tokens_destroy_tokenlist(&token_set);
 		return ;

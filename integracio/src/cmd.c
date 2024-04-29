@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/27 12:35:12 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/04/30 00:40:02 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_cmd	cmd_new(void)
 
 void	cmd_destroy(t_cmd *cmd)
 {
-	ft_lstclear(&cmd->args, token_free_node);
+    if (cmd->args != NULL)
+	    ft_lstclear(&cmd->args, token_free_node);
 }
 
 bool	cmd_isvalid(t_cmd cmd)
