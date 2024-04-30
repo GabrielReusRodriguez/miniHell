@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/29 01:04:10 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/01 00:01:26 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_list		*tokenizer_new_redheredoc(size_t *i);
 t_list		*tokenizer_new_redinput(size_t *i);
 t_list		*tokenizer_new_redappend(size_t *i);
 t_list		*tokenizer_new_redtruncate(size_t *i);
-bool        tokens_is_redir(t_token token);
+bool		tokens_is_redir(t_token token);
 
 /*
 	tokenizer_separators.c
@@ -98,7 +98,7 @@ bool		tokens_iscmdseparator(t_token token);
 */
 t_list		*tokenizer_new_paropen(size_t *i);
 t_list		*tokenizer_new_parclose(size_t *i);
-bool        tokens_is_parenthesis(t_token token);
+bool		tokens_is_parenthesis(t_token token);
 
 /*
 	tokens_utils.c
@@ -122,9 +122,15 @@ bool		tokenizer_charinset(char c, t_string set);
 */
 void		tokens_destroy_tokenlist(t_token_set *list);
 //void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
-t_list      *tokens_goto(t_list *token_list, t_token *token_searched, \
-                t_list *last_node);
-t_token_set token_set_new(void);
+t_list		*tokens_goto(t_list *token_list, t_token *token_searched, \
+				t_list *last_node);
+t_token_set	token_set_new(void);
+
+/*
+    tokenizer_words
+*/
+t_list	*tokenizer_new_word(t_string str, size_t *final_pos);
+
 /*
     tokenizer_debug.c
 */
