@@ -6,13 +6,16 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 00:00:25 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/01 00:07:14 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/01 00:09:58 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
 #include "parser.h"
 
+/* Obtenemos el tamaño de la word pero pillando SOLO los caracteres validos
+	para la word.
+*/
 static size_t	tokenizer_get_word_size(t_string str)
 {
 	size_t	i;
