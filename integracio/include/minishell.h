@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 20:31:05 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/03 00:17:01 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_minishell_cfg
 {
 	t_environment	env;
 	t_var   		*path;
+    t_var           *pwd;
 	struct termios	termios;
 }	t_minishell_cfg;
 
