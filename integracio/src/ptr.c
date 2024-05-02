@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ptr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:16:41 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 18:59:19 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:35:11 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "datatypes.h"
-
-#include <stdio.h>
 
 void	*ptr_free(void *ptr)
 {
@@ -30,12 +28,9 @@ void	*ptr_freematrix(t_string *matrix)
 		i = 0;
 		while (matrix[i] != NULL)
 		{
-			printf("Valor 1\n");
 			free(matrix[i]);
-			printf("Valor 2\n");
 			i++;
 		}
-		printf("Valor\n");
 		free(matrix);
 	}
 	return (NULL);
@@ -57,4 +52,23 @@ void	*ptr_freematrix_wsize(t_string *matrix, size_t size)
 		free (matrix);
 	}
 	return (NULL);
+}
+
+
+t_string    *ptr_new_matrix(size_t size)
+{
+	t_string    *matrix;
+	size_t		i;
+
+	matrix = (t_string *)malloc((size + 1)*sizeof(t_string));
+	if (matrix == NULL)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		matrix[i] = NULL;
+		i++;
+	}
+	matrix[i] = NULL;
+	return (matrix);
 }

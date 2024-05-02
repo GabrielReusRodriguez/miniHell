@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/24 18:37:57 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:31:05 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "datatypes.h"
 # include "environment.h"
+# include "var.h"
 # include <termios.h>
 
 # define SIGNAL_MODE_INTERACTIVE 0
@@ -26,7 +27,7 @@
 typedef struct s_minishell_cfg
 {
 	t_environment	env;
-	t_env_var		*path;
+	t_var   		*path;
 	struct termios	termios;
 }	t_minishell_cfg;
 

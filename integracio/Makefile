@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/01 00:01:47 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/02 20:46:59 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,20 +58,21 @@ GNL_D	= gnl
 # **************************************************************************** #
 
 SRC		= 	main 					\
+		  	builtin_exit			\
 			cmd						\
 			cmd_validator			\
 		  	environment 			\
 			error_handler			\
+			list_utils				\
 		  	minishell 				\
 		  	minishell_cfg 			\
 		  	minishell_stat 			\
-		  	ptr 					\
-		  	signal_handler 			\
-		  	builtin_exit			\
 			parser					\
 			parser_getters_cmd		\
 			parser_getters_redirect	\
 			parser_utils			\
+		  	ptr 					\
+		  	signal_handler 			\
 		  	tokenizer				\
 			tokenizer_parenthesis	\
 			tokenizer_quotes		\
@@ -81,6 +82,7 @@ SRC		= 	main 					\
 			tokenizer_words			\
 			tokens_utils			\
 			tokenset_utils			\
+			var						\
 			tokenizer_debug			\
 			cmd_debug				
 
@@ -96,7 +98,8 @@ HDR		= 	minishell.h			\
 			parser.h			\
 			ptr.h				\
 			signal_handler.h	\
-			tokens.h
+			tokens.h			\
+			var.h
 HDRS	= $(addprefix $(INC_D)/, $(HDR)) 
 FT_LIB	= $(FT_D)/libft.a
 GNL_LIB = $(GNL_D)/gnl.a

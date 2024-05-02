@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ptr.h                                              :+:      :+:    :+:   */
+/*   var.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 21:15:17 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/01 18:38:44 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/01 19:32:51 by gabriel           #+#    #+#             */
+/*   Updated: 2024/05/01 19:56:49 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PTR_H
-# define PTR_H
+#ifndef VAR_H
+# define VAR_H
 
 # include "datatypes.h"
 
-void		*ptr_free(void *ptr);
-void		*ptr_freematrix(t_string *matrix);
-void		*ptr_freematrix_wsize(t_string *matrix, size_t size);
-t_string	*ptr_new_matrix(size_t size);
+typedef struct s_var
+{
+	t_string	key;
+	t_string	value;
+}	t_var;
+
+/*
+	var.c
+*/
+t_var		var_new(void);
+t_var		*var_init(t_string str, t_var *var);
+t_var		*var_clone(t_var var);
+t_string	var_2_string(t_var var);
+void		var_destroy(t_var	*var);
+t_var		var_getenvvar(t_string var_name);
 
 #endif
