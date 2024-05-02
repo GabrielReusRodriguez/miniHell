@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/02 21:19:43 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/02 21:45:34 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ GNL_D	= gnl
 
 SRC		= 	main 					\
 		  	builtin_exit			\
+			builtin_env				\
 			cmd						\
 			cmd_validator			\
 		  	environment 			\

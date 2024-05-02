@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:19:37 by gabriel           #+#    #+#             */
-/*   Updated: 2024/04/25 23:31:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/02 21:33:29 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	tokens_debug(t_token_set tokens)
 
 	if (DEBUG_MODE)
 	{
-		printf("INICIO DEBUG Tokens: \n");
+		printf("INICIO DEBUG Tokens: ********************************\n");
 		node = tokens.tokens;
 		while (node != NULL)
 		{
@@ -63,6 +63,6 @@ void	tokens_debug(t_token_set tokens)
 			printf("\n");
 			node = node->next;
 		}
-		printf("FIN DEBUG Tokens \n");
+		printf("FIN DEBUG Tokens ********************************\n");
 	}
 }

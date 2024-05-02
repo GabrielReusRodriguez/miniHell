@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 02:19:14 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 21:38:26 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/02 21:38:01 by gabriel           #+#    #+#             */
+/*   Updated: 2024/05/02 21:43:18 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include <stdio.h>
+#include "minishell.h"
 
-# include "minishell.h"
+void    builtin_env(t_minishell *shell)
+{
+	t_list	*node;
+	t_var	*var;
 
-# define BUILTIN_EXIT	"exit"
-# define BUILTIN_ECHO	"echo"
-# define BUILTIN_CD		"cd"
-# define BUILTIN_PWD	"pwd"
-# define BUILTIN_EXPORT	"export"
-# define BUILTIN_UNSET	"unset"
-# define BUILTIN_ENV	"env"
-
-void	builtin_exit(t_minishell *shell);
-void    builtin_env(t_minishell *shell);
-
-#endif
+	node = shell->cfg.env.vars;
+	while (node != NULL)
+	{
+		var = (t_var *)node->content;
+		printf("%s=%s\n", var->key, var->value);
+		node = node->next;	
+	}
+}

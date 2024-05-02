@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 20:29:53 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/02 21:55:12 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	treat_line(t_minishell *shell, t_string line)
 	t_token_set	token_set;
 	t_cmd_set	cmd_set;
 	size_t		i;
+	t_cmd		cmd;
 
 	token_set = tokenizer(line);
 	if (token_set.tokens == NULL)
@@ -37,13 +38,24 @@ void	treat_line(t_minishell *shell, t_string line)
 		return ;
 	}
 	i = 0;
-	while (i < cmd_set.num_cmds)
+	if (cmd_set.num_cmds == 1)
 	{
-		cmd_debug(cmd_set.cmds[i]);
-		i++;
+			cmd = cmd_set.cmds[i];
+//			cmd_debug(cmd);
+			if (ft_strcmp(cmd.exec->value, BUILTIN_EXIT) == 0)
+				builtin_exit(shell);
+			if (ft_strcmp(cmd.exec->value, BUILTIN_ENV) == 0)
+				builtin_env(shell);
 	}
-	if (ft_strcmp(line, BUILTIN_EXIT) == 0)
-		builtin_exit(shell);
+	else
+	{
+		while (i < cmd_set.num_cmds)
+		{
+			cmd = cmd_set.cmds[i];
+			cmd_debug(cmd);
+			i++;
+		}
+	}
 	tokens_destroy_tokenlist(&token_set);
 	cmd_destroy_set(&cmd_set);
 }
