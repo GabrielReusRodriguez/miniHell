@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:30:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/02 21:00:57 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/02 21:20:13 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ void	        *env_update_var(t_list *node, t_var new_var);
 void	        *env_add_var(t_environment *env, t_var var);
 void	        *env_addorupdate_var(t_environment *env, t_var var);
 void	        *env_remove_var(t_environment *env, t_string key);
+
+void			env_debug(t_environment env);
 
 #endif

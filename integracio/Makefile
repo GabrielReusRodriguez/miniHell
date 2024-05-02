@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/02 20:46:59 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/02 21:19:43 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,8 @@ SRC		= 	main 					\
 			tokenset_utils			\
 			var						\
 			tokenizer_debug			\
-			cmd_debug				
+			cmd_debug				\
+			environment_debug		\
 
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
