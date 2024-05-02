@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 21:55:12 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/02 23:53:57 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	treat_line(t_minishell *shell, t_string line)
 	if (cmd_set.num_cmds == 1)
 	{
 			cmd = cmd_set.cmds[i];
+			if (builtin_isbuiltin(cmd) == true)
+				builtin_exec(shell, cmd);
 //			cmd_debug(cmd);
 			if (ft_strcmp(cmd.exec->value, BUILTIN_EXIT) == 0)
 				builtin_exit(shell);

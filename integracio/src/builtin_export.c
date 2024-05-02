@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:08:45 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/02 22:12:01 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/02 22:29:23 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,11 @@ Syntax
 export [-f] [-n] [name[=value] ...]
 
 */
+
+#include "minishell.h"
+#include "cmd.h"
+
+void	builtin_export(t_minishell *shell, t_cmd cmd)
+{
+    return ;
+}

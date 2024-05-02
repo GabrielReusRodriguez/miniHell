@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 22:13:48 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/02 22:29:45 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/02 23:56:27 by gabriel           #+#    #+#             */
+/*   Updated: 2024/05/03 00:00:43 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 #include "cmd.h"
 
-void	builtin_unset(t_minishell *shell, t_cmd cmd)
+void    builtin_pwd(t_minishell *shell, t_cmd cmd)
 {
-    return ;
+	return ;
 }
