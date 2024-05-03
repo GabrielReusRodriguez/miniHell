@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 02:19:14 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 23:57:56 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/03 23:24:08 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void    builtin_echo(t_minishell *shell, t_cmd cmd);
 void    builtin_pwd(t_minishell *shell, t_cmd cmd);
 void	builtin_exit(t_minishell *shell);
 void    builtin_env(t_minishell *shell);
-void	builtin_export(t_minishell *shell, t_cmd cmd);
-void	builtin_unset(t_minishell *shell, t_cmd cmd);
+void	*builtin_export(t_minishell *shell, t_cmd cmd);
+void	*builtin_unset(t_minishell *shell, t_cmd cmd);
 bool    builtin_isbuiltin(t_cmd cmd);
 void    builtin_exec(t_minishell *shell, t_cmd cmd);
 
