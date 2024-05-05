@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "minishell.h"
 
-void    builtin_env(t_minishell *shell)
+int	builtin_env(t_minishell *shell)
 {
 	t_list	*node;
 	t_var	*var;
@@ -25,4 +25,5 @@ void    builtin_env(t_minishell *shell)
 		printf("%s=%s\n", var->key, var->value);
 		node = node->next;	
 	}
+	return (EXIT_SUCCESS);
 }

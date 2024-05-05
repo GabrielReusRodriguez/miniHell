@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
+#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/02 21:45:34 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/04 19:58:25 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,18 @@ GNL_D	= gnl
 # **************************************************************************** #
 
 SRC		= 	main 					\
-		  	builtin_exit			\
+			builtin					\
+			builtin_echo			\
 			builtin_env				\
+			builtin_exit			\
+			builtin_export			\
+			builtin_unset			\
 			cmd						\
+			cmd_debug				\
+			cmd_run					\
 			cmd_validator			\
 		  	environment 			\
+			environment_debug		\
 			error_handler			\
 			list_utils				\
 		  	minishell 				\
@@ -72,7 +79,8 @@ SRC		= 	main 					\
 			parser_getters_cmd		\
 			parser_getters_redirect	\
 			parser_utils			\
-		  	ptr 					\
+			ptr 					\
+			redirect				\
 		  	signal_handler 			\
 		  	tokenizer				\
 			tokenizer_parenthesis	\
@@ -83,10 +91,8 @@ SRC		= 	main 					\
 			tokenizer_words			\
 			tokens_utils			\
 			tokenset_utils			\
-			var						\
 			tokenizer_debug			\
-			cmd_debug				\
-			environment_debug		\
+			var
 
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
@@ -135,8 +141,6 @@ $(BUILD_D):
 #brew:
 #	brew install readline
 #	brew link --force readline
-#	cpanm Term::ReadLine::Gnu
-#	brew unlink readline
 
 clean:
 	@echo "$(WHITE)Running LIBFT make clean: $(RST)"

@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:15:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/04/30 20:15:42 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/04 19:55:38 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 #include "datatypes.h"
 #include "libft.h"
 
-void	error_print(t_cstring msg)
+void	*error_print(t_cstring msg)
 {
 	size_t	len;
 
 	len = ft_strlen(msg);
 	write(STDERR_FILENO, msg, len);
+	return (NULL);
+}
+
+void	error_system_crash(t_cstring msg)
+{
+	error_print(msg);
+	exit(EXIT_FAILURE);
 }

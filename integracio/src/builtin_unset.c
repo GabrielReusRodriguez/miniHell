@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include <stdio.h>
 #include "minishell.h"
 #include "cmd.h"
 
-void	*builtin_unset(t_minishell *shell, t_cmd cmd)
+int	builtin_unset(t_minishell *shell, t_cmd cmd)
 {
 	t_string    param;
 	t_list      *node;
@@ -26,19 +26,19 @@ void	*builtin_unset(t_minishell *shell, t_cmd cmd)
 	if (node == NULL)
 	{
 		printf("Syntax error\n");
-		return (shell);
+		return (EXIT_SUCCESS);
 	}
 	param = ((t_token *)node->content)->value;
 	if (var_init(param, &var) == NULL)
 	{
 		printf("Syntax error\n");
-        return (shell);       
+        return (EXIT_SUCCESS);       
 	}
 	existing_var = env_findvar(shell->cfg.env, var.key); 
 	if (existing_var != NULL)
 	{
 		if (env_remove_var(&shell->cfg.env, var.key) == NULL)
-			return (NULL);	
+			return (EXIT_FAILURE);	
 	}
-	return (shell);
+	return (EXIT_SUCCESS);
 }

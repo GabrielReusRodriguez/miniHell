@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:32:11 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/24 21:24:36 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 01:16:50 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 
 	if (tokenizer_ischarclosed(str, *pos, '\"') == false)
 	{
-		token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
+	/*	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
 					ft_strdup("\""));
 		if (token_node == NULL)
 			return (NULL);
+            */
+		token_node =tokenizer_new_token(TOKEN_TYPE_EMPTY, \
+					NULL);
+		if (token_node == NULL)
+			return (NULL);					
 		(*pos)++;
 		return (token_node);
 	}
@@ -50,7 +55,7 @@ t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\"')
 		i++;
 	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
-					ft_substr(str, *pos, i + 1));
+					ft_substr(str, *pos + 1, i - 1));
 	if (token_node == NULL)
 		return (NULL);
 	*pos = *pos + i + 1;
@@ -64,8 +69,13 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 
 	if (tokenizer_ischarclosed(str, *pos, '\'') == false)
 	{
-		token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
+	/*	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
 					ft_strdup("\'"));
+		if (token_node == NULL)
+			return (NULL);
+            */
+		token_node = tokenizer_new_token(TOKEN_TYPE_EMPTY, \
+					NULL);
 		if (token_node == NULL)
 			return (NULL);
 		(*pos)++;
@@ -75,7 +85,7 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
 		i++;
 	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
-					ft_substr(str, *pos, i + 1));
+					ft_substr(str, *pos + 1, i - 1));
 	if (token_node == NULL)
 		return (NULL);
 	*pos = *pos + i + 1;

@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 23:58:57 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/03 00:00:04 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/04 18:46:18 by greus-ro          #+#    #+#             */
+/*   Updated: 2024/05/04 18:50:47 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "cmd.h"
+#ifndef	REDIRECT_H
+# define REDIRECT_H
 
-int	builtin_cd(t_minishell *shell, t_cmd cmd)
+# include "tokens.h"
+
+typedef struct s_redirect
 {
-	return ;
-}
+	t_token	*type;
+	t_token	*target;
+}	t_redirect;
+
+t_redirect	*redirect_new(void);
+void		redirect_freenode(void *arg);
+
+#endif

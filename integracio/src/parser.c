@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/30 20:13:59 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:11:43 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set	*cmd_set)
 size_t	parser_count_cmds(t_token_set token_set)
 {
 	t_token	*token;
-	size_t	num_cmds;
+	size_t	cmd_count;
 	t_list	*node;
 
 	if (token_set.tokens == NULL)
 		return (0);
-	num_cmds = 0;
+	cmd_count = 0;
 	node = token_set.tokens;
 	while (node != NULL)
 	{
@@ -60,10 +60,10 @@ size_t	parser_count_cmds(t_token_set token_set)
 		if (token->type == TOKEN_TYPE_AND || \
 				token->type == TOKEN_TYPE_SEMICOLON || \
 				token->type == TOKEN_TYPE_PIPE)
-			num_cmds++;
+			cmd_count++;
 		node = node->next;
 	}
-	return (num_cmds + 1);
+	return (cmd_count + 1);
 }
 
 void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
@@ -93,6 +93,7 @@ void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 	return (parser_create_cmd(first_token, last_token, cmd));
 }
 
+#include <stdio.h>
 void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 {
 	t_list	*node;
@@ -104,12 +105,13 @@ void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 	{
 		token = (t_token *)node->content;
 		if (tokens_is_redir(*token) == true)
-			if (parser_parse_redir(&node, last_token, cmd) == NULL)
+			if (parser_parse_redir_v2(&node, last_token, cmd) == NULL)
 				return (NULL);
 		if (tokens_isword(*token) == true)
 			if (parser_parse_word(token, cmd) == NULL)
 				return (NULL);
 		node = node->next;
 	}
+	printf("PASAMOS\n");
 	return (cmd);
 }

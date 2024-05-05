@@ -6,7 +6,7 @@
 #    By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/04/25 17:07:42 by abluis-m         ###   ########.fr        #
+#    Updated: 2024/04/28 12:25:22 by abluis-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ NAME	= pipex
 
 CC		= gcc
 DFLAGS	+= -DDEBUG_MODE=1
-DFLAGS	+= -fsanitize=address # -g
-CFLAGS	= -Wall -Wextra -Werror $(DFLAGS)
+DFLAGS	+= -fsanitize=address -g
+CFLAGS	= -Wall -Wextra -Werror #$(DFLAGS)
 RM		= rm -f
 RMDIR	= rm -rf
 MKDIR	= mkdir -p

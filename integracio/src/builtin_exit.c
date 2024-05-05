@@ -3,17 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:06:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/02 20:30:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/04 15:34:47 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "cmd.h"
+#include <stdio.h>
 
-void	builtin_exit(t_minishell *shell)
+int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 {
-	//exit (EXIT_SUCCESS);
-	shell->status.run = false;
+	t_list	*node;
+	t_token	*token;
+
+	node = cmd.args;
+	if (node)
+	{
+		token = (t_token *)node->content;
+		shell->status.return_status = ft_atoi(token->value);
+	}
+	else
+		shell->status.return_status = EXIT_SUCCESS;
+	if (parent)
+		shell->status.run = false;
+	return (shell->status.return_status);
 }

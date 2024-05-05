@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 21:21:27 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:23:30 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 {
-	t_var	*var;
-	t_list	*node;
+	t_var		*var;
+	t_list		*node;
 
 	if (env_init(&cfg->env, str_env) == NULL)
 		return (false);
@@ -32,7 +32,7 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 		}
 		node = node->next;
 	}
-    env_debug(cfg->env);
+	env_debug(cfg->env);
 	return (true);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 02:19:14 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/03 23:24:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/04 15:33:44 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@
 # define BUILTIN_UNSET	"unset"
 # define BUILTIN_ENV	"env"
 
-void    builtin_cd(t_minishell *shell, t_cmd cmd);
-void    builtin_echo(t_minishell *shell, t_cmd cmd);
-void    builtin_pwd(t_minishell *shell, t_cmd cmd);
-void	builtin_exit(t_minishell *shell);
-void    builtin_env(t_minishell *shell);
-void	*builtin_export(t_minishell *shell, t_cmd cmd);
-void	*builtin_unset(t_minishell *shell, t_cmd cmd);
-bool    builtin_isbuiltin(t_cmd cmd);
-void    builtin_exec(t_minishell *shell, t_cmd cmd);
-
+int		builtin_exit(t_minishell *shell, t_cmd cmd, bool parent);
+int		builtin_echo(t_cmd cmd);
+int		builtin_run(t_minishell *shell, t_cmd cmd, bool parent);
+int		builtin_cd(t_minishell *shell, t_cmd cmd);
+int		builtin_pwd(t_minishell *shell, t_cmd cmd);
+int		builtin_env(t_minishell *shell);
+int		builtin_export(t_minishell *shell, t_cmd cmd);
+int		builtin_unset(t_minishell *shell, t_cmd cmd);
 
 #endif

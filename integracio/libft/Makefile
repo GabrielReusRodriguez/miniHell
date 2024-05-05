@@ -1,7 +1,8 @@
 NAME	= libft.a
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror 
+DFLAGS	= -fsanitize=address -g
+CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
 AR		= ar rcs
 RM		= rm -f
 RMDIR	= rm -rf

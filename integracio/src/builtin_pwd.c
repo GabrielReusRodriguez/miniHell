@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "cmd.h"
 
-void    builtin_pwd(t_minishell *shell, t_cmd cmd)
+int	builtin_pwd(t_minishell *shell, t_cmd cmd)
 {
 	return ;
 }

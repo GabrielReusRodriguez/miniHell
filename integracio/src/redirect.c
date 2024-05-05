@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 23:58:57 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/03 00:00:04 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/04 18:49:52 by greus-ro          #+#    #+#             */
+/*   Updated: 2024/05/05 01:33:12 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "cmd.h"
+#include "redirect.h"
 
-int	builtin_cd(t_minishell *shell, t_cmd cmd)
+t_redirect	*redirect_new(void)
 {
-	return ;
+	t_redirect *redir;
+
+	redir = (t_redirect *)malloc(sizeof(t_redirect));
+	if (redir == NULL)
+		return (NULL);
+	redir->target = NULL;
+	redir->type = NULL;
+	return (redir);
+}
+
+/*
+	We do not free any memory because they are pointers to token so they
+	will be free when we "destroy" the tokens.
+*/
+void		redirect_freenode(void *arg)
+{
+	free(arg);
 }

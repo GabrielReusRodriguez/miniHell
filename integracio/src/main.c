@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/02 23:53:57 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/04 15:21:42 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	treat_line(t_minishell *shell, t_string line)
 	t_token_set	token_set;
 	t_cmd_set	cmd_set;
 	size_t		i;
-	t_cmd		cmd;
 
 	token_set = tokenizer(line);
 	if (token_set.tokens == NULL)
@@ -38,26 +37,12 @@ void	treat_line(t_minishell *shell, t_string line)
 		return ;
 	}
 	i = 0;
-	if (cmd_set.num_cmds == 1)
+	while (i < cmd_set.num_cmds)
 	{
-			cmd = cmd_set.cmds[i];
-			if (builtin_isbuiltin(cmd) == true)
-				builtin_exec(shell, cmd);
-//			cmd_debug(cmd);
-			if (ft_strcmp(cmd.exec->value, BUILTIN_EXIT) == 0)
-				builtin_exit(shell);
-			if (ft_strcmp(cmd.exec->value, BUILTIN_ENV) == 0)
-				builtin_env(shell);
+		cmd_debug(cmd_set.cmds[i]);
+		i++;
 	}
-	else
-	{
-		while (i < cmd_set.num_cmds)
-		{
-			cmd = cmd_set.cmds[i];
-			cmd_debug(cmd);
-			i++;
-		}
-	}
+	cmd_set_run(shell, cmd_set);
 	tokens_destroy_tokenlist(&token_set);
 	cmd_destroy_set(&cmd_set);
 }
@@ -86,6 +71,7 @@ int	main(int argc, char **argv, char **env)
 			//Aqui va el tokenizer, procesado, balblablabla...
 		}
 		free(line);
+		printf("%d", shell.status.return_status);
 	}
 	minishell_destroy(shell);
 	return (shell.status.return_status);

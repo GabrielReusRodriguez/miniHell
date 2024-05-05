@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:08:45 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/03 23:58:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/04 18:44:48 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,32 @@ export [-f] [-n] [name[=value] ...]
 #include "minishell.h"
 #include "cmd.h"
 
-void	*builtin_export(t_minishell *shell, t_cmd cmd)
+static int	builtin_export_noargs(t_minishell *shell)
+{
+	t_list	*var_list;
+	t_var	*var;
+	var_list = shell->cfg.env.vars;
+	while (var_list != NULL)
+	{
+		var = (t_var *)var_list->content;
+		printf("declare -x %s=%s\n",var->key ,var->value);
+		var_list = var_list->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int builtin_export_wargs(t_minishell *shell, t_list *args)
 {
 	t_string    param;
-	t_list      *node;
 	t_var       var;
 	t_list		*existing_var;
 
 	var = var_new();
-	node = cmd.args;
-	if (node == NULL)
-	{
-		printf("Syntax error\n");
-		return (shell);
-	}
-	param = ((t_token *)node->content)->value;
+	param = ((t_token *)args->content)->value;
 	if (var_init(param, &var) == NULL)
 	{
 		printf("Syntax error\n");
-        return (shell);       
+        return (1);
 	}
 	existing_var = env_findvar(shell->cfg.env, var.key); 
 	if (existing_var != NULL)
@@ -53,7 +60,7 @@ void	*builtin_export(t_minishell *shell, t_cmd cmd)
 		if (env_update_var(existing_var, var) == NULL)
 		{
 			env_destroy(&shell->cfg.env);
-			return (NULL);
+			return (EXIT_FAILURE);
 		}
 	}
 	else
@@ -61,8 +68,18 @@ void	*builtin_export(t_minishell *shell, t_cmd cmd)
 		if (env_add_var(&shell->cfg.env, var) == NULL)
 		{
 			env_destroy(&shell->cfg.env);
-			return (NULL);
+			return (EXIT_FAILURE);
 		}
 	}
-	return (shell);
+	return (EXIT_SUCCESS);
+}
+
+int	builtin_export(t_minishell *shell, t_cmd cmd)
+{
+	t_list      *node;
+
+	node = cmd.args;
+	if (node == NULL)
+		return (builtin_export_noargs(shell));
+	return (builtin_export_wargs(shell, node));
 }
