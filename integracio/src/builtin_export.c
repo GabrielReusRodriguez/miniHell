@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:08:45 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/04 18:44:48 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:35:44 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int builtin_export_wargs(t_minishell *shell, t_list *args)
 	{
 		if (env_update_var(existing_var, var) == NULL)
 		{
+            var_destroy(&var);
 			env_destroy(&shell->cfg.env);
 			return (EXIT_FAILURE);
 		}
@@ -67,10 +68,12 @@ static int builtin_export_wargs(t_minishell *shell, t_list *args)
 	{
 		if (env_add_var(&shell->cfg.env, var) == NULL)
 		{
+            var_destroy(&var);
 			env_destroy(&shell->cfg.env);
 			return (EXIT_FAILURE);
 		}
 	}
+    var_destroy(&var);
 	return (EXIT_SUCCESS);
 }
 

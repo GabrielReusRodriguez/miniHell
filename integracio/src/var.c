@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:31:43 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/02 20:56:15 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/05 02:32:16 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_var	*var_init(t_string str, t_var *var)
 	var->value = ft_substr(str, initial_pos + 1, size);
 	if (var->value == NULL)
 	{
-		free (var->key);
+        var_destroy(var);
+		//free (var->key);
 		return (NULL);
 	}
     return (var);

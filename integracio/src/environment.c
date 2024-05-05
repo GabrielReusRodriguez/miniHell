@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/28 19:17:13 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/05 02:30:51 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_list	*env_new_varnode(t_string str)
 		return (NULL);
 	if (var_init(str, env_var) == NULL)
 	{
+        var_destroy(env_var);
 		free(env_var);
 		return (NULL);		
 	}
