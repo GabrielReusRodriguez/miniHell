@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:20:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/04 19:57:01 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:18:45 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	parser_iscmdseparator(t_token token);
 	parser_getters_redirect.c
 */
 void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd);
-void	*parser_parse_redir_v2(t_list **list, t_list *end, t_cmd *cmd);
+//void	*parser_parse_redir_v2(t_list **list, t_list *end, t_cmd *cmd);
 
 /*
 	parser_getters_cmd.c

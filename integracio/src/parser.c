@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/04 20:11:43 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:19:08 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 	return (parser_create_cmd(first_token, last_token, cmd));
 }
 
-#include <stdio.h>
 void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 {
 	t_list	*node;
@@ -105,13 +104,12 @@ void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 	{
 		token = (t_token *)node->content;
 		if (tokens_is_redir(*token) == true)
-			if (parser_parse_redir_v2(&node, last_token, cmd) == NULL)
+			if (parser_parse_redir(&node, last_token, cmd) == NULL)
 				return (NULL);
 		if (tokens_isword(*token) == true)
 			if (parser_parse_word(token, cmd) == NULL)
 				return (NULL);
 		node = node->next;
 	}
-	printf("PASAMOS\n");
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/05 01:34:40 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/05 02:14:26 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ t_cmd	cmd_new(void)
 {
 	t_cmd	cmd;
 
-	cmd.red_in = NULL;
-	cmd.red_in_origin = NULL;
 	cmd.exec = NULL;
 	cmd.args = NULL;
-	cmd.red_out = NULL;
-	cmd.red_out_dest = NULL;
 	cmd.redir_in = NULL;
 	cmd.redir_out = NULL;
 	cmd.status = -1;

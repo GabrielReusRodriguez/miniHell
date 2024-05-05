@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/04 18:57:31 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:14:44 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ typedef struct s_cmd
 	t_list		*args;
 	t_list		*redir_in;
 	t_list		*redir_out;
-	t_token		*red_in;
-	t_token		*red_in_origin;
-	t_token		*red_out;
-	t_token		*red_out_dest;
 	int			pipe[2];
 	int			status;
 }	t_cmd;
