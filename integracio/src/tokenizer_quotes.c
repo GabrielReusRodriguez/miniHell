@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:32:11 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/05 18:55:32 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:25:05 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 	t_list	*token_node;
 	size_t	i;
 
+    printf("Nuevo squote\n");
 	if (tokenizer_ischarclosed(str, *pos, '\'') == false)
 	{
 	/*	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
@@ -84,7 +85,7 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
 		i++;
-	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
+	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_SQUOTE, \
 					ft_substr(str, *pos + 1, i - 1));
 	if (token_node == NULL)
 		return (NULL);

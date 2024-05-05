@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/01 00:00:20 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/06 00:41:23 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,17 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
 {
 	if (str[*pos] == '|')
 		return (tokenizer_new_pipe(pos));
-	if (str[*pos] == '\"')
+    
+    /*if (str[*pos] == '\"')
 		return (tokenizer_new_dquote(str, pos));
+    
 	if (str[*pos] == '\'')
 		return (tokenizer_new_squote(str, pos));
-	if (str[*pos] == '(')
+	*/
+/*
+    if (str[*pos] == '(')
 		return (tokenizer_new_paropen(pos));
+        */
 	if (str[*pos] == '<' && str[*pos + 1] == '<')
 		return (tokenizer_new_redheredoc(pos));
 	if (str[*pos] == '<')
@@ -69,7 +74,9 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
 		return (tokenizer_new_redappend(pos));
 	if (str[*pos] == '>')
 		return (tokenizer_new_redtruncate(pos));
-	if (str[*pos] == ')')
+	/*
+    if (str[*pos] == ')')
 		return (tokenizer_new_parclose(pos));
+        */
 	return (tokenizer_new_word(str + *pos, pos));
 }
