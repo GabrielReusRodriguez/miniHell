@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/20 15:23:30 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:36:50 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 	{
 		var = (t_var *)node->content;
 		if (ft_strcmp("PATH", var->key) == 0)
-		{
 			cfg->path = var;
-			break ;
-		}
+		if (ft_strcmp("PWD", var->key) == 0)
+			cfg->pwd = var;
 		node = node->next;
 	}
-	env_debug(cfg->env);
+	//env_debug(cfg->env);
 	return (true);
 }
 

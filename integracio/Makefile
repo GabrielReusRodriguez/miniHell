@@ -6,7 +6,7 @@
 #    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/04 19:58:25 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/05/05 19:18:53 by abluis-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC		= 	main 					\
 			builtin					\
 			builtin_echo			\
 			builtin_env				\
+			builtin_pwd				\
 			builtin_exit			\
 			builtin_export			\
 			builtin_unset			\
@@ -105,6 +106,7 @@ HDR		= 	minishell.h			\
 			error_handler.h		\
 			parser.h			\
 			ptr.h				\
+			redirect.h			\
 			signal_handler.h	\
 			tokens.h			\
 			var.h

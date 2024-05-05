@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abluis-m <abluis-m@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:21:39 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/04 13:55:52 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:00:41 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "cmd.h"
-#include <stdio.h>
 
 bool	check_nflag(t_cmd cmd)
 {
@@ -35,6 +34,9 @@ int	builtin_echo(t_cmd cmd)
 	bool	nflag;
 	int		out;
 
+//	if (cmd.red_out)
+//		out = cmd.pipe[1];
+//	else
 	out = STDOUT_FILENO;
 	nflag = check_nflag(cmd);
 	node = cmd.args;

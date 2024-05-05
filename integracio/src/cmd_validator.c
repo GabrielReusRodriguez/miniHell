@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:26:03 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/04 20:09:10 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:07:17 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	cmd_validate_set(t_cmd_set cmd_set)
 	size_t	i;
 
 	i = 0;
-	while (i < cmd_set.num_cmds)
+	while (i < cmd_set.cmd_count)
 	{
 		cmd_debug(cmd_set.cmds[i]);
 		if (cmd_validate(cmd_set.cmds[i]) == false)

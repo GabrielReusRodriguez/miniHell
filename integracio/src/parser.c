@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/05 02:19:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:39:20 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set	*cmd_set)
 	if (cmd_set->cmds == NULL)
 		return (NULL);
 	i = 0;
-	while (i < cmd_set->num_cmds)
+	while (i < cmd_set->cmd_count)
 	{
 		if (parser_get_next_cmd(token_set, &cmd) == NULL || \
 				cmd_isvalid(cmd) == false)

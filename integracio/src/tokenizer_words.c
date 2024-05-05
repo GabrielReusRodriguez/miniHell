@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_words.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 00:00:25 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/01 00:09:58 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/05 19:41:10 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static size_t	tokenizer_get_word_size(t_string str)
 			== false && tokenizer_charinset(str[i], PARSER_CMD_SEPARATORS) == false)
 	{
 		if (tokenizer_charinset(str[i], "\"\'()") == false)
+		//if (tokenizer_charinset(str[i], "\"()") == false)
 			size++;
 		i++;
 	}
@@ -60,6 +61,7 @@ static t_string	tokenizer_get_word_value(t_string str, size_t *final_pos)
 			== false && tokenizer_charinset(str[i], PARSER_CMD_SEPARATORS) == false)
 	{
 		if (tokenizer_charinset(str[i], "\"\'()") == false)
+	//	if (tokenizer_charinset(str[i], "\'()") == false)
 			token_value[j++] = str[i];
 		i++;
 	}

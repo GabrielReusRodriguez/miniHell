@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/04 15:21:42 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:04:34 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	treat_line(t_minishell *shell, t_string line)
 		return ;
 	}
 	i = 0;
-	while (i < cmd_set.num_cmds)
+	while (i < cmd_set.cmd_count)
 	{
 		cmd_debug(cmd_set.cmds[i]);
 		i++;

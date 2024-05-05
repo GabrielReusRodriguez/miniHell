@@ -6,7 +6,7 @@
 /*   By: abluis-m <abluis-m@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:18:22 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/04 15:15:42 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:39:32 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 	if (ft_strcmp(cmd.exec->value, BUILTIN_EXPORT) == 0)
 		return (builtin_export(shell, cmd));
 	if (ft_strcmp(cmd.exec->value, BUILTIN_PWD) == 0)
-		return (0);
+		return (builtin_pwd(shell, cmd));
     if (ft_strcmp(cmd.exec->value, BUILTIN_UNSET) == 0)
 		return (builtin_unset(shell, cmd));
 	return (0);
