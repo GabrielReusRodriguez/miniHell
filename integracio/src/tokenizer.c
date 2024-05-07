@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/06 00:41:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/07 18:16:54 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,5 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
         */
 	return (tokenizer_new_word(str + *pos, pos));
 }
+
+

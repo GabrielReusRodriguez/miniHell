@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 23:48:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/07 18:23:21 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,32 @@ bool	tokenizer_charinset(char c, t_string set)
 		i++;
 	}
 	return (false);
+}
+
+bool	tokenizer_valida_str(t_string str)
+{
+	size_t	i;
+	bool	opened_quote;
+	char	quote;
+
+	i = 0;
+	opened_quote = false;
+	while(str[i] != '\0')
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (opened_quote == true)
+			{
+				if (str[i] == quote)
+					opened_quote = false;
+			}
+			else
+			{
+				quote = str[i];
+				opened_quote = true;
+			}
+		}
+		i++;
+	}
+	return (!opened_quote);
 }

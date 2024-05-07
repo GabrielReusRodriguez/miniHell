@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/24 18:37:57 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:26:27 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define SIGNAL_MODE_DEFAULT 2
 # define SIGNAL_MODE_NOOP 3
 
-# define MINISHELL_PROMPT "minishell> "
+# define MINISHELL_PROMPT	"\033[1;34mminishell> \033[0m"
+//# define MINISHELL_PROMPT "minishell> "
 
 typedef struct s_minishell_cfg
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/05 19:18:53 by abluis-m         ###   ########.fr        #
+#    Updated: 2024/05/07 21:42:20 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRC		= 	main 					\
 		  	environment 			\
 			environment_debug		\
 			error_handler			\
+			expansor				\
 			list_utils				\
 		  	minishell 				\
 		  	minishell_cfg 			\
@@ -104,6 +105,7 @@ HDR		= 	minishell.h			\
 			debug.h				\
 			environment.h		\
 			error_handler.h		\
+			expansor.h			\
 			parser.h			\
 			ptr.h				\
 			redirect.h			\

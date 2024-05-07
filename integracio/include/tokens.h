@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/01 00:01:26 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/07 18:22:42 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_token		*tokens_clone(t_token token);
 void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
 bool		tokenizer_ischarclosed(t_string str, size_t pos, char quote);
 bool		tokenizer_charinset(char c, t_string set);
+bool		tokenizer_valida_str(t_string str);
 
 /*
 	tokenset_utils.c
@@ -125,6 +126,7 @@ void		tokens_destroy_tokenlist(t_token_set *list);
 t_list		*tokens_goto(t_list *token_list, t_token *token_searched, \
 				t_list *last_node);
 t_token_set	token_set_new(void);
+
 
 /*
     tokenizer_words
