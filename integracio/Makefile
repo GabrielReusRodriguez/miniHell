@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/07 21:42:20 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/08 23:03:03 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC		= 	main 					\
 			environment_debug		\
 			error_handler			\
 			expansor				\
+			expansor_var			\
 			list_utils				\
 		  	minishell 				\
 		  	minishell_cfg 			\

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/07 21:57:49 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/08 23:14:48 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, t_e
 	{
 		token = (t_token *)node->content;
 		expansor_expand(env, token);
+//		t_string	expansor_vars_replace_vars(t_string str, t_environment *env);
+		expansor_vars_replace_vars(token, env);
 		if (tokens_is_redir(*token) == true)
 			if (parser_parse_redir(&node, last_token, cmd) == NULL)
 				return (NULL);
