@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:14:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 21:10:16 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@ typedef enum e_cmd_type
 }	t_cmd_type;
 
 typedef struct s_cmd
-{	
-	
+{
+	t_string    exec;
+	t_string    *args;
+	t_string    *args;
+	t_string    *args;
+
+/*	
 	t_token		*exec;
 	t_list		*args;
 	t_list		*redir_in;
 	t_list		*redir_out;
-
+*/
 	int			pipe[2];
 	int			status;
 }	t_cmd;

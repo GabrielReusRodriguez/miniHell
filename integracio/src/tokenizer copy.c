@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:14:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 20:19:58 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,16 @@
 #include "parser.h"
 #include "environment.h"
 #include "expansor.h"
-#include "error_handler.h"
 
-static void    tokenizer_add_space(t_list **token_list)
+static void    tokenizer_add_space(t_token_set *token_set)
 {
 	t_list		*node;
-    t_string    space;
-
-    space = ft_strdup("");
-    if (space == NULL)
-        error_system_crash("Error at memory malloc\n");
-    node = tokenizer_new_token_node(TOKEN_TYPE_SPACE, space);
-    ft_lstadd_back(token_list, node);
-}		
+    t_token     *token;
+    
+    node = tokenizer_new_token(TOKEN_TYPE_EMPTY, \
+					NULL);
+    ft_lstadd_back(&token_set->tokens, node);
+}
 
 t_token_set	tokenizer(t_string str, t_environment *env)
 {
@@ -36,12 +33,12 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 	t_list		*node;
 	size_t		i;
 
-    (void)env;
 	i = 0;
 	token_list = token_set_new();
 	while (str[i] != '\0')
 	{
-		while (tokenizer_charinset(str[i], TOKENS_SEPARATORS) == true)
+		while (str[i] != '\0' && tokenizer_charinset(str[i], \
+				TOKENS_SEPARATORS) == true)
 			i++;
 		if (str[i] == '\0')
 			break ;
@@ -51,11 +48,9 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 			tokens_destroy_tokenlist(&token_list);
 			return (token_list);
 		}
-        expansor_vars_replace_vars(node->content,env);
+
 		ft_lstadd_back(&token_list.tokens, node);
 		token_list.total++;
-        if (tokenizer_charinset(str[i], TOKENS_SEPARATORS))
-            tokenizer_add_space(&token_list.tokens);
 	}
 	tokens_debug(token_list);
 	return (token_list);

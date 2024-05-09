@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/07 21:56:50 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 19:33:44 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	treat_line(t_minishell *shell, t_string line)
 		printf("Syntax error quotes not closed\n");
 		return ;
 	}
-	token_set = tokenizer(line);
+	token_set = tokenizer(line, &shell->cfg.env);
 	if (token_set.tokens == NULL)
 		return ;
 	if (parser_get_cmdset(&token_set, &cmd_set, &shell->cfg.env) == NULL)

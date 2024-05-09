@@ -6,14 +6,28 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/26 00:17:20 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 22:08:48 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokens.h"
+#include "error_handler.h"
 
+t_token *token_new(int type, t_string value)
+{
+    t_token *token;
+
+    token = (t_token *)malloc(sizeof(t_token));
+    if (token == NULL)
+        error_system_crash("Error at memory malloc\n");
+    token->type = type;
+    token->value = value;
+    return (token);
+}
+
+/*
 t_token_set	tokens_new(void)
 {
 	t_token_set	token_set;
@@ -23,7 +37,7 @@ t_token_set	tokens_new(void)
 	token_set.total = 0;
 	return (token_set);
 }
-
+*/
 void	*token_free(t_token *token)
 {
 	if (token != NULL)

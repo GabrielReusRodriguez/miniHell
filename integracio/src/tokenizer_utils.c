@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/07 18:23:21 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/09 22:17:46 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokens.h"
+#include "error_handler.h"
 
 /*
 bool	ft_tokens_isword(t_token token)
@@ -91,3 +92,22 @@ bool	tokenizer_valida_str(t_string str)
 	}
 	return (!opened_quote);
 }
+
+t_list	*tokenizer_new_token_node(int type, t_string value)
+{
+	t_token	*token;
+	t_list	*token_node;
+
+	if (value == NULL)
+		return (NULL);
+	token = (t_token *)malloc(sizeof(t_token));
+	if (token == NULL)
+        error_system_crash("Error at memory malloc\n");
+	token->type = type;
+	token->value = value;
+	token_node = ft_lstnew(token);
+	if (token_node == NULL)
+        error_system_crash("Error at memory malloc\n");
+	return (token_node);
+}
+

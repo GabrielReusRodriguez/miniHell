@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/08 23:14:48 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 22:24:58 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,23 @@ void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, t_e
 	t_list	*node;
 	t_token	*token;
 
+	(void)env;
 	node = first_token;
 	*cmd = cmd_new();
 	while (node != NULL && node != last_token)
 	{
 		token = (t_token *)node->content;
-		expansor_expand(env, token);
-//		t_string	expansor_vars_replace_vars(t_string str, t_environment *env);
-		expansor_vars_replace_vars(token, env);
+//		expansor_expand(env, token);
+//		expansor_vars_replace_vars(token, env);
 		if (tokens_is_redir(*token) == true)
 			if (parser_parse_redir(&node, last_token, cmd) == NULL)
 				return (NULL);
 		if (tokens_isword(*token) == true)
-			if (parser_parse_word(token, cmd) == NULL)
+			//if (parser_parse_word(token, cmd) == NULL)
+            if (parser_parse_word(&node, cmd) == NULL)
 				return (NULL);
-		node = node->next;
+        if (node != NULL)
+		    node = node->next;
 	}
 	return (cmd);
 }

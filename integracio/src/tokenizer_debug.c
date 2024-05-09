@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:19:37 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/02 21:33:29 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 20:34:49 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	tokens_debug(t_token_set tokens)
 				printf("WORD SQUOTE");
 			if (token->type == TOKEN_TYPE_WORD_DQUOTE)
 				printf("WORD DQUOTE");
+            if (token->type == TOKEN_TYPE_SPACE)
+				printf("SPACE");
 			printf("\n");
 			node = node->next;
 		}

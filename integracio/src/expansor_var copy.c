@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/09 22:32:33 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 19:57:53 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "environment.h"
 #include "error_handler.h"
 #include "tokens.h"
-#include "ptr.h"
-
 #include <stdio.h>
 
 size_t	expansor_vars_find_end_var(t_string str, size_t init)
@@ -46,15 +44,15 @@ t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, t_env
 	
 	*end_var = init + expansor_vars_find_end_var(str, init);
 	var_key = ft_substr(str, init + 1, *end_var - init);
-//	printf("\tVAR buscada : _%s_\n", var_key);
+	printf("\tVAR buscada : _%s_\n", var_key);
 	if (var_key == NULL)
-		error_system_crash("Error at memory malloc\n");	
+		error_system_crash("Error at memory malloc\n");
+	
 	var = env_get_var(*env, var_key);
 	if (var != NULL)
 		var_value = ft_strdup(var->value);
 	else
 		var_value = ft_strdup("");
-	free (var_key);
 	return (var_value);
 }
 
@@ -89,7 +87,7 @@ t_string	*expansor_vars_create_chunks(t_string str)
 	size_t		i;
 
 	num_chunks = expansor_vars_count_vars(str);
-//	printf("Num chunks = %lu\n", num_chunks);
+	printf("Num chunks = %lu\n", num_chunks);
 	chunks = (t_string *)malloc((num_chunks + 1)*sizeof(t_string));
 	if (chunks == NULL)
 		error_system_crash("Error at memory malloc\n");
@@ -115,7 +113,7 @@ t_string	expansor_vars_join_chunks(t_string *chunks)
 	while (chunks[i] != NULL)
 	{
 		aux = str_joined;
-//		printf("chunk: %s \n",chunks[i]);
+		printf("chunk: %s \n",chunks[i]);
 		str_joined = ft_strjoin(str_joined, chunks[i]);
 		if (str_joined == NULL)
 			error_system_crash("ERROR at memory malloc\n");
@@ -131,18 +129,21 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 	size_t		i;
 	size_t		j;
 	size_t		init;
+	bool		replace_mode;
 
-	if (token->type == TOKEN_TYPE_WORD_SQUOTE)
-		return ;
+	replace_mode = true;
 	chunks = expansor_vars_create_chunks(token->value);
 	i = 0;
 	init = i;
 	j = 0;
-//	printf("TOKEN: _%s_\n",token->value);
+	printf("TOKEN: _%s_\n",token->value);
 	while (token->value[i] != '\0')
 	{
-		if (token->value[i] == '$')
+		if (token->value[i] == '\'')
+			replace_mode = !replace_mode;
+		if (replace_mode && token->value[i] == '$')
 		{
+//			printf("Entra en dolar\n");
 			if (init < i)
 			{
 				chunks[j] = ft_substr(token->value, init, i - init);
@@ -151,6 +152,7 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 				j++;
 			}
 			chunks[j++] = expansor_vars_get_var(token->value, i, &init, env);
+			//printf("i = %lu init %lu\n",i, init);
 			i = init;
 		}
 		else
@@ -159,52 +161,51 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 	if (init < i)
 	{
 			chunks[j] = ft_substr(token->value, init, i - init);
-//			printf("CHUNKS : i %lu init %lu %s \n", i, init, chunks[j]);
+			printf("CHUNKS : i %lu init %lu %s \n", i, init, chunks[j]);
 			if (chunks[j] == NULL)
 				error_system_crash("Error at memory malloc\n");
 	}
 	free (token->value);
-	token->value = expansor_vars_join_chunks(chunks);
-	ptr_freematrix(chunks);
+	token->value = expansor_vars_join_chunks(chunks); 
 }
 
 
 /*
 char* replaceWord(const char* s, const char* oldW, 
-				const char* newW) 
+                const char* newW) 
 { 
-	char* result; 
-	int i, cnt = 0; 
-	int newWlen = strlen(newW); 
-	int oldWlen = strlen(oldW); 
+    char* result; 
+    int i, cnt = 0; 
+    int newWlen = strlen(newW); 
+    int oldWlen = strlen(oldW); 
  
-	// Counting the number of times old word 
-	// occur in the string 
-	for (i = 0; s[i] != '\0'; i++) { 
-		if (strstr(&s[i], oldW) == &s[i]) { 
-			cnt++; 
+    // Counting the number of times old word 
+    // occur in the string 
+    for (i = 0; s[i] != '\0'; i++) { 
+        if (strstr(&s[i], oldW) == &s[i]) { 
+            cnt++; 
  
-			// Jumping to index after the old word. 
-			i += oldWlen - 1; 
-		} 
-	} 
+            // Jumping to index after the old word. 
+            i += oldWlen - 1; 
+        } 
+    } 
  
-	// Making new string of enough length 
-	result = (char*)malloc(i + cnt * (newWlen - oldWlen) + 1); 
+    // Making new string of enough length 
+    result = (char*)malloc(i + cnt * (newWlen - oldWlen) + 1); 
  
-	i = 0; 
-	while (*s) { 
-		// compare the substring with the result 
-		if (strstr(s, oldW) == s) { 
-			strcpy(&result[i], newW); 
-			i += newWlen; 
-			s += oldWlen; 
-		} 
-		else
-			result[i++] = *s++; 
-	} 
+    i = 0; 
+    while (*s) { 
+        // compare the substring with the result 
+        if (strstr(s, oldW) == s) { 
+            strcpy(&result[i], newW); 
+            i += newWlen; 
+            s += oldWlen; 
+        } 
+        else
+            result[i++] = *s++; 
+    } 
  
-	result[i] = '\0'; 
-	return result; 
+    result[i] = '\0'; 
+    return result; 
 } 
 */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/07 18:22:42 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/09 22:17:11 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include "datatypes.h"
 # include "libft.h"
+# include "environment.h"
 //# include "ft_cmd.h"
 
 /*
@@ -44,7 +45,8 @@ enum e_token_type
 	TOKEN_TYPE_PAR_OPEN,
 	TOKEN_TYPE_PAR_CLOSE,
 	TOKEN_TYPE_SEMICOLON,
-	TOKEN_TYPE_EMPTY
+	TOKEN_TYPE_EMPTY,
+	TOKEN_TYPE_SPACE
 };
 
 # define TOKENS_SEPARATORS  " \t\v\n"
@@ -65,7 +67,8 @@ typedef struct s_token_set
 /*
 	tokenizer.c
 */
-t_token_set	tokenizer(t_string str);
+//t_token_set	tokenizer(t_string str);
+t_token_set	tokenizer(t_string str, t_environment *env);
 t_list		*tokenizer_get_next_token(t_string str, size_t *pos);
 t_list		*tokenizer_new_word(t_string str, size_t *final_pos);
 t_list		*tokenizer_new_pipe(size_t *i);
@@ -117,6 +120,8 @@ void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
 bool		tokenizer_ischarclosed(t_string str, size_t pos, char quote);
 bool		tokenizer_charinset(char c, t_string set);
 bool		tokenizer_valida_str(t_string str);
+//t_list		*tokenizer_new_token(int type, t_string value);
+t_list	    *tokenizer_new_token_node(int type, t_string value);
 
 /*
 	tokenset_utils.c
@@ -126,15 +131,17 @@ void		tokens_destroy_tokenlist(t_token_set *list);
 t_list		*tokens_goto(t_list *token_list, t_token *token_searched, \
 				t_list *last_node);
 t_token_set	token_set_new(void);
+t_token     *token_new(int type, t_string value);
+
 
 
 /*
-    tokenizer_words
+	tokenizer_words
 */
 t_list	*tokenizer_new_word(t_string str, size_t *final_pos);
 
 /*
-    tokenizer_debug.c
+	tokenizer_debug.c
 */
 void		tokens_debug(t_token_set token_list);
 

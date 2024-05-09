@@ -6,31 +6,13 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:32:11 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/05 21:25:05 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 22:15:49 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokens.h"
-
-t_list	*tokenizer_new_token(int type, t_string value)
-{
-	t_token	*token;
-	t_list	*token_node;
-
-	if (value == NULL)
-		return (NULL);
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->type = type;
-	token->value = value;
-	token_node = ft_lstnew(token);
-	if (token_node == NULL)
-		return (token_free(token));
-	return (token_node);
-}
 
 t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 {
@@ -44,7 +26,7 @@ t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 		if (token_node == NULL)
 			return (NULL);
             */
-		token_node =tokenizer_new_token(TOKEN_TYPE_EMPTY, \
+		token_node =tokenizer_new_token_node(TOKEN_TYPE_EMPTY, \
 					NULL);
 		if (token_node == NULL)
 			return (NULL);					
@@ -54,7 +36,7 @@ t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\"')
 		i++;
-	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
+	token_node = tokenizer_new_token_node(TOKEN_TYPE_WORD_DQUOTE, \
 					ft_substr(str, *pos + 1, i - 1));
 	if (token_node == NULL)
 		return (NULL);
@@ -75,7 +57,7 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 		if (token_node == NULL)
 			return (NULL);
             */
-		token_node = tokenizer_new_token(TOKEN_TYPE_EMPTY, \
+		token_node = tokenizer_new_token_node(TOKEN_TYPE_EMPTY, \
 					NULL);
 		if (token_node == NULL)
 			return (NULL);
@@ -85,7 +67,7 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 	i = 1;
 	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
 		i++;
-	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_SQUOTE, \
+	token_node = tokenizer_new_token_node(TOKEN_TYPE_WORD_SQUOTE, \
 					ft_substr(str, *pos + 1, i - 1));
 	if (token_node == NULL)
 		return (NULL);

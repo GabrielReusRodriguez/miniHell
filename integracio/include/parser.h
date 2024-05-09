@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:20:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/07 21:56:16 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/09 22:20:10 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd);
 /*
 	parser_getters_cmd.c
 */
-void	*parser_parse_word(t_token *token, t_cmd *cmd);
+void	*parser_parse_word(t_list **token_list, t_cmd *cmd);
+//void	*parser_parse_word(t_token *token, t_cmd *cmd);
 
 #endif
