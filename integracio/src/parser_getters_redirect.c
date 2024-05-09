@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/10 00:13:30 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 01:34:08 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parser.h"
 #include "error_handler.h"
 #include "redirect.h"
+#include "ptr.h"
 
 //NEW VERSION***************************************
 
@@ -23,6 +24,8 @@ static void	*parser_parse_redir_in(t_list **list, t_list *node, t_list *end)
 	t_string	value;
 	t_string	aux;
 
+	if (node == NULL)
+		return (NULL);
 	token = (t_token *)node->content;
 	while (node != NULL && node != end && token->type == TOKEN_TYPE_SPACE)
 	{
@@ -56,6 +59,8 @@ static void	*parser_parse_redir_out(t_list **list, t_list *node, t_list *end)
 	t_string	value;
 	t_string	aux;
 
+	if (node == NULL)
+		return (NULL);
 	token = (t_token *)node->content;
 	while (node != NULL && node != end && token->type == TOKEN_TYPE_SPACE)
 	{
@@ -102,6 +107,11 @@ void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
 				token->type == TOKEN_TYPE_RED_HERE_DOC)
 	{
 		red->target = parser_parse_redir_in(list, node->next, end);
+		if (red->target == NULL)
+		{
+			redirect_freenode(red);
+			return (NULL);
+		}
 		new_node = ft_lstnew(red);
 		if (new_node == NULL)
 			error_system_crash("Error in memory malloc\n");
@@ -111,6 +121,11 @@ void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
 				token->type == TOKEN_TYPE_RED_TRUNCATE)
 	{
 		red->target = parser_parse_redir_out(list, node->next, end);
+		if (red->target == NULL)
+		{
+			redirect_freenode(red);
+			return (NULL);
+		}
 		new_node = ft_lstnew(red);
 		if (new_node == NULL)
 			error_system_crash("Error in memory malloc\n");

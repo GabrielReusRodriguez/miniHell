@@ -2,3 +2,7 @@ TODO TOkenizer /parser
 
 << < in cat
 echo $(ARGS)
+
+echo "$PA'TH"
+echo "$'PATH'"
+echo $
