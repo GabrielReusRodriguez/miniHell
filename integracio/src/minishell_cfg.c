@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/10 00:58:52 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 01:13:29 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "environment.h"
 #include "libft.h"
 #include "error_handler.h"
+#include "ptr.h"
 
 bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 {
@@ -33,18 +34,17 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 		node = node->next;
 	}
     if (cfg->var_pwd != NULL)
-        cfg->pwd = cfg->var_pwd->value;
+        cfg->pwd = ft_strdup(cfg->var_pwd->value);
     else
-    {
         cfg->pwd = ft_strdup("");
-        if (cfg->pwd == NULL)
+    if (cfg->pwd == NULL)
             error_system_crash("Error at memory malloc\n");
-    }
 	return (true);
 }
 
 bool	minishell_cfg_unload(t_minishell_cfg *cfg)
 {
 	env_destroy(&cfg->env);
+    ptr_free(cfg->pwd);
 	return (true);
 }

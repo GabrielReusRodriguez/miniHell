@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:39:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 01:22:39 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,10 @@ void	cmd_destroy(t_cmd *cmd)
 	if (cmd->args != NULL)
 		ft_lstclear(&cmd->args, token_free_node);
 	if (cmd->redir_in != NULL)
+//		ft_lstclear(&cmd->redir_in, redirect_freenode);
 		ft_lstclear(&cmd->redir_in, redirect_freenode);
 	if (cmd->redir_out != NULL)
 		ft_lstclear(&cmd->redir_out, redirect_freenode);
-}
-
-bool	cmd_isvalid(t_cmd cmd)
-{
-	(void)cmd;
-	return (true);
 }
 
 void	cmd_destroy_set(t_cmd_set *cmd_set)

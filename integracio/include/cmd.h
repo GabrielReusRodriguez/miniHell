@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:14:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 01:23:20 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ typedef struct s_cmd_set
 */
 t_cmd		cmd_new(void);
 void		cmd_destroy(t_cmd *cmd);
-bool		cmd_isvalid(t_cmd cmd);
+//bool		cmd_isvalid(t_cmd cmd);
 void		cmd_destroy_set(t_cmd_set *cmd_set);
 t_cmd_set	cmd_create_set(t_token_set token_set);
 
 /*
 	cmd_validator.c
 */
-bool		cmd_validate_set(t_cmd_set cmd_set);
-
+//bool		cmd_validate_set(t_cmd_set cmd_set);
+bool		cmd_isvalid(t_cmd cmd);
 /*
 	cmd_run.c
 */

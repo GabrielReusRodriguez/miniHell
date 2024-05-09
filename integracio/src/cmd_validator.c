@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:26:03 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/05 19:07:17 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/10 01:22:53 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "error_handler.h"
 #include "redirect.h"
 
-static bool	cmd_validate(t_cmd cmd)
+bool	cmd_isvalid(t_cmd cmd)
 {
 	t_redirect	*redir;
 
@@ -37,6 +37,30 @@ static bool	cmd_validate(t_cmd cmd)
 		return (false);
 	return (true);
 }
+
+/*
+static bool	cmd_validate(t_cmd cmd)
+{
+	t_redirect	*redir;
+
+	while(cmd.redir_in != NULL)
+	{
+		redir = (t_redirect *)cmd.redir_in->content;
+		if (redir == NULL || redir->type == NULL || redir->target == NULL)
+			return (false);
+		cmd.redir_in = cmd.redir_in->next;
+	}
+	while(cmd.redir_out != NULL)
+	{
+		redir = (t_redirect *)cmd.redir_out->content;
+		if (redir == NULL || redir->type == NULL || redir->target == NULL)
+			return (false);
+		cmd.redir_out = cmd.redir_out->next;
+	}
+	if (cmd.exec == NULL)
+		return (false);
+	return (true);
+}*/
 /*
 static bool	cmd_validate(t_cmd cmd)
 {
@@ -49,7 +73,7 @@ static bool	cmd_validate(t_cmd cmd)
 	return (true);
 }
 */
-
+/*
 bool	cmd_validate_set(t_cmd_set cmd_set)
 {
 	size_t	i;
@@ -67,3 +91,4 @@ bool	cmd_validate_set(t_cmd_set cmd_set)
 	}
 	return (true);
 }
+*/
