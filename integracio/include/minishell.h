@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/07 18:26:27 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/10 00:43:55 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 typedef struct s_minishell_cfg
 {
 	t_environment	env;
-	t_var			*path;
-	t_var           *pwd;
+	t_var			*var_path;
+	t_var           *var_pwd;
+    t_string        pwd;
 	struct termios	termios;
 }	t_minishell_cfg;
 

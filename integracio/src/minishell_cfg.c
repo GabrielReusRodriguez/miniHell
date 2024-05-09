@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/05 19:36:50 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/10 00:58:52 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "environment.h"
 #include "libft.h"
+#include "error_handler.h"
 
 bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 {
@@ -26,12 +27,19 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 	{
 		var = (t_var *)node->content;
 		if (ft_strcmp("PATH", var->key) == 0)
-			cfg->path = var;
+			cfg->var_path = var;
 		if (ft_strcmp("PWD", var->key) == 0)
-			cfg->pwd = var;
+			cfg->var_pwd = var;
 		node = node->next;
 	}
-	//env_debug(cfg->env);
+    if (cfg->var_pwd != NULL)
+        cfg->pwd = cfg->var_pwd->value;
+    else
+    {
+        cfg->pwd = ft_strdup("");
+        if (cfg->pwd == NULL)
+            error_system_crash("Error at memory malloc\n");
+    }
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 23:21:29 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 00:13:30 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ static void	*parser_parse_redir_in(t_list **list, t_list *node, t_list *end)
 		if (value == NULL)
 			error_system_crash("Error at memory malloc\n");
 		free (aux);
+		node = node->next;
 		if (node != NULL)
-		{
-			node = node->next;
 			token = node->content;
-		}
 	}
 	*list = node;		
 	return (token_new(TOKEN_TYPE_WORD, value)); 
@@ -55,20 +53,36 @@ static void	*parser_parse_redir_in(t_list **list, t_list *node, t_list *end)
 static void	*parser_parse_redir_out(t_list **list, t_list *node, t_list *end)
 {
 	t_token		*token;
+	t_string	value;
+	t_string	aux;
 
-	while (node != NULL && node != end)
+	token = (t_token *)node->content;
+	while (node != NULL && node != end && token->type == TOKEN_TYPE_SPACE)
 	{
-		token = (t_token *)node->content;
-		if (tokens_isword(*token) == true)
-		{
-			*list = node;
-			return (token);
-		}
-		if (tokens_is_redir(*token) == true)
-			return (error_print("Syntax Error\n"));	
 		node = node->next;
+		if (node != NULL)
+			token = node->content;
 	}
-	return (error_print("Syntax Error\n"));
+	if (node == NULL || node == end || tokens_is_redir(*token))
+		return (error_print("Syntax Error\n"));
+	value = ft_strdup("");
+	if (value == NULL)
+		error_system_crash("Error at memory malloc\n");
+	while (node != NULL && tokens_isword(*token))
+	{
+		aux = value;
+		value = ft_strjoin(value, token->value);
+		if (value == NULL)
+			error_system_crash("Error at memory malloc\n");
+		free (aux);
+		node = node->next;
+		if (node != NULL)
+		{
+			token = node->content;
+		}
+	}
+	*list = node;		
+	return (token_new(TOKEN_TYPE_WORD, value)); 
 }
 
 void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
