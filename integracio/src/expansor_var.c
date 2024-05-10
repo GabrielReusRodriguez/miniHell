@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/10 11:58:28 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:42:27 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,44 @@ size_t	expansor_vars_find_end_var(t_string str, size_t init)
 	j = 1;
 	//if (ft_isdigit(str[init + j]) == 1)
 	if (ft_isdigit(str[init + j]) == 1 || str[init + j] == '\"' || str[init + j] == '\'')
-		return (j);
+		return (j - 1);
 //	while (str[init + j] != '\0' || str[init + j] != '\"')
 	while (str[init + j] != '\0')
 	{
+		/*
 		if (str[init + j] == '\"' || str[init + j] == '\'')
-				return (j - 1);
+				//return (j - 1);
+				return (j);
 		if (ft_isalnum(str[init + j]) == 0)
 			break;
+		*/	
+		
+		if (ft_isalpha(str[init + j]) == 0)
+			return (j - 1);
+		j++;
+	}
+	return (j - 1);
+}
+
+/*
+size_t	expansor_vars_find_end_var(t_string str, size_t init)
+{
+	size_t	j;
+
+	j = 1;
+	//if (ft_isdigit(str[init + j]) == 1)
+	if (ft_isdigit(str[init + j]) == 1 || str[init + j] == '\"' || str[init + j] == '\'')
+		return (j);
+//	while (str[init + j] != '\0' || str[init + j] != '\"')
+	while (str[init + j] != '\0')
+	{		
+		if (ft_isalpha(str[init + j]) == 0)
+			return (j - 1);
 		j++;
 	}
 	return (j);
 }
+*/
 
 t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, t_environment *env)
 {
@@ -47,7 +73,7 @@ t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, t_env
 	
 	*end_var = init + expansor_vars_find_end_var(str, init);
 	var_key = ft_substr(str, init + 1, *end_var - init);
-//	printf("\tVAR buscada : _%s_\n", var_key);
+	printf("\tVAR buscada : _%s_\n", var_key);
 	if (var_key == NULL)
 		error_system_crash("Error at memory malloc\n");	
 	var = env_get_var(*env, var_key);
@@ -56,6 +82,7 @@ t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, t_env
 	else
 		var_value = ft_strdup("");
 	free (var_key);
+	(*end_var)++;
 	return (var_value);
 }
 
@@ -116,7 +143,7 @@ t_string	expansor_vars_join_chunks(t_string *chunks)
 	while (chunks[i] != NULL)
 	{
 		aux = str_joined;
-//		printf("chunk: %s \n",chunks[i]);
+		printf("chunk: %s \n",chunks[i]);
 		str_joined = ft_strjoin(str_joined, chunks[i]);
 		if (str_joined == NULL)
 			error_system_crash("ERROR at memory malloc\n");
@@ -142,17 +169,22 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 	printf("TOKEN: _%s_\n",token->value);
 	while (token->value[i] != '\0')
 	{
+		printf("CHECK %c init %lu i %lu\n", token->value[i], init, i);
 		if (token->value[i] == '$')
 		{
 			if (init < i)
 			{
+				printf("actualizacion %c init %lu i %lu\n", token->value[i], init, i);
 				chunks[j] = ft_substr(token->value, init, i - init);
 				if (chunks[j] == NULL)
 					error_system_crash("Error at memory malloc\n");
 				j++;
 			}
 			chunks[j++] = expansor_vars_get_var(token->value, i, &init, env);
-			i = init;
+			//if (token->value[init] != '\0')
+				i = init;
+			//printf("final loop %c init %lu i %lu\n", token->value[i], init, i);
+			printf("final loop init %lu i %lu\n", init, i);
 		}
 		else
 			i++;
@@ -168,3 +200,17 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 	token->value = expansor_vars_join_chunks(chunks);
 	ptr_freematrix(chunks);
 }
+
+/*
+bool	expansor_var_is_valid(t_token *token)
+{
+	t_string	value;
+	size_t		i;
+
+	value = token->value;
+	i = 0;
+	while (value[i] != '\0')
+	{
+		
+	}
+}*/
