@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/10 12:47:45 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/10 23:03:54 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 	t_list		*node;
 	size_t		i;
 
-    (void)env;
 	i = 0;
 	token_list = token_set_new();
 	while (str[i] != '\0')
@@ -51,11 +50,20 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 			tokens_destroy_tokenlist(&token_list);
 			return (token_list);
 		}
-        expansor_vars_replace_vars(node->content,env);
+        //expansor_vars_replace_vars(node->content,env);
 		ft_lstadd_back(&token_list.tokens, node);
 		token_list.total++;
         if (tokenizer_charinset(str[i], TOKENS_SEPARATORS))
             tokenizer_add_space(&token_list.tokens);
+	}
+	node = token_list.tokens;
+	while (node != NULL)
+	{
+		if (node->next != NULL)
+			expansor_vars_replace_vars_v2(node->content,node->next->content,env);
+		else
+			expansor_vars_replace_vars_v2(node->content, NULL,env);
+		node = node->next;
 	}
 	tokens_debug(token_list);
 	return (token_list);

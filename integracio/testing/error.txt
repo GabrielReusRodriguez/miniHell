@@ -3,7 +3,7 @@ TODO TOkenizer /parser
 << < in cat
 echo $(ARGS)
 
-echo "$PA'TH" ok
+echo "$PA'TH" ok => 'TH
 echo "$'PATH'" X => 'PATH' falta el $ delante
-echo $
-echo $PA'TH'
+echo $ => $ ok
+echo $PA'TH' => TH ok

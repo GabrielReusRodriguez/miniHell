@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:47:03 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/08 23:14:17 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 23:04:41 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ size_t	    expansor_vars_count_vars(t_string str);
 t_string	*expansor_vars_create_chunks(t_string str);
 t_string	expansor_vars_join_chunks(t_string *chunks);
 void		expansor_vars_replace_vars(t_token *token, t_environment *env);
+void		expansor_vars_replace_vars_v2(t_token *token, t_token *next_t,t_environment *env);
 
 
 #endif
