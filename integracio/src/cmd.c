@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/10 01:22:39 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 12:49:03 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	cmd_destroy(t_cmd *cmd)
 	if (cmd->args != NULL)
 		ft_lstclear(&cmd->args, token_free_node);
 	if (cmd->redir_in != NULL)
-//		ft_lstclear(&cmd->redir_in, redirect_freenode);
 		ft_lstclear(&cmd->redir_in, redirect_freenode);
 	if (cmd->redir_out != NULL)
 		ft_lstclear(&cmd->redir_out, redirect_freenode);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_var.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/09 22:32:33 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/10 11:58:28 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ size_t	expansor_vars_find_end_var(t_string str, size_t init)
 	size_t	j;
 
 	j = 1;
-	if (ft_isdigit(str[init + j]) == 1)
+	//if (ft_isdigit(str[init + j]) == 1)
+	if (ft_isdigit(str[init + j]) == 1 || str[init + j] == '\"' || str[init + j] == '\'')
 		return (j);
 //	while (str[init + j] != '\0' || str[init + j] != '\"')
 	while (str[init + j] != '\0')
@@ -138,7 +139,7 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 	i = 0;
 	init = i;
 	j = 0;
-//	printf("TOKEN: _%s_\n",token->value);
+	printf("TOKEN: _%s_\n",token->value);
 	while (token->value[i] != '\0')
 	{
 		if (token->value[i] == '$')
@@ -167,44 +168,3 @@ void	expansor_vars_replace_vars(t_token *token, t_environment *env)
 	token->value = expansor_vars_join_chunks(chunks);
 	ptr_freematrix(chunks);
 }
-
-
-/*
-char* replaceWord(const char* s, const char* oldW, 
-				const char* newW) 
-{ 
-	char* result; 
-	int i, cnt = 0; 
-	int newWlen = strlen(newW); 
-	int oldWlen = strlen(oldW); 
- 
-	// Counting the number of times old word 
-	// occur in the string 
-	for (i = 0; s[i] != '\0'; i++) { 
-		if (strstr(&s[i], oldW) == &s[i]) { 
-			cnt++; 
- 
-			// Jumping to index after the old word. 
-			i += oldWlen - 1; 
-		} 
-	} 
- 
-	// Making new string of enough length 
-	result = (char*)malloc(i + cnt * (newWlen - oldWlen) + 1); 
- 
-	i = 0; 
-	while (*s) { 
-		// compare the substring with the result 
-		if (strstr(s, oldW) == s) { 
-			strcpy(&result[i], newW); 
-			i += newWlen; 
-			s += oldWlen; 
-		} 
-		else
-			result[i++] = *s++; 
-	} 
- 
-	result[i] = '\0'; 
-	return result; 
-} 
-*/
