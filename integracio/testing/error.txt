@@ -4,6 +4,6 @@ TODO TOkenizer /parser
 echo $(ARGS)
 
 echo "$PA'TH" ok => 'TH
-echo "$'PATH'" X => 'PATH' falta el $ delante
+echo "$'PATH'" fail => $'PATH' falta el $ delante
 echo $ => $ ok
 echo $PA'TH' => TH ok

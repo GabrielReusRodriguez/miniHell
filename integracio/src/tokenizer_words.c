@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_words.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 00:00:25 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/09 20:49:39 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/11 01:53:29 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*tokenizer_new_word(t_string str, size_t *final_pos)
 	word_init = i;
 	while (str[i] != '\0' && tokenizer_charinset(str[i], TOKENS_SEPARATORS) \
 				== false && tokenizer_charinset(str[i], PARSER_CMD_SEPARATORS) \
-				== false && tokenizer_charinset(str[i], "\"\')") \
+				== false && tokenizer_charinset(str[i], "\"\'") \
 				== false)
 		i++;
 	token->type = TOKEN_TYPE_WORD;
