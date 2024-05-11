@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/11 01:46:14 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/11 02:01:24 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,77 +30,7 @@ size_t	expansor_vars_find_end_var(t_string str, size_t init)
 	while (ft_isalnum(str[init + j]) || tokenizer_charinset(str[init + j], "_"))
 		j++;
 	return (j);
-	
-
-/*
-	//if (ft_isdigit(str[init + j]) == 1)
-	if (ft_isdigit(str[init + j]) == 1 || str[init + j] == '\"' || str[init + j] == '\'')
-		return (j - 1);
-//	while (str[init + j] != '\0' || str[init + j] != '\"')
-	while (str[init + j] != '\0')
-	{
-
-//		if (str[init + j] == '\"' || str[init + j] == '\'')
-//				//return (j - 1);
-//				return (j);
-//		if (ft_isalnum(str[init + j]) == 0)
-//			break;
-
-		
-		if (ft_isalpha(str[init + j]) == 0)
-			return (j - 1);
-		j++;
-	}
-	return (j - 1);
-*/
 }
-
-/*
-size_t	expansor_vars_find_end_var(t_string str, size_t init)
-{
-	size_t	j;
-
-	j = 1;
-	//if (ft_isdigit(str[init + j]) == 1)
-	if (ft_isdigit(str[init + j]) == 1 || str[init + j] == '\"' || str[init + j] == '\'')
-		return (j - 1);
-//	while (str[init + j] != '\0' || str[init + j] != '\"')
-	while (str[init + j] != '\0')
-	{
-
-//		if (str[init + j] == '\"' || str[init + j] == '\'')
-//				//return (j - 1);
-//				return (j);
-//		if (ft_isalnum(str[init + j]) == 0)
-//			break;
-
-		
-		if (ft_isalpha(str[init + j]) == 0)
-			return (j - 1);
-		j++;
-	}
-	return (j - 1);
-}
-*/
-/*
-size_t	expansor_vars_find_end_var(t_string str, size_t init)
-{
-	size_t	j;
-
-	j = 1;
-	//if (ft_isdigit(str[init + j]) == 1)
-	if (ft_isdigit(str[init + j]) == 1 || str[init + j] == '\"' || str[init + j] == '\'')
-		return (j);
-//	while (str[init + j] != '\0' || str[init + j] != '\"')
-	while (str[init + j] != '\0')
-	{		
-		if (ft_isalpha(str[init + j]) == 0)
-			return (j - 1);
-		j++;
-	}
-	return (j);
-}
-*/
 
 t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, t_environment *env)
 {
@@ -110,37 +40,21 @@ t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, t_env
 	size_t		size_var;
 	
 	size_var = expansor_vars_find_end_var(str, init);
+	(*end_var) = init + size_var;
 	if (size_var == 0)
-	{
-		(*end_var) = init + size_var;
-		/*
-		if (str[init + size_var] == '\0')
-		{
-		//		printf(" j = 0\n");
-			var_value = ft_strdup("$");
-			if (var_value == NULL)
-				error_system_crash("Error at memory malloc\n");	
-		}
-		printf("\t\tFINAL VALUE RETURNED EXCEPTION _%s_\n", var_value);
-		*/
+	{	
 		var_value = ft_strdup("");
-		if (var_value == NULL)
-			error_system_crash("Error at memory malloc\n");	
+		ptr_check_malloc_return(var_value, "Error at memory malloc\n");
 		return (var_value);
 	}
-	*end_var = init + size_var;
-	//var_key = ft_substr(str, init + 1, *end_var - init);
 	var_key = ft_substr(str, init, *end_var - init);
-//	printf("\tVAR buscada : _%s_\n", var_key);
-	if (var_key == NULL)
-		error_system_crash("Error at memory malloc\n");	
+	ptr_check_malloc_return(var_key, "Error at memory malloc\n");
 	var = env_get_var(*env, var_key);
 	if (var != NULL)
 		var_value = ft_strdup(var->value);
 	else
 		var_value = ft_strdup("");
-	if (var_value == NULL)
-		error_system_crash("Error at memory malloc\n");	
+	ptr_check_malloc_return(var_value, "Error at memory malloc\n");
 	free (var_key);
 	return (var_value);
 }
@@ -176,7 +90,6 @@ t_string	*expansor_vars_create_chunks(t_string str)
 	size_t		i;
 
 	num_chunks = expansor_vars_count_vars(str);
-//	printf("Num chunks = %lu\n", num_chunks);
 	chunks = (t_string *)malloc((num_chunks + 1)*sizeof(t_string));
 	if (chunks == NULL)
 		error_system_crash("Error at memory malloc\n");
@@ -212,82 +125,6 @@ t_string	expansor_vars_join_chunks(t_string *chunks)
 	return (str_joined);
 }
 
-/*
-	Hacemos un array de chunks.
-	Vamos iterando y nos guardamos en una variable (init) el ultimo punto del string del que hicimos 
-		push al array de chunks.
-		
-	El algoritmo es :
-		Si es un word de tipo SQUOTE => fuera
-		Si encontramos un $ (si elinit NO es igual al i significa que hemos recorrido texto por lo 
-			que nos toca hacer un nuevo chunk antes de substituir la variable)
-		En caso que la palabta sea un $ y el siguiente token sea un espacio O sea el último token
-			IMPRIMIMOS el $.
-		Si no, es seguramente el caso de $"asdasda" por lo que NO imprimimos el $ y llamamos al expansor
-			para encontrar el valor de la variable.
-		Sólo nos queda que al salir del while, actualizar el array de chunks con lo que nos queda pendiente.
-*/
-/*
-void	expansor_vars_replace_vars(t_token *token, t_token *next_t,t_environment *env)
-{
-	t_string	*chunks;
-	size_t		i;
-	size_t		j;
-	size_t		init;
-
-	if (token->type == TOKEN_TYPE_WORD_SQUOTE)
-		return ;
-	chunks = expansor_vars_create_chunks(token->value);
-	i = 0;
-	init = i;
-	j = 0;
-	while (token->value[i] != '\0')
-	{
-		if (token->value[i] == '$')
-		{
-			if (init < i)
-			{
-				chunks[j] = ft_substr(token->value, init, i - init);
-				if (chunks[j] == NULL)
-					error_system_crash("Error at memory malloc\n");
-				j++;
-			}
-			if (token->value[i + 1] == '\0' && (next_t == NULL || next_t->type == TOKEN_TYPE_SPACE))
-			{
-				chunks[j++] = ft_strdup("$");
-				if (chunks[j - 1] == NULL)
-					error_system_crash("Error at memory malloc\n");
-				init = i + 1;
-				i = init;
-				continue;
-			}
-			if (token->value[i + 1] == '?')
-			{
-				chunks[j++] = ft_strdup("-1");
-				if (chunks[j - 1] == NULL)
-					error_system_crash("Error at memory malloc\n");
-				init = i + 2;
-				i = init;
-				continue;
-			}
-			chunks[j++] = expansor_vars_get_var(token->value, i + 1, &init, env);
-			i = init;
-		}
-		else
-			i++;
-	}
-	if (init < i)
-	{
-			chunks[j] = ft_substr(token->value, init, i - init);
-			if (chunks[j] == NULL)
-				error_system_crash("Error at memory malloc\n");
-	}
-	free (token->value);
-	token->value = expansor_vars_join_chunks(chunks);
-	ptr_freematrix(chunks);
-}
-*/
-
 static t_string expansor_vars_join(t_string origin, t_string destiny)
 {
 	t_string	res;
@@ -311,45 +148,6 @@ static t_string	expansor_vars_join_acumulated(t_string acum, t_expansor limits)
 	res = expansor_vars_join(acum, substring);
 	return (res);
 }
-/*
-static t_string expansor_vars_dollar_found(t_string str, size_t *init, size_t *i,t_token *next_t)
-{
-	if (init < i)
-	{
-		expansor_vars_join_acumulated(t_string str, acum, *init, *i);
-		substring = ft_substr(str, init, i - init);
-		if (substring == NULL)
-			error_system_crash("Error at memory malloc\n");
-		expanded = expansor_vars_join(expanded, substring);
-	}
-	if (token->value[i + 1] == '\0' && (next_t == NULL || next_t->type == TOKEN_TYPE_SPACE))
-	{
-		substring = ft_strdup("$");
-		if (substring == NULL)
-			error_system_crash("Error at memory malloc\n");
-		expanded = expansor_vars_join(expanded, substring);
-		init = i + 1;
-		i = init;
-		continue;
-	}
-	if (token->value[i + 1] == '?')
-	{
-		substring = ft_strdup("-1");
-		if (substring == NULL)
-			error_system_crash("Error at memory malloc\n");
-		expanded = expansor_vars_join(expanded, substring);
-		init = i + 2;
-		i = init;
-		continue;
-	}
-	substring = expansor_vars_get_var(token->value, i + 1, &init, env);
-	if (substring == NULL)
-		error_system_crash("Error at memory malloc\n");
-	expanded = expansor_vars_join(expanded, substring);
-	i = init;
-	return (expanded);
-}
-*/
 
 static t_string	expansor_vars_replace_status(t_string acum, t_expansor *limits)
 {
@@ -379,7 +177,6 @@ static t_string	expansor_vars_add_dollar(t_string acum, t_expansor *limits)
 	limits->init = limits->i;
 	return (res);
 }
-
 
 static t_string	expansor_vars_replace_vars_init(t_expansor	*limits, t_string str)
 {
@@ -443,206 +240,3 @@ void	expansor_vars_replace_vars(t_token *token, t_token *next_t,t_environment *e
 	free (token->value);
 	token->value = expanded;
 }
-
-/*
-void	expansor_vars_replace_vars(t_token *token, t_token *next_t,t_environment *env)
-{
-	t_string			substring;
-	t_string			expanded;
-	t_expansor_chunk	limits;
-
-	if (token->type == TOKEN_TYPE_WORD_SQUOTE)
-		return ;
-	expanded = expansor_vars_replace_vars_init(&limits);
-	while (token->value[limits.i] != '\0')
-	{
-		if (token->value[limits.i] == '$')
-		{
-			if (limits.init < limits.i)
-				expanded = expansor_vars_join_acumulated(token->value, expanded, limits);
-			if (token->value[limits.i + 1] == '\0' && (next_t == NULL || next_t->type == TOKEN_TYPE_SPACE))
-			{
-				expanded = expansor_vars_add_dollar(expanded, &limits);
-				continue;
-			}
-			if (token->value[limits.i + 1] == '?')
-			{
-				expanded = expansor_vars_replace_status(expanded, &limits);
-				continue;
-			}
-			substring = expansor_vars_get_var(token->value, limits.i + 1, &limits.init, env);
-			expanded = expansor_vars_join(expanded, substring);
-			limits.i = limits.init;
-		}
-		else
-			limits.i++;
-	}
-	if (limits.init < limits.i)
-		expanded = expansor_vars_join_acumulated(token->value, expanded, limits);
-	free (token->value);
-	token->value = expanded;
-}
-*/
-
-
-/*
-void	expansor_vars_replace_vars(t_token *token, t_token *next_t,t_environment *env)
-{
-	t_string	aux;
-	t_string	substring;
-	size_t		i;
-	size_t		init;
-	t_string	expanded;
-
-	if (token->type == TOKEN_TYPE_WORD_SQUOTE)
-		return ;
-	//chunks = expansor_vars_create_chunks(token->value);
-	expanded = ft_strdup("");
-	if (expanded == NULL)
-		error_system_crash("Error at memory malloc\n");
-	i = 0;
-	init = i;
-	while (token->value[i] != '\0')
-	{
-		if (token->value[i] == '$')
-		{
-			printf("DOLAR ENCONTRADO!!\n");
-			if (init < i)
-			{
-				substring = ft_substr(token->value, init, i - init);
-				if (substring == NULL)
-					error_system_crash("Error at memory malloc\n");
-				aux = expanded;
-				expanded = ft_strjoin(expanded, substring);
-				free  (aux);
-				free (substring);
-				if (expanded == NULL)
-					error_system_crash("Error at memory malloc\n");
-			}
-			if (next_t != NULL)
-				printf("Tipo de next es: %d \n", next_t->type);
-			if (
-					(token->value[i + 1] == '\0' && (next_t == NULL || next_t->type == TOKEN_TYPE_SPACE))
-				)
-			{
-				substring = ft_strdup("$");
-				if (substring == NULL)
-					error_system_crash("Error at memory malloc\n");
-				aux = expanded;
-				expanded = ft_strjoin(expanded, substring);
-				free  (aux);
-				free (substring);
-				if (expanded == NULL)
-					error_system_crash("Error at memory malloc\n");
-				init = i + 1;
-				i = init;
-				continue;
-			}
-			if (token->value[i + 1] == '?')
-			{
-				substring = ft_strdup("-1");
-				if (substring == NULL)
-					error_system_crash("Error at memory malloc\n");
-				aux = expanded;
-				expanded = ft_strjoin(expanded, substring);
-				free  (aux);
-				free (substring);
-				if (expanded == NULL)
-					error_system_crash("Error at memory malloc\n");
-				init = i + 2;
-				i = init;
-				continue;
-			}
-			substring = expansor_vars_get_var(token->value, i + 1, &init, env);
-			if (substring == NULL)
-				error_system_crash("Error at memory malloc\n");
-			aux = expanded;
-			expanded = ft_strjoin(expanded, substring);
-			free  (aux);
-			free (substring);
-			if (expanded == NULL)
-				error_system_crash("Error at memory malloc\n");
-			i = init;
-		}
-		else
-			i++;
-	}
-	if (init < i)
-	{
-			substring = ft_substr(token->value, init, i - init);
-			if (substring == NULL)
-				error_system_crash("Error at memory malloc\n");
-			aux = expanded;
-			expanded = ft_strjoin(expanded, substring);
-			free  (aux);
-			free (substring);
-			if (expanded == NULL)
-				error_system_crash("Error at memory malloc\n");
-	}
-	free (token->value);
-	token->value = expanded;
-}
-*/
-
-/*
-void	expansor_vars_replace_vars(t_token *token, t_environment *env)
-{
-	t_string	*chunks;
-	size_t		i;
-	size_t		j;
-	size_t		init;
-
-	if (token->type == TOKEN_TYPE_WORD_SQUOTE)
-		return ;
-	chunks = expansor_vars_create_chunks(token->value);
-	i = 0;
-	init = i;
-	j = 0;
-	printf("TOKEN: _%s_\n",token->value);
-	while (token->value[i] != '\0')
-	{
-		printf("CHECK %c init %lu i %lu\n", token->value[i], init, i);
-		if (token->value[i] == '$')
-		{
-			if (init < i)
-			{
-				printf("actualizacion %c init %lu i %lu\n", token->value[i], init, i);
-				chunks[j] = ft_substr(token->value, init, i - init);
-				if (chunks[j] == NULL)
-					error_system_crash("Error at memory malloc\n");
-				j++;
-			}
-			chunks[j++] = expansor_vars_get_var(token->value, i + 1, &init, env);
-			//if (token->value[init] != '\0')
-				i = init;
-			//printf("final loop %c init %lu i %lu\n", token->value[i], init, i);
-			printf("final loop init %lu i %lu\n", init, i);
-		}
-		else
-			i++;
-	}
-	if (init < i)
-	{
-			chunks[j] = ft_substr(token->value, init, i - init);
-//			printf("CHUNKS : i %lu init %lu %s \n", i, init, chunks[j]);
-			if (chunks[j] == NULL)
-				error_system_crash("Error at memory malloc\n");
-	}
-	free (token->value);
-	token->value = expansor_vars_join_chunks(chunks);
-	ptr_freematrix(chunks);
-}
-*/
-/*
-bool	expansor_var_is_valid(t_token *token)
-{
-	t_string	value;
-	size_t		i;
-
-	value = token->value;
-	i = 0;
-	while (value[i] != '\0')
-	{
-		
-	}
-}*/

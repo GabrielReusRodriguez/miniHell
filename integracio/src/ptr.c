@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ptr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:16:41 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/01 18:35:11 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/11 01:58:41 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "datatypes.h"
+#include "error_handler.h"
 
 void	*ptr_free(void *ptr)
 {
@@ -71,4 +72,10 @@ t_string    *ptr_new_matrix(size_t size)
 	}
 	matrix[i] = NULL;
 	return (matrix);
+}
+
+void	ptr_check_malloc_return(void *ptr, t_string msg)
+{
+	if (ptr == NULL)
+		error_system_crash(msg);
 }
