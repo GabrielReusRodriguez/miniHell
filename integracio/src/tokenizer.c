@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/11 01:50:35 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/11 02:04:32 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_token_set	tokenizer(t_string str, t_environment *env)
             tokenizer_add_space(&token_list.tokens);
 	}
 	node = token_list.tokens;
-	(void)env;
-	/*
 	while (node != NULL)
 	{
 		if (node->next != NULL)
@@ -66,7 +64,7 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 		else
 			expansor_vars_replace_vars(node->content, NULL, env);
 		node = node->next;
-	}*/
+	}
 	tokens_debug(token_list);
 	return (token_list);
 }

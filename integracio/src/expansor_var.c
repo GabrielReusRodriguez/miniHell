@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/11 02:01:24 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/11 02:03:50 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_string	expansor_vars_join_chunks(t_string *chunks)
 	while (chunks[i] != NULL)
 	{
 		aux = str_joined;
-		printf("chunk: %s \n",chunks[i]);
+		//printf("chunk: %s \n",chunks[i]);
 		str_joined = ft_strjoin(str_joined, chunks[i]);
 		if (str_joined == NULL)
 			error_system_crash("ERROR at memory malloc\n");
