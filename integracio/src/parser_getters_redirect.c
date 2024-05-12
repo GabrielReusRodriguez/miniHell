@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 22:55:56 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:59:54 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
 	if (new_node == NULL)
 		error_system_crash("Error in memory malloc\n");
 	if (tokens_isredir_in(*token) == true)
-		ft_lstadd_back(&cmd->redir_out, new_node);
-	else
 		ft_lstadd_back(&cmd->redir_in, new_node);
+	else
+		ft_lstadd_back(&cmd->redir_out, new_node);
 }
 
 void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)

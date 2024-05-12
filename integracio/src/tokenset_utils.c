@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 22:08:37 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/13 00:00:47 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,3 @@ t_list	*tokens_goto(t_list *token_list, t_token *token_searched, \
 		return (node);
 	return (NULL);
 }
-
-
-/*
-void	*ft_tokenizer_add_token(t_list *node, t_token_set *token_list)
-{
-	if (node == NULL)
-	{
-		ft_tokens_destroy_tokenlist(token_list);
-		return (NULL);
-	}
-	ft_lstadd_back(&token_list->tokens, node);
-	token_list->total++;
-	return (token_list);
-}
-*/
