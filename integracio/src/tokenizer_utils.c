@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:17:46 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 21:33:42 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 #include <stdlib.h>
 #include "tokens.h"
 #include "error_handler.h"
-
-/*
-bool	ft_tokens_isword(t_token token)
-{
-	if (token.type == TOKEN_TYPE_WORD || \
-			token.type == TOKEN_TYPE_WORD_SQUOTE || \
-			token.type == TOKEN_TYPE_WORD_SQUOTE)
-		return (true);
-	return (false);
-}
-*/
 
 void	*tokenizer_add_token(t_list *node, t_token_set *token_list)
 {
@@ -73,7 +62,7 @@ bool	tokenizer_valida_str(t_string str)
 
 	i = 0;
 	opened_quote = false;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
@@ -102,12 +91,11 @@ t_list	*tokenizer_new_token_node(int type, t_string value)
 		return (NULL);
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-        error_system_crash("Error at memory malloc\n");
+		error_system_crash("Error at memory malloc\n");
 	token->type = type;
 	token->value = value;
 	token_node = ft_lstnew(token);
 	if (token_node == NULL)
-        error_system_crash("Error at memory malloc\n");
+		error_system_crash("Error at memory malloc\n");
 	return (token_node);
 }
-

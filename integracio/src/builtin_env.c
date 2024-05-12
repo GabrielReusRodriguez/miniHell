@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 21:38:01 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/02 21:43:18 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:35:20 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_env(t_minishell *shell)
 	{
 		var = (t_var *)node->content;
 		printf("%s=%s\n", var->key, var->value);
-		node = node->next;	
+		node = node->next;
 	}
 	return (EXIT_SUCCESS);
 }

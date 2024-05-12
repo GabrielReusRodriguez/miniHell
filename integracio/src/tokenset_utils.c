@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenset_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/07 18:22:26 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:08:37 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_list	*tokens_goto(t_list *token_list, t_token *token_searched, \
 		return (node);
 	return (NULL);
 }
+
+
 /*
 void	*ft_tokenizer_add_token(t_list *node, t_token_set *token_list)
 {

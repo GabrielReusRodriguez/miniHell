@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:46:18 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/04 18:50:47 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:15:22 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	REDIRECT_H
+#ifndef REDIRECT_H
 # define REDIRECT_H
 
 # include "tokens.h"

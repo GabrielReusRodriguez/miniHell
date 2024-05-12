@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_redirect.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:30:05 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/30 19:43:34 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:24:57 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,4 @@ t_list	*tokenizer_new_redheredoc(size_t *i)
 	if (token_node == NULL)
 		return (token_free(token));
 	return (token_node);
-}
-
-bool	tokens_is_redir(t_token token)
-{
-	if (token.type == TOKEN_TYPE_RED_APPEND || \
-			token.type == TOKEN_TYPE_RED_HERE_DOC || \
-			token.type == TOKEN_TYPE_RED_TRUNCATE || \
-			token.type == TOKEN_TYPE_RED_INPUT)
-		return (true);
-	return (false);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/10 01:23:20 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 21:25:31 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include "tokens.h"
 # include "minishell.h"
 
-//TODO: WORK IN PROGRESS
-
 typedef enum e_cmd_type
 {
 	TYPE_REDIR_INPUT,
@@ -30,8 +28,7 @@ typedef enum e_cmd_type
 }	t_cmd_type;
 
 typedef struct s_cmd
-{	
-	
+{
 	t_token		*exec;
 	t_list		*args;
 	t_list		*redir_in;

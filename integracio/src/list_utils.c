@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:19:03 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/01 19:24:17 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:01:56 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ t_list	*list_getlast(t_list	*list)
 		return (NULL);
 	while (node->next != NULL)
 		node = node->next;
-	return (node);	
+	return (node);
 }

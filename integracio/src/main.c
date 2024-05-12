@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/09 19:33:44 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:01:21 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	treat_line(t_minishell *shell, t_string line)
 	t_token_set	token_set;
 	t_cmd_set	cmd_set;
 	size_t		i;
-	
+
 	if (tokenizer_valida_str(line) == false)
 	{
 		printf("Syntax error quotes not closed\n");
@@ -61,16 +61,13 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal_set_mode(SIGNAL_MODE_INTERACTIVE);
 		line = readline(MINISHELL_PROMPT);
-		//TODO: print error message
 		if (line == NULL)
 			break ;
-		//TODO: cambiar strlen por strisempty
 		if (ft_strlen(line) > 0)
 		{
 			treat_line(&shell, line);
 			//rl_on_new_line();
 			add_history(line);
-			//Aqui va el tokenizer, procesado, balblablabla...
 		}
 		free(line);
 		printf("%d", shell.status.return_status);

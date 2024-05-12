@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/10 00:43:55 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 21:20:41 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@
 # define SIGNAL_MODE_NOOP 3
 
 # define MINISHELL_PROMPT	"\033[1;34mminishell> \033[0m"
-//# define MINISHELL_PROMPT "minishell> "
 
 typedef struct s_minishell_cfg
 {
 	t_environment	env;
 	t_var			*var_path;
-	t_var           *var_pwd;
-    t_string        pwd;
+	t_var			*var_pwd;
+	t_string		pwd;
 	struct termios	termios;
 }	t_minishell_cfg;
 

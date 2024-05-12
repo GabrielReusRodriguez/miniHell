@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:32:11 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:15:49 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 21:34:56 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@ t_list	*tokenizer_new_dquote(t_string str, size_t *pos)
 
 	if (tokenizer_ischarclosed(str, *pos, '\"') == false)
 	{
-	/*	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
-					ft_strdup("\""));
-		if (token_node == NULL)
-			return (NULL);
-            */
-		token_node =tokenizer_new_token_node(TOKEN_TYPE_EMPTY, \
+		token_node = tokenizer_new_token_node(TOKEN_TYPE_EMPTY, \
 					NULL);
 		if (token_node == NULL)
-			return (NULL);					
+			return (NULL);
 		(*pos)++;
 		return (token_node);
 	}
@@ -49,14 +44,8 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 	t_list	*token_node;
 	size_t	i;
 
-    printf("Nuevo squote\n");
 	if (tokenizer_ischarclosed(str, *pos, '\'') == false)
 	{
-	/*	token_node = tokenizer_new_token(TOKEN_TYPE_WORD_DQUOTE, \
-					ft_strdup("\'"));
-		if (token_node == NULL)
-			return (NULL);
-            */
 		token_node = tokenizer_new_token_node(TOKEN_TYPE_EMPTY, \
 					NULL);
 		if (token_node == NULL)
@@ -74,32 +63,3 @@ t_list	*tokenizer_new_squote(t_string str, size_t *pos)
 	*pos = *pos + i + 1;
 	return (token_node);
 }
-/*
-t_list	*tokenizer_new_squote(t_string str, size_t *pos)
-{
-	t_token	*token;
-	size_t	i;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	if (tokenizer_ischarclosed(str, *pos, '\'') == false)
-	{
-		token->type = TOKEN_TYPE_EMPTY;
-		token->value = ft_strdup("\'");
-		if (token->value == NULL)
-			return (NULL);
-		(*pos)++;
-		return (ft_lstnew(token));
-	}
-	i = 1;
-	while (str[*pos + i] != '\0' && str[*pos + i] != '\'')
-		i++;
-	token->type = TOKEN_TYPE_WORD_SQUOTE;
-	token->value = ft_substr(str, *pos, i + 1);
-	if (token->value == NULL)
-		return (NULL);
-	*pos = *pos + i + 1;
-	return (ft_lstnew(token));
-}
-*/

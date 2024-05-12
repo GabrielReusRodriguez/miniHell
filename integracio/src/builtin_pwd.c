@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:56:27 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/10 00:58:30 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:29:30 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int	builtin_pwd(t_minishell *shell, t_cmd cmd)
 {
 	(void)cmd;
-//	ft_putendl_fd(shell->cfg.pwd->value, STDOUT_FILENO);
 	ft_putendl_fd(shell->cfg.pwd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }

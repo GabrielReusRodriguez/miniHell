@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:08:48 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 22:23:33 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,18 @@
 #include "tokens.h"
 #include "error_handler.h"
 
-t_token *token_new(int type, t_string value)
+t_token	*token_new(int type, t_string value)
 {
-    t_token *token;
+	t_token	*token;
 
-    token = (t_token *)malloc(sizeof(t_token));
-    if (token == NULL)
-        error_system_crash("Error at memory malloc\n");
-    token->type = type;
-    token->value = value;
-    return (token);
+	token = (t_token *)malloc(sizeof (t_token));
+	if (token == NULL)
+		error_system_crash("Error at memory malloc\n");
+	token->type = type;
+	token->value = value;
+	return (token);
 }
 
-/*
-t_token_set	tokens_new(void)
-{
-	t_token_set	token_set;
-
-	token_set.last_read_token = NULL;
-	token_set.tokens = NULL;
-	token_set.total = 0;
-	return (token_set);
-}
-*/
 void	*token_free(t_token *token)
 {
 	if (token != NULL)
@@ -47,15 +36,6 @@ void	*token_free(t_token *token)
 		free (token);
 	}
 	return (NULL);
-}
-
-bool	tokens_isword(t_token token)
-{
-	if (token.type == TOKEN_TYPE_WORD || \
-			token.type == TOKEN_TYPE_WORD_DQUOTE || \
-			token.type == TOKEN_TYPE_WORD_SQUOTE)
-		return (true);
-	return (false);
 }
 
 t_token	*tokens_clone(t_token token)

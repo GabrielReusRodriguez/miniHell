@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:20:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 22:20:10 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 21:17:13 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ Clase a medio hacer, se necesita el include para el tokenizer...
 /*
 	parser.c
 */
-void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set	*cmd_set, t_environment *env);
+void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set *cmd_set, \
+			t_environment *env);
 size_t	parser_count_cmds(t_token_set token_set);
-void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, t_environment *env);
-void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, t_environment *env);
+void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, \
+			t_environment *env);
+void	*parser_create_cmd(t_list *first_token, t_list *last_token, \
+			t_cmd *cmd, t_environment *env);
 
 /*
 	parser_utils.c

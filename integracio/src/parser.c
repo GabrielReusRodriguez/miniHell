@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/10 12:50:19 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:00:09 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ Chuleta gramaticas bash
 https://cmdse.github.io/pages/appendix/bash-grammar.html
 */
 
-void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set	*cmd_set, t_environment *env)
+void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set *cmd_set, \
+			t_environment *env)
 {
 	t_cmd		cmd;
 	size_t		i;
@@ -34,17 +35,17 @@ void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set	*cmd_set, t_environmen
 	while (i < cmd_set->cmd_count)
 	{
 		if (parser_get_next_cmd(token_set, &cmd, env) == NULL)
-        {
+		{
 			cmd_destroy_set(cmd_set);
 			cmd_destroy(&cmd);
 			return (error_print("Error getting the commands.\n"));
 		}
-        if (cmd_isvalid(cmd) == false)
-        {
-            cmd_destroy_set(cmd_set);
+		if (cmd_isvalid(cmd) == false)
+		{
+			cmd_destroy_set(cmd_set);
 			cmd_destroy(&cmd);
 			return (error_print("Syntax error at command.\n"));
-        }
+		}
 		cmd_set->cmds[i] = cmd;
 		i++;
 	}
@@ -73,7 +74,8 @@ size_t	parser_count_cmds(t_token_set token_set)
 	return (cmd_count + 1);
 }
 
-void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, t_environment *env)
+void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, \
+			t_environment *env)
 {
 	t_list	*node;
 	t_token	*token;
@@ -100,7 +102,8 @@ void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, t_environment *env
 	return (parser_create_cmd(first_token, last_token, cmd, env));
 }
 
-void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, t_environment *env)
+void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, \
+			t_environment *env)
 {
 	t_list	*node;
 	t_token	*token;
@@ -111,16 +114,14 @@ void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, t_e
 	while (node != NULL && node != last_token)
 	{
 		token = (t_token *)node->content;
-//		expansor_expand(env, token);
-//		expansor_vars_replace_vars(token, env);
-		if (tokens_is_redir(*token) == true)
+		if (tokens_isredir(*token) == true)
 			if (parser_parse_redir(&node, last_token, cmd) == NULL)
 				return (NULL);
 		if (tokens_isword(*token) == true)
-            if (parser_parse_word(&node, cmd) == NULL)
+			if (parser_parse_word(&node, cmd) == NULL)
 				return (NULL);
-        if (node != NULL)
-		    node = node->next;
+		if (node != NULL)
+			node = node->next;
 	}
 	return (cmd);
 }

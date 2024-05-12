@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:26:03 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/10 12:49:39 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:27:10 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ bool	cmd_isvalid(t_cmd cmd)
 {
 	t_redirect	*redir;
 
-	while(cmd.redir_in != NULL)
+	while (cmd.redir_in != NULL)
 	{
 		redir = (t_redirect *)cmd.redir_in->content;
 		if (redir == NULL || redir->type == NULL || redir->target == NULL)
 			return (false);
 		cmd.redir_in = cmd.redir_in->next;
 	}
-	while(cmd.redir_out != NULL)
+	while (cmd.redir_out != NULL)
 	{
 		redir = (t_redirect *)cmd.redir_out->content;
 		if (redir == NULL || redir->type == NULL || redir->target == NULL)

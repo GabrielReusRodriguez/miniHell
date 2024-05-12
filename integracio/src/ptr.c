@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:16:41 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/11 01:58:41 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:01:24 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ void	*ptr_freematrix_wsize(t_string *matrix, size_t size)
 	return (NULL);
 }
 
-
-t_string    *ptr_new_matrix(size_t size)
+t_string	*ptr_new_matrix(size_t size)
 {
-	t_string    *matrix;
+	t_string	*matrix;
 	size_t		i;
 
-	matrix = (t_string *)malloc((size + 1)*sizeof(t_string));
+	matrix = (t_string *)malloc((size + 1) * sizeof(t_string));
 	if (matrix == NULL)
 		return (NULL);
 	i = 0;

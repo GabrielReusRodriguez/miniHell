@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_debug.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:10:08 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/05 18:51:16 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:27:54 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	cmd_debug(t_cmd cmd)
 			}
 			printf("\tEND ARGs :\n");
 		}
-		while(cmd.redir_out != NULL)
+		while (cmd.redir_out != NULL)
 		{
 			redirect = (t_redirect *)cmd.redir_out->content;
 			if (redirect->type->type == TOKEN_TYPE_RED_APPEND)

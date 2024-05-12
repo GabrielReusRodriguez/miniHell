@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/11 02:04:32 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:55:19 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,69 @@
 #include "expansor.h"
 #include "error_handler.h"
 
-static void    tokenizer_add_space(t_list **token_list)
+static void	tokenizer_add_space(t_list **token_list)
 {
 	t_list		*node;
-    t_string    space;
+	t_string	space;
 
-    space = ft_strdup("");
-    if (space == NULL)
-        error_system_crash("Error at memory malloc\n");
-    node = tokenizer_new_token_node(TOKEN_TYPE_SPACE, space);
-    ft_lstadd_back(token_list, node);
-}		
+	space = ft_strdup("");
+	if (space == NULL)
+		error_system_crash("Error at memory malloc\n");
+	node = tokenizer_new_token_node(TOKEN_TYPE_SPACE, space);
+	ft_lstadd_back(token_list, node);
+}
 
+static void	tokenizer_expand_vars(t_list *list, t_environment *env)
+{
+	t_list	*node;
+
+	node = list;
+	while (node != NULL)
+	{
+		if (node->next != NULL)
+			expansor_vars_replace_vars(node->content, node->next->content, env);
+		else
+			expansor_vars_replace_vars(node->content, NULL, env);
+		node = node->next;
+	}
+}
+
+void	tokenizer_loop(t_string str, t_token_set *token_list)
+{
+	t_list		*node;
+	size_t		i;
+
+	while (str[i] != '\0')
+	{
+		while (tokenizer_charinset(str[i], TOKENS_SEPARATORS) == true)
+			i++;
+		if (str[i] == '\0')
+			break ;
+		node = tokenizer_get_next_token(str, &i);
+		if (node == NULL)
+		{
+			tokens_destroy_tokenlist(token_list);
+			return ;
+		}
+		ft_lstadd_back(&token_list->tokens, node);
+		token_list->total++;
+		if (tokenizer_charinset(str[i], TOKENS_SEPARATORS))
+			tokenizer_add_space(&token_list->tokens);
+	}
+}
+
+t_token_set	tokenizer(t_string str, t_environment *env)
+{
+	t_token_set	token_list;
+
+	token_list = token_set_new();
+	tokenizer_loop(str, &token_list);
+	tokenizer_expand_vars(token_list.tokens, env);
+	tokens_debug(token_list);
+	return (token_list);
+}
+
+/*
 t_token_set	tokenizer(t_string str, t_environment *env)
 {
 	t_token_set	token_list;
@@ -41,7 +92,7 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 	while (str[i] != '\0')
 	{
 		while (tokenizer_charinset(str[i], TOKENS_SEPARATORS) == true)
-			i++;
+		(i)++;	
 		if (str[i] == '\0')
 			break ;
 		node = tokenizer_get_next_token(str, &i);
@@ -50,26 +101,19 @@ t_token_set	tokenizer(t_string str, t_environment *env)
 			tokens_destroy_tokenlist(&token_list);
 			return (token_list);
 		}
-        //expansor_vars_replace_vars(node->content,env);
 		ft_lstadd_back(&token_list.tokens, node);
 		token_list.total++;
-        if (tokenizer_charinset(str[i], TOKENS_SEPARATORS))
-            tokenizer_add_space(&token_list.tokens);
+		if (tokenizer_charinset(str[i], TOKENS_SEPARATORS))
+			tokenizer_add_space(&token_list.tokens);
 	}
-	node = token_list.tokens;
-	while (node != NULL)
-	{
-		if (node->next != NULL)
-			expansor_vars_replace_vars(node->content,node->next->content, env);
-		else
-			expansor_vars_replace_vars(node->content, NULL, env);
-		node = node->next;
-	}
+	tokenizer_expand_vars(token_list.tokens, env);
 	tokens_debug(token_list);
 	return (token_list);
 }
+*/
 
 /*
+	
 	Si nos encontramos unas comillas, comprobamos que estén cerradas.
 	En caso que NO lo estén, simplemente pasamos al siguiente caracter 
 	y las ignoramos tal como marca el enunciado.
@@ -81,10 +125,8 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
 {
 	if (str[*pos] == '|')
 		return (tokenizer_new_pipe(pos));
-    
-    if (str[*pos] == '\"')
+	if (str[*pos] == '\"')
 		return (tokenizer_new_dquote(str, pos));
-    
 	if (str[*pos] == '\'')
 		return (tokenizer_new_squote(str, pos));
 /*
@@ -105,5 +147,3 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
         */
 	return (tokenizer_new_word(str + *pos, pos));
 }
-
-

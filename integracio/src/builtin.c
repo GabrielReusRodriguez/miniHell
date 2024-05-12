@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:18:22 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/09 21:46:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:35:48 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 		return (builtin_export(shell, cmd));
 	if (ft_strcmp(cmd.exec->value, BUILTIN_PWD) == 0)
 		return (builtin_pwd(shell, cmd));
-    if (ft_strcmp(cmd.exec->value, BUILTIN_UNSET) == 0)
+	if (ft_strcmp(cmd.exec->value, BUILTIN_UNSET) == 0)
 		return (builtin_unset(shell, cmd));
 	return (0);
 }

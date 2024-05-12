@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
+#    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/10 01:14:20 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/12 23:49:11 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,10 +70,14 @@ SRC		= 	main 					\
 			cmd_run					\
 			cmd_validator			\
 		  	environment 			\
+			environment2			\
+			environment3			\
 			environment_debug		\
 			error_handler			\
 			expansor				\
 			expansor_var			\
+			expansor_var2			\
+			expansor_var3			\
 			list_utils				\
 		  	minishell 				\
 		  	minishell_cfg 			\
@@ -93,8 +97,10 @@ SRC		= 	main 					\
 			tokenizer_utils			\
 			tokenizer_words			\
 			tokens_utils			\
+			tokens_utils_types		\
 			tokenset_utils			\
 			tokenizer_debug			\
+			txt_utils				\
 			var
 
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
@@ -112,6 +118,7 @@ HDR		= 	minishell.h			\
 			redirect.h			\
 			signal_handler.h	\
 			tokens.h			\
+			txt_utils.h			\
 			var.h
 HDRS	= $(addprefix $(INC_D)/, $(HDR)) 
 FT_LIB	= $(FT_D)/libft.a

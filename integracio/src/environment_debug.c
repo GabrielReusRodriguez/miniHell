@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_debug.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:42:37 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/02 21:27:48 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:24:07 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	env_debug(t_environment env)
 		while (node != NULL)
 		{
 			var = (t_var *)node->content;
-			printf("\t %s = %s\n",  var->key, var->value);
-			node = node->next;	
+			printf("\t %s = %s\n", var->key, var->value);
+			node = node->next;
 		}
 		printf("DEBUG ENV END**************************************\n");
 	}

@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/10 12:49:03 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:28:19 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	cmd_destroy_set(t_cmd_set *cmd_set)
 t_cmd_set	cmd_create_set(t_token_set token_set)
 {
 	t_cmd_set	cmd_set;
-	size_t      i;
+	size_t		i;
 
 	cmd_set.cmd_count = parser_count_cmds(token_set);
 	if (cmd_set.cmd_count == 0)
@@ -81,7 +81,7 @@ t_cmd_set	cmd_create_set(t_token_set token_set)
 	while (i < cmd_set.cmd_count)
 	{
 		cmd_set.cmds[i] = cmd_new();
-		i++;   
+		i++;
 	}
 	return (cmd_set);
 }

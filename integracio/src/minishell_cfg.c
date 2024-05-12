@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/10 01:13:29 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:00:48 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 			cfg->var_pwd = var;
 		node = node->next;
 	}
-    if (cfg->var_pwd != NULL)
-        cfg->pwd = ft_strdup(cfg->var_pwd->value);
-    else
-        cfg->pwd = ft_strdup("");
-    if (cfg->pwd == NULL)
-            error_system_crash("Error at memory malloc\n");
+	if (cfg->var_pwd != NULL)
+		cfg->pwd = ft_strdup(cfg->var_pwd->value);
+	else
+		cfg->pwd = ft_strdup("");
+	if (cfg->pwd == NULL)
+		error_system_crash("Error at memory malloc\n");
 	return (true);
 }
 
 bool	minishell_cfg_unload(t_minishell_cfg *cfg)
 {
 	env_destroy(&cfg->env);
-    ptr_free(cfg->pwd);
+	ptr_free(cfg->pwd);
 	return (true);
 }
