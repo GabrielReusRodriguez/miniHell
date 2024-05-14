@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   environment2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/12 23:38:33 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:53:33 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "environment.h"
 #include "libft.h"
-#include "list_utils.h"
 #include "ptr.h"
 #include "var.h"
 
@@ -49,7 +48,7 @@ void	*env_add_var(t_environment *env, t_var var)
 	t_list	*new_node;
 	t_var	*new_var;
 
-	last_node = list_getlast(env->vars);
+    last_node = ft_lstlast(env->vars);
 	new_var = var_clone(var);
 	if (new_var == NULL)
 		return (NULL);

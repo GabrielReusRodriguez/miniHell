@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 21:55:19 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:08:32 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	tokenizer_loop(t_string str, t_token_set *token_list)
 	t_list		*node;
 	size_t		i;
 
+    i = 0;
 	while (str[i] != '\0')
 	{
 		while (tokenizer_charinset(str[i], TOKENS_SEPARATORS) == true)

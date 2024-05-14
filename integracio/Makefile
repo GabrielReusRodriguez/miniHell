@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/12 23:49:11 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/05/14 23:52:02 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRC		= 	main 					\
 			builtin_unset			\
 			cmd						\
 			cmd_debug				\
+			cmd_heredoc				\
 			cmd_run					\
 			cmd_validator			\
 		  	environment 			\
@@ -78,7 +79,6 @@ SRC		= 	main 					\
 			expansor_var			\
 			expansor_var2			\
 			expansor_var3			\
-			list_utils				\
 		  	minishell 				\
 		  	minishell_cfg 			\
 		  	minishell_stat 			\

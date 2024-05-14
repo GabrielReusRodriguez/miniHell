@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/12 23:01:21 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:31:06 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	treat_line(t_minishell *shell, t_string line)
 	i = 0;
 	while (i < cmd_set.cmd_count)
 	{
+        cmd_heredoc(&cmd_set.cmds[i], shell->cfg.env);
 		cmd_debug(cmd_set.cmds[i]);
 		i++;
 	}

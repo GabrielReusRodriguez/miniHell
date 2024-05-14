@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 21:25:31 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/14 22:30:37 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_cmd
 	t_list		*args;
 	t_list		*redir_in;
 	t_list		*redir_out;
-
+    t_string    here_doc;
 	int			pipe[2];
 	int			status;
 }	t_cmd;
@@ -74,5 +74,11 @@ bool		cmd_isbuiltin(t_cmd cmd);
 void		cmd_debug(t_cmd cmd);
 
 //char		*cmd_builtin(t_cmd cmd);
+
+/*
+    cmd_redirect.c
+*/
+void        cmd_heredoc(t_cmd *cmd, t_environment env);
+
 
 #endif

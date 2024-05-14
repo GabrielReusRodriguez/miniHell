@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   environment3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/13 00:00:26 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/14 23:53:46 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "environment.h"
 #include "libft.h"
-#include "list_utils.h"
 #include "ptr.h"
 #include "var.h"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 23:28:19 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:31:44 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_cmd	cmd_new(void)
 	cmd.redir_in = NULL;
 	cmd.redir_out = NULL;
 	cmd.status = -1;
+	cmd.here_doc = NULL;
 	return (cmd);
 }
 
@@ -41,6 +42,8 @@ void	cmd_destroy(t_cmd *cmd)
 		ft_lstclear(&cmd->redir_in, redirect_freenode);
 	if (cmd->redir_out != NULL)
 		ft_lstclear(&cmd->redir_out, redirect_freenode);
+	if (cmd->here_doc!= NULL)
+		free(cmd->here_doc);
 }
 
 void	cmd_destroy_set(t_cmd_set *cmd_set)
