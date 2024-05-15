@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_getters_redirect.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 23:59:54 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/15 22:22:55 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,44 @@ static t_token	*parser_jump_spaces(t_list **node, t_list *end)
 	return (token);
 }
 
+static t_string parser_parse_redir_inout_joint(t_string value, t_string token_value)
+{
+	t_string	aux;
+
+	aux = ft_strjoin(value, token_value);
+	ptr_check_malloc_return(aux, "Error at memory malloc\n");
+	free (value);
+	return (aux);
+}
+
+static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
+{
+	t_token		*token;
+	t_string	value;
+	t_uchar		token_type;
+
+	if (node == NULL)
+		return (NULL);
+	token_type = TOKEN_TYPE_WORD_DQUOTE;
+	token = parser_jump_spaces(&node, end);
+	if (node == NULL || node == end || tokens_isredir(*token))
+		return (error_print("Syntax Error\n"));
+	value = ft_strdup("");
+	ptr_check_malloc_return(value, "Error at memory malloc\n");
+	while (node != NULL && tokens_isword(*token))
+	{
+		if (token->type != TOKEN_TYPE_WORD_DQUOTE)
+			token_type = TOKEN_TYPE_WORD;
+		value = parser_parse_redir_inout_joint(value, token->value);
+		node = node->next;
+		if (node != NULL)
+			token = node->content;
+	}
+	*list = node;
+	return (token_new(token_type, value));
+}
+
+/*
 static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
 {
 	t_token		*token;
@@ -44,14 +82,12 @@ static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
 	if (node == NULL || node == end || tokens_isredir(*token))
 		return (error_print("Syntax Error\n"));
 	value = ft_strdup("");
-	if (value == NULL)
-		error_system_crash("Error at memory malloc\n");
+	ptr_check_malloc_return(value, "Error at memory malloc\n");
 	while (node != NULL && tokens_isword(*token))
 	{
 		aux = value;
 		value = ft_strjoin(value, token->value);
-		if (value == NULL)
-			error_system_crash("Error at memory malloc\n");
+		ptr_check_malloc_return(value, "Error at memory malloc\n");
 		free (aux);
 		node = node->next;
 		if (node != NULL)
@@ -60,7 +96,7 @@ static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
 	*list = node;
 	return (token_new(TOKEN_TYPE_WORD, value));
 }
-
+*/
 static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
 				t_cmd *cmd)
 {
@@ -99,197 +135,3 @@ void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
 	}
 	return (node);
 }
-
-/*
-static void	*parser_parse_redir_in(t_list **list, t_list *node, t_list *end)
-{
-	t_token		*token;
-	t_string	value;
-	t_string	aux;
-
-	if (node == NULL)
-		return (NULL);
-	token = (t_token *)node->content;
-	while (node != NULL && node != end && token->type == TOKEN_TYPE_SPACE)
-	{
-		node = node->next;
-		if (node != NULL)
-			token = node->content;
-	}
-	if (node == NULL || node == end || tokens_is_redir(*token))
-		return (error_print("Syntax Error\n"));
-	value = ft_strdup("");
-	if (value == NULL)
-		error_system_crash("Error at memory malloc\n");
-	while (node != NULL && tokens_isword(*token))
-	{
-		aux = value;
-		value = ft_strjoin(value, token->value);
-		if (value == NULL)
-			error_system_crash("Error at memory malloc\n");
-		free (aux);
-		node = node->next;
-		if (node != NULL)
-			token = node->content;
-	}
-	*list = node;
-	return (token_new(TOKEN_TYPE_WORD, value));
-}
-
-static void	*parser_parse_redir_out(t_list **list, t_list *node, t_list *end)
-{
-	t_token		*token;
-	t_string	value;
-	t_string	aux;
-
-	if (node == NULL)
-		return (NULL);
-	token = (t_token *)node->content;
-	while (node != NULL && node != end && token->type == TOKEN_TYPE_SPACE)
-	{
-		node = node->next;
-		if (node != NULL)
-			token = node->content;
-	}
-	if (node == NULL || node == end || tokens_is_redir(*token))
-		return (error_print("Syntax Error\n"));
-	value = ft_strdup("");
-	if (value == NULL)
-		error_system_crash("Error at memory malloc\n");
-	while (node != NULL && tokens_isword(*token))
-	{
-		aux = value;
-		value = ft_strjoin(value, token->value);
-		if (value == NULL)
-			error_system_crash("Error at memory malloc\n");
-		free (aux);
-		node = node->next;
-		if (node != NULL)
-		{
-			token = node->content;
-		}
-	}
-	*list = node;
-	return (token_new(TOKEN_TYPE_WORD, value));
-}
-*/
-/*
-void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
-{
-	t_token		*token;
-	t_list		*node;
-	t_list		*new_node;
-	t_redirect	*red;
-
-	node = (*list);
-	red = redirect_new();
-	if (red == NULL)
-		error_system_crash("Error at malloc\n");
-	token = (t_token *)(node->content);
-	red->type = token;
-	if (token->type == TOKEN_TYPE_RED_INPUT || \
-				token->type == TOKEN_TYPE_RED_HERE_DOC)
-	{
-		red->target = parser_parse_redir_in(list, node->next, end);
-		if (red->target == NULL)
-		{
-			redirect_freenode(red);
-			return (NULL);
-		}
-		new_node = ft_lstnew(red);
-		if (new_node == NULL)
-			error_system_crash("Error in memory malloc\n");
-		ft_lstadd_back(&cmd->redir_in, new_node);
-	}
-	if (token->type == TOKEN_TYPE_RED_APPEND || \
-				token->type == TOKEN_TYPE_RED_TRUNCATE)
-	{
-		red->target = parser_parse_redir_out(list, node->next, end);
-		if (red->target == NULL)
-		{
-			redirect_freenode(red);
-			return (NULL);
-		}
-		new_node = ft_lstnew(red);
-		if (new_node == NULL)
-			error_system_crash("Error in memory malloc\n");
-		ft_lstadd_back(&cmd->redir_out, new_node);
-	}
-	return (node);
-}
-*/
-
-/*
-static void	*parser_parse_redir_in(t_list **list, t_list *node, t_list *end)
-{
-	t_token		*token;
-
-	while (node != NULL && node != end)
-	{
-		token = (t_token *)node->content;
-		if (tokens_isword(*token) == true)
-		{
-			*list = node;
-			return (token);
-		}
-		if (tokens_is_redir(*token) == true)
-			return (error_print("Syntax Error\n"));
-		node = node->next;
-	}
-	return (error_print("Syntax Error\n"));
-}
-
-static void	*parser_parse_redir_out(t_list **list, t_list *node, t_list *end)
-{
-	t_token		*token;
-
-	while (node != NULL && node != end)
-	{
-		token = (t_token *)node->content;
-		if (tokens_isword(*token) == true)
-		{
-			*list = node;
-			return (token);
-		}
-		if (tokens_is_redir(*token) == true)
-			return (error_print("Syntax Error\n"));	
-		node = node->next;
-	}
-	return (error_print("Syntax Error\n"));
-}
-
-void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
-{
-	t_token		*token;
-	t_list		*node;
-	t_list		*new_node;
-	t_redirect	*red;
-
-	node = (*list);
-	red = redirect_new();
-	if (red == NULL)
-		error_system_crash("Error at malloc\n");
-	token = (t_token *)(node->content);
-	red->type = token;
-	if (token->type == TOKEN_TYPE_RED_INPUT || \
-				token->type == TOKEN_TYPE_RED_HERE_DOC)
-	{
-		red->target = parser_parse_redir_in(list, node->next, end);
-		new_node = ft_lstnew(red);
-		if (new_node == NULL)
-			error_system_crash("Error in memory malloc\n");
-		ft_lstadd_back(&cmd->redir_in, new_node);
-	}
-	if (token->type == TOKEN_TYPE_RED_APPEND || \
-				token->type == TOKEN_TYPE_RED_TRUNCATE)
-	{
-		red->target = parser_parse_redir_out(list, node->next, end);
-		new_node = ft_lstnew(red);
-		if (new_node == NULL)
-			error_system_crash("Error in memory malloc\n");
-		ft_lstadd_back(&cmd->redir_out, new_node);
-	}
-	return (node);
-}
-
-*/
