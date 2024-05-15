@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/14 22:31:06 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/15 23:05:40 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	main(int argc, char **argv, char **env)
 		printf("%d", shell.status.return_status);
 	}
 	minishell_destroy(shell);
+    rl_clear_history();
 	return (shell.status.return_status);
 }
