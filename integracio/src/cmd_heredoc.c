@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 21:34:19 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/16 22:28:43 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/16 22:45:55 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ static	t_string	cmd_heredoc_get(t_string limit)
 	next_line = here_doc;
 	while (next_line != NULL)
 	{
-  //      printf(">");
         ft_putstr_fd(">",STDOUT_FILENO);
         next_line = get_next_line(STDIN_FILENO);
 		//next_line = readline(">");
@@ -184,7 +183,6 @@ void    cmd_heredoc(t_cmd *cmd, t_environment env)
 		{
 			ptr_free(cmd->here_doc);
 			cmd->here_doc = cmd_heredoc_get(redir->target->value);
-			printf("redir target_type = %d\n", redir->target->type);
 			if (redir->target->type != TOKEN_TYPE_WORD_DQUOTE && \
 					redir->target->type != TOKEN_TYPE_WORD_SQUOTE)
 			{
