@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/14 22:08:32 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:42:22 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	tokenizer_loop(t_string str, t_token_set *token_list)
 	t_list		*node;
 	size_t		i;
 
-    i = 0;
+	i = 0;
 	while (str[i] != '\0')
 	{
 		while (tokenizer_charinset(str[i], TOKENS_SEPARATORS) == true)
@@ -131,9 +131,9 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
 	if (str[*pos] == '\'')
 		return (tokenizer_new_squote(str, pos));
 /*
-    if (str[*pos] == '(')
+	if (str[*pos] == '(')
 		return (tokenizer_new_paropen(pos));
-        */
+		*/
 	if (str[*pos] == '<' && str[*pos + 1] == '<')
 		return (tokenizer_new_redheredoc(pos));
 	if (str[*pos] == '<')
@@ -143,8 +143,8 @@ t_list	*tokenizer_get_next_token(t_string str, size_t *pos)
 	if (str[*pos] == '>')
 		return (tokenizer_new_redtruncate(pos));
 	/*
-    if (str[*pos] == ')')
+	if (str[*pos] == ')')
 		return (tokenizer_new_parclose(pos));
-        */
+		*/
 	return (tokenizer_new_word(str + *pos, pos));
 }

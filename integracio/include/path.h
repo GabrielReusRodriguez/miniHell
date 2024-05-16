@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var.h                                              :+:      :+:    :+:   */
+/*   path.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 19:32:51 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/16 21:23:29 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/16 20:00:54 by gabriel           #+#    #+#             */
+/*   Updated: 2024/05/16 21:06:08 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VAR_H
-# define VAR_H
+#ifndef PAT_H
+# define PATH_H
 
 # include "datatypes.h"
+# include "environment.h"
 
-typedef struct s_var
+typedef struct s_route
 {
-	t_string	key;
-	t_string	value;
-}	t_var;
+	t_string	*folders;
+	size_t		num_folders;		
+}	t_route;
 
-/*
-	var.c
-*/
-t_var		var_new(void);
-t_var		*var_init(t_string str, t_var *var);
-t_var		*var_clone(t_var var);
-t_string	var_2_string(t_var var);
-void		var_destroy(t_var	*var);
-t_var		var_getenvvar(t_string var_name);
 
 
 /*
-    var2.c
+	path.c
 */
-bool    var_has_valid_name(t_string key);
+
+t_string	path_getcwd(void);
+void		path_chdir(t_string newdir, t_environment *env);
+void		path_isrelative(t_string route);
 
 #endif

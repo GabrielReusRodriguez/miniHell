@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   var.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:31:43 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/12 21:29:21 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:33:46 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "var.h"
 #include "ptr.h"
+#include "expansor.h"
 
 t_var	var_new(void)
 {
@@ -35,6 +36,11 @@ t_var	*var_init(t_string str, t_var *var)
 	var->key = ft_substr(str, 0, initial_pos);
 	if (var->key == NULL)
 		return (NULL);
+	if (var_has_valid_name(var->key) == false)
+	{
+		var_destroy(var);
+		return (NULL);		
+	}
 	var->value = ft_substr(str, initial_pos + 1, size);
 	if (var->value == NULL)
 	{

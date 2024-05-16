@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:20:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 21:17:13 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:41:08 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ Clase a medio hacer, se necesita el include para el tokenizer...
 # include "cmd.h"
 # include "environment.h"
 
-# define PARSER_CMD_SEPARATORS "|&;"
+# define PARSER_CMD_SEPARATORS "|"
 
 /*
 	parser.c

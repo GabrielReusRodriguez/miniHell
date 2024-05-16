@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/14 23:52:02 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/16 21:34:11 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRC		= 	main 					\
 		  	minishell 				\
 		  	minishell_cfg 			\
 		  	minishell_stat 			\
+			path					\
 			parser					\
 			parser_getters_cmd		\
 			parser_getters_redirect	\
@@ -101,7 +102,8 @@ SRC		= 	main 					\
 			tokenset_utils			\
 			tokenizer_debug			\
 			txt_utils				\
-			var
+			var						\
+			var2
 
 SRCS	= $(addprefix $(SR_D)/, $(addsuffix .c, $(SRC)))
 OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
@@ -114,6 +116,7 @@ HDR		= 	minishell.h			\
 			error_handler.h		\
 			expansor.h			\
 			parser.h			\
+			path.h				\
 			ptr.h				\
 			redirect.h			\
 			signal_handler.h	\

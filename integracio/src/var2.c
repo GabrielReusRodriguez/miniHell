@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var.h                                              :+:      :+:    :+:   */
+/*   var2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 19:32:51 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/16 21:23:29 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/16 21:23:44 by gabriel           #+#    #+#             */
+/*   Updated: 2024/05/16 21:31:06 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VAR_H
-# define VAR_H
+#include "datatypes.h"
+#include "expansor.h"
+#include "libft.h"
 
-# include "datatypes.h"
-
-typedef struct s_var
+/*
+	Para validar el formato de variable lo hacemos con la funcion vars_find_end
+	ya que asi tenemos centralizado en una funcion el formato de var.
+*/
+bool    var_has_valid_name(t_string key)
 {
-	t_string	key;
-	t_string	value;
-}	t_var;
+	size_t  len;
+	size_t  end_var;
 
-/*
-	var.c
-*/
-t_var		var_new(void);
-t_var		*var_init(t_string str, t_var *var);
-t_var		*var_clone(t_var var);
-t_string	var_2_string(t_var var);
-void		var_destroy(t_var	*var);
-t_var		var_getenvvar(t_string var_name);
-
-
-/*
-    var2.c
-*/
-bool    var_has_valid_name(t_string key);
-
-#endif
+	len = ft_strlen(key);
+	end_var  = expansor_vars_find_end_var(key, 0);
+	if (len == end_var)
+		return (true);
+	return (false);
+}
