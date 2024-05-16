@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/15 22:22:55 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:49:38 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_token	*parser_jump_spaces(t_list **node, t_list *end)
 	return (token);
 }
 
-static t_string parser_parse_redir_inout_joint(t_string value, t_string token_value)
+static t_string parser_parse_redir_inout_join(t_string value, t_string token_value)
 {
 	t_string	aux;
 
@@ -60,7 +60,7 @@ static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
 	{
 		if (token->type != TOKEN_TYPE_WORD_DQUOTE)
 			token_type = TOKEN_TYPE_WORD;
-		value = parser_parse_redir_inout_joint(value, token->value);
+		value = parser_parse_redir_inout_join(value, token->value);
 		node = node->next;
 		if (node != NULL)
 			token = node->content;

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 21:34:19 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/15 22:45:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/16 22:28:43 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,37 @@ static t_string	cmd_heredoc_expand_vars(t_string  heredoc, t_environment env)
 	return (acum);
 }
 
+#include "get_next_line.h"
+#include <stdio.h>
+static	t_string	cmd_heredoc_get(t_string limit)
+{
+	t_string	here_doc;
+	t_string	next_line;
+	t_string	aux;
+
+	here_doc = ft_strdup("");
+	ptr_check_malloc_return(here_doc, "Error at memory malloc\n.");
+	next_line = here_doc;
+	while (next_line != NULL)
+	{
+  //      printf(">");
+        ft_putstr_fd(">",STDOUT_FILENO);
+        next_line = get_next_line(STDIN_FILENO);
+		//next_line = readline(">");
+		if (next_line == NULL || ft_strcmp(limit, next_line) == 0)
+        {
+            free (next_line);
+			break;
+        }
+		aux = here_doc;
+		here_doc = ft_strjoin(here_doc, "\n");
+		free (aux);
+		ptr_check_malloc_return(here_doc, "Error at memory malloc\n.");
+		here_doc = text_join(here_doc, next_line);
+	}
+	return (here_doc);
+}
+/*
 static	t_string	cmd_heredoc_get(t_string limit)
 {
 	t_string	here_doc;
@@ -136,7 +167,7 @@ static	t_string	cmd_heredoc_get(t_string limit)
 	}
 	return (here_doc);
 }
-
+*/
 void    cmd_heredoc(t_cmd *cmd, t_environment env)
 {
 	t_redirect	*redir;

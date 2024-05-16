@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:54:34 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/04/19 00:24:49 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:30:30 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*new_line(char *static_buffer)
 	int		len;
 
 	ptr = gnl_strchr(static_buffer, '\n');
-	len = (ptr - static_buffer) + 1;
+	len = (ptr - static_buffer -1) + 1;
 	line = gnl_substr(static_buffer, 0, len);
 	return (line);
 }
@@ -60,7 +60,7 @@ char	*read_file(int fd, char *static_buffer)
 	if (!buffer)
 		return (ft_free(&static_buffer));
 	buffer[0] = '\0';
-	while (bytes_read > 0 && !gnl_strchr(buffer, '\n'))
+    while (bytes_read > 0 && !gnl_strchr(buffer, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read > 0)

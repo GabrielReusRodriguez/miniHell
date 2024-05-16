@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_var.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/12 23:10:02 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:08:42 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ size_t	expansor_vars_find_end_var(t_string str, size_t init)
 	if (str[init + j] == '\0' || !(ft_isalpha(str[init + j]) || \
 			tokenizer_charinset(str[init + j], "_")))
 		return (0);
+    j++;
 	while (ft_isalnum(str[init + j]) || tokenizer_charinset(str[init + j], "_"))
 		j++;
 	return (j);
