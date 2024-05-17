@@ -6,14 +6,11 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 21:34:19 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/16 22:45:55 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/17 19:37:51 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-
-#include <readline/readline.h>
-#include <readline/history.h>
 
 #include "cmd.h"
 #include "environment.h"
@@ -24,59 +21,20 @@
 #include "error_handler.h"
 #include "expansor.h"
 #include "txt_utils.h"
+#include "get_next_line.h"
 
-// /char	*get_next_line(int fd);
-/*
-static	void	cmd_heredoc_find_endvar(t_string heredoc, size_t i)
-{
-	size_t	offset;
-	
-	offset = 1;
-	if (ft_isalpha(heredoc[*i + offset]) == 1)
-	{
-		offset++;
-		while (ft_isalnum(heredoc[*i + offset]) == 1)
-			offset++;
-	}
-}
-*/
-
-/*
-typedef struct s_expansor
-{
-	size_t		i;
-	size_t		init;
-	t_string	str;
-}	t_expansor;
-*/
-
-/*
-t_string	text_join(t_string origin, t_string destiny)
-{
-	t_string	res;
-
-	res = ft_strjoin(origin, destiny);
-	free (origin);
-	free (destiny);
-	if (res == NULL)
-		error_system_crash("Error at memory malloc\n");
-	return (res);
-}
-
-*/
-// t_string	expansor_vars_join_acumulated(t_string acum, t_expansor limits)
-
-static	void	cmd_heredoc_treat_var(t_expansor *expansor, t_string *acum, t_environment env)
+static	void	cmd_heredoc_treat_var(t_expansor *expansor, t_string *acum, \
+                    t_minishell shell)
 {
 	t_string	aux;
 	t_string	var_value;
 	t_var		*var;	
 	size_t		offset;
 
-	offset = expansor_vars_find_end_var( expansor->str, expansor->i + 1);
+	offset = expansor_vars_find_end_var(expansor->str, expansor->i + 1);
 	aux = ft_substr(expansor->str, expansor->i + 1, offset);
 	ptr_check_malloc_return(aux, "Error at memory malloc.\n");
-	var = env_get_var(env, aux);
+	var = env_get_var(shell.cfg.env, aux);
 	free (aux);
 	if (var == NULL)
 		var_value = ft_strdup("");
@@ -88,7 +46,7 @@ static	void	cmd_heredoc_treat_var(t_expansor *expansor, t_string *acum, t_enviro
 	expansor->init = expansor->i;
 }
 
-static t_string	cmd_heredoc_expand_vars(t_string  heredoc, t_environment env)
+static t_string	cmd_heredoc_expand_vars(t_string  heredoc, t_minishell shell)
 {
 	t_string	acum;
 	t_expansor  expansor;
@@ -104,7 +62,7 @@ static t_string	cmd_heredoc_expand_vars(t_string  heredoc, t_environment env)
 		{
 			if (expansor.init < expansor.i)
 				acum = expansor_vars_join_acumulated(acum, expansor);
-			cmd_heredoc_treat_var(&expansor, &acum, env);
+			cmd_heredoc_treat_var(&expansor, &acum, shell);
 		}
 		if (heredoc[expansor.i] != '\0')
 			expansor.i++;
@@ -114,8 +72,6 @@ static t_string	cmd_heredoc_expand_vars(t_string  heredoc, t_environment env)
 	return (acum);
 }
 
-#include "get_next_line.h"
-#include <stdio.h>
 static	t_string	cmd_heredoc_get(t_string limit)
 {
 	t_string	here_doc;
@@ -129,7 +85,6 @@ static	t_string	cmd_heredoc_get(t_string limit)
 	{
         ft_putstr_fd(">",STDOUT_FILENO);
         next_line = get_next_line(STDIN_FILENO);
-		//next_line = readline(">");
 		if (next_line == NULL || ft_strcmp(limit, next_line) == 0)
         {
             free (next_line);
@@ -143,31 +98,8 @@ static	t_string	cmd_heredoc_get(t_string limit)
 	}
 	return (here_doc);
 }
-/*
-static	t_string	cmd_heredoc_get(t_string limit)
-{
-	t_string	here_doc;
-	t_string	next_line;
-	t_string	aux;
 
-	here_doc = ft_strdup("");
-	ptr_check_malloc_return(here_doc, "Error at memory malloc\n.");
-	next_line = here_doc;
-	while (next_line != NULL)
-	{
-		next_line = readline(">");
-		if (next_line == NULL || ft_strcmp(limit, next_line) == 0)
-			break;
-		aux = here_doc;
-		here_doc = ft_strjoin(here_doc, "\n");
-		free (aux);
-		ptr_check_malloc_return(here_doc, "Error at memory malloc\n.");
-		here_doc = text_join(here_doc, next_line);
-	}
-	return (here_doc);
-}
-*/
-void    cmd_heredoc(t_cmd *cmd, t_environment env)
+void    cmd_heredoc(t_cmd *cmd, t_minishell shell)
 {
 	t_redirect	*redir;
 	t_list		*node;
@@ -187,7 +119,7 @@ void    cmd_heredoc(t_cmd *cmd, t_environment env)
 					redir->target->type != TOKEN_TYPE_WORD_SQUOTE)
 			{
 				aux = cmd->here_doc;
-				cmd->here_doc = cmd_heredoc_expand_vars(cmd->here_doc, env);
+				cmd->here_doc = cmd_heredoc_expand_vars(cmd->here_doc, shell);
 				free (aux);
 			}
 		}

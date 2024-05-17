@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/16 21:49:38 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/17 19:28:18 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,6 @@ static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
 	return (token_new(token_type, value));
 }
 
-/*
-static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
-{
-	t_token		*token;
-	t_string	value;
-	t_string	aux;
-
-	if (node == NULL)
-		return (NULL);
-	token = parser_jump_spaces(&node, end);
-	if (node == NULL || node == end || tokens_isredir(*token))
-		return (error_print("Syntax Error\n"));
-	value = ft_strdup("");
-	ptr_check_malloc_return(value, "Error at memory malloc\n");
-	while (node != NULL && tokens_isword(*token))
-	{
-		aux = value;
-		value = ft_strjoin(value, token->value);
-		ptr_check_malloc_return(value, "Error at memory malloc\n");
-		free (aux);
-		node = node->next;
-		if (node != NULL)
-			token = node->content;
-	}
-	*list = node;
-	return (token_new(TOKEN_TYPE_WORD, value));
-}
-*/
 static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
 				t_cmd *cmd)
 {

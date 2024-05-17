@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/16 21:42:22 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/17 19:32:57 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "environment.h"
 #include "expansor.h"
 #include "error_handler.h"
+#include "minishell.h"
 
 static void	tokenizer_add_space(t_list **token_list)
 {
@@ -30,7 +31,10 @@ static void	tokenizer_add_space(t_list **token_list)
 	ft_lstadd_back(token_list, node);
 }
 
+/*
 static void	tokenizer_expand_vars(t_list *list, t_environment *env)
+*/
+static void	tokenizer_expand_vars(t_list *list, t_minishell shell)
 {
 	t_list	*node;
 
@@ -38,9 +42,9 @@ static void	tokenizer_expand_vars(t_list *list, t_environment *env)
 	while (node != NULL)
 	{
 		if (node->next != NULL)
-			expansor_vars_replace_vars(node->content, node->next->content, env);
+			expansor_vars_replace_vars(node->content, node->next->content, shell);
 		else
-			expansor_vars_replace_vars(node->content, NULL, env);
+			expansor_vars_replace_vars(node->content, NULL, shell);
 		node = node->next;
 	}
 }
@@ -70,13 +74,16 @@ void	tokenizer_loop(t_string str, t_token_set *token_list)
 	}
 }
 
+/*
 t_token_set	tokenizer(t_string str, t_environment *env)
+*/
+t_token_set	tokenizer(t_string str, t_minishell shell)
 {
 	t_token_set	token_list;
 
 	token_list = token_set_new();
 	tokenizer_loop(str, &token_list);
-	tokenizer_expand_vars(token_list.tokens, env);
+	tokenizer_expand_vars(token_list.tokens, shell);
 	tokens_debug(token_list);
 	return (token_list);
 }

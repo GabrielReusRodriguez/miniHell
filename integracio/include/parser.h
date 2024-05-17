@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:20:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/16 21:41:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/17 19:45:55 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@ Clase a medio hacer, se necesita el include para el tokenizer...
 # include "tokens.h"
 # include "cmd.h"
 # include "environment.h"
+# include "minishell.h"
 
 # define PARSER_CMD_SEPARATORS "|"
 
 /*
 	parser.c
 */
-void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set *cmd_set, \
-			t_environment *env);
+void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set *cmd_set);
 size_t	parser_count_cmds(t_token_set token_set);
-void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, \
-			t_environment *env);
+void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd);
 void	*parser_create_cmd(t_list *first_token, t_list *last_token, \
-			t_cmd *cmd, t_environment *env);
+			t_cmd *cmd);
 
 /*
 	parser_utils.c

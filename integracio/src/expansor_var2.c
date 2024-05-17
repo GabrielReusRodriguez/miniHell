@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_var2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/12 23:47:21 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:55:47 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 #include "ptr.h"
 #include "expansor.h"
 #include "txt_utils.h"
+#include "minishell.h"
 
-#include <stdio.h>
+//#include <stdio.h>
 
-static t_string	expansor_vars_replace_status(t_string acum, t_expansor *limits)
+static t_string	expansor_vars_replace_status(t_string acum, t_expansor *limits, t_minishell shell)
 {
 	t_string	substring;
 	t_string	res;
 
-	substring = ft_strdup("-1");
-	if (substring == NULL)
-		error_system_crash("Error at memory malloc\n");
+    substring = ft_itoa(shell.status.return_status);
+        ptr_check_malloc_return(substring, "Error recovering status.\n");
 	res = text_join(acum, substring);
 	limits->i = limits->i + 2;
 	limits->init = limits->i;
@@ -71,7 +71,7 @@ y el siguiente
 seria DQWORD, pintaria el dolar y luego la var.
 */
 static t_string	expansor_vars_replace_loop(t_string expanded, \
-			t_expansor *limits, t_token *next_t, t_environment *env)
+			t_expansor *limits, t_token *next_t, t_minishell shell)
 {
 	t_string	substring;
 
@@ -87,11 +87,11 @@ static t_string	expansor_vars_replace_loop(t_string expanded, \
 		}
 		if (limits->str[limits->i + 1] == '?')
 		{
-			expanded = expansor_vars_replace_status(expanded, limits);
+			expanded = expansor_vars_replace_status(expanded, limits, shell);
 			return (expanded);
 		}
 		substring = expansor_vars_get_var(limits->str, limits->i + 1, \
-						&limits->init, env);
+						&limits->init, shell);
 		expanded = text_join(expanded, substring);
 		limits->i = limits->init;
 	}
@@ -100,8 +100,13 @@ static t_string	expansor_vars_replace_loop(t_string expanded, \
 	return (expanded);
 }
 
+/*
 void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
 			t_environment *env)
+*/
+void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
+			t_minishell shell)
+
 {
 	t_string			expanded;
 	t_expansor			expansor;
@@ -111,7 +116,7 @@ void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
 	expanded = expansor_vars_replace_vars_init(&expansor, token->value);
 	while (token->value[expansor.i] != '\0')
 	{
-		expanded = expansor_vars_replace_loop(expanded, &expansor, next_t, env);
+		expanded = expansor_vars_replace_loop(expanded, &expansor, next_t, shell);
 	}
 	if (expansor.init < expansor.i)
 		expanded = expansor_vars_join_acumulated(expanded, expansor);

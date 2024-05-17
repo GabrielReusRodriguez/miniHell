@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:16:58 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 23:51:47 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:50:49 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "datatypes.h"
 # include "libft.h"
 # include "environment.h"
+# include "minishell.h"
 //# include "ft_cmd.h"
 
 /*
@@ -68,7 +69,7 @@ typedef struct s_token_set
 	tokenizer.c
 */
 //t_token_set	tokenizer(t_string str);
-t_token_set	tokenizer(t_string str, t_environment *env);
+t_token_set	tokenizer(t_string str, t_minishell shell);
 t_list		*tokenizer_get_next_token(t_string str, size_t *pos);
 t_list		*tokenizer_new_word(t_string str, size_t *final_pos);
 t_list		*tokenizer_new_pipe(size_t *i);

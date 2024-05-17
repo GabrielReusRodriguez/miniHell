@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/14 22:30:37 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/17 19:31:02 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void		cmd_debug(t_cmd cmd);
 /*
     cmd_redirect.c
 */
-void        cmd_heredoc(t_cmd *cmd, t_environment env);
+//void        cmd_heredoc(t_cmd *cmd, t_environment env);
+void        cmd_heredoc(t_cmd *cmd, t_minishell shell);
 
 
 #endif
