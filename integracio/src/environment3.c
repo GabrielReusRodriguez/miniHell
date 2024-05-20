@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/14 23:53:46 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/20 21:29:20 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ t_string	*env_to_vector(t_environment env)
 
 	i = env_count_num_vars(env);
 	str_env = ptr_new_matrix(i);
-	if (str_env == NULL)
-		return (NULL);
 	node = env.vars;
 	i = 0;
 	while (node != NULL)

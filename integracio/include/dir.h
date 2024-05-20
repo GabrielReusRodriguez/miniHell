@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.h                                             :+:      :+:    :+:   */
+/*   dir.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 20:00:54 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 21:34:44 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/20 21:39:25 by gabriel           #+#    #+#             */
+/*   Updated: 2024/05/20 21:40:10 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PAT_H
-# define PATH_H
+#ifndef DIR_H
+# define DIR_H
 
 # include "datatypes.h"
-# include "environment.h"
 
-typedef struct s_route
-{
-	t_string	*folders;
-	size_t		num_folders;		
-}	t_route;
-
-
-
-/*
-	path.c
-*/
-t_string	path_getcwd(void);
-void		path_chdir(t_string newdir, t_environment *env);
-void		path_isrelative(t_string route);
-
-/*
-    file.c
-*/
-
+bool    dir_isdir(t_string path);
 
 #endif

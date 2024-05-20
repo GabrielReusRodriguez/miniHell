@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ptr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:16:41 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 22:01:24 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:51:44 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	*ptr_free(void *ptr)
 {
 	free (ptr);
 	return (NULL);
+}
+
+void	ptr_check_malloc_return(void *ptr, t_string msg)
+{
+	if (ptr == NULL)
+		error_system_crash(msg);
 }
 
 void	*ptr_freematrix(t_string *matrix)
@@ -61,8 +67,7 @@ t_string	*ptr_new_matrix(size_t size)
 	size_t		i;
 
 	matrix = (t_string *)malloc((size + 1) * sizeof(t_string));
-	if (matrix == NULL)
-		return (NULL);
+    ptr_check_malloc_return(matrix, "Error at memory malloc.\n");
 	i = 0;
 	while (i < size)
 	{
@@ -71,10 +76,4 @@ t_string	*ptr_new_matrix(size_t size)
 	}
 	matrix[i] = NULL;
 	return (matrix);
-}
-
-void	ptr_check_malloc_return(void *ptr, t_string msg)
-{
-	if (ptr == NULL)
-		error_system_crash(msg);
 }
