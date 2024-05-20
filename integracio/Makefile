@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/20 22:32:04 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/20 23:47:09 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ GNL_D	= gnl
 
 SRC		= 	main 					\
 			builtin					\
+			builtin_cd				\
 			builtin_echo			\
 			builtin_env				\
 			builtin_pwd				\

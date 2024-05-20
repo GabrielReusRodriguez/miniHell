@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:18:22 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/12 23:35:48 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/20 23:37:03 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 
 	token = cmd.exec;
 	if (ft_strcmp(cmd.exec->value, BUILTIN_CD) == 0)
-		return (-1);
+		return (builtin_cd(shell, cmd));
 	if (ft_strcmp(token->value, BUILTIN_ECHO) == 0)
 		return (builtin_echo(cmd));
 	if (ft_strcmp(cmd.exec->value, BUILTIN_ENV) == 0)

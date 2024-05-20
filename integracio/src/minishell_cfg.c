@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/12 23:00:48 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/20 23:35:53 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "libft.h"
 #include "error_handler.h"
 #include "ptr.h"
+
+#include "path.h"
+#include <stdio.h>
 
 bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 {
@@ -36,7 +39,8 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 	if (cfg->var_pwd != NULL)
 		cfg->pwd = ft_strdup(cfg->var_pwd->value);
 	else
-		cfg->pwd = ft_strdup("");
+//		cfg->pwd = ft_strdup("");
+        cfg->pwd = path_getcwd();
 	if (cfg->pwd == NULL)
 		error_system_crash("Error at memory malloc\n");
 	return (true);

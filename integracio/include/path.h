@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:00:54 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 21:34:44 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/21 00:21:36 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PATH_H
 
 # include "datatypes.h"
-# include "environment.h"
+# include "minishell.h"
 
 typedef struct s_route
 {
@@ -28,7 +28,7 @@ typedef struct s_route
 	path.c
 */
 t_string	path_getcwd(void);
-void		path_chdir(t_string newdir, t_environment *env);
+void		path_chdir(t_string newdir, t_minishell *shell);
 void		path_isrelative(t_string route);
 
 /*
