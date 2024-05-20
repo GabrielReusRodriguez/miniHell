@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/20 18:02:14 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/20 22:53:02 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@
 #include "parser.h"
 #include "cmd.h"
 #include "environment.h"
+#include "tokens.h"
+
+bool    is_empty_line(t_string line)
+{
+    
+    size_t  i;
+    
+    if (ft_strlen(line) == 0)
+        return (true);
+    i = 0;
+    while (line[i] != '\0')
+    {
+        if (tokenizer_charinset(line[i], TOKENS_SEPARATORS) == false)
+            return (false);
+        i++;        
+    }
+    return (true);
+}
+
 
 void	treat_line(t_minishell *shell, t_string line)
 {
@@ -64,7 +83,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline(MINISHELL_PROMPT);
 		if (line == NULL)
 			break ;
-		if (ft_strlen(line) > 0)
+		if (is_empty_line(line) == false)
 		{
 			treat_line(&shell, line);
 			//rl_on_new_line();
