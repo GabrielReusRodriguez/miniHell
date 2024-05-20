@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/21 00:22:40 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/21 00:24:23 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "libft.h"
 #include "ptr.h"
 #include "var.h"
-
-#include <stdio.h>
 
 t_list	*env_findvar(t_environment env, t_string var_name)
 {
