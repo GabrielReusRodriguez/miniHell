@@ -20,5 +20,8 @@ void		*ptr_freematrix(t_string *matrix);
 void		*ptr_freematrix_wsize(t_string *matrix, size_t size);
 t_string	*ptr_new_matrix(size_t size);
 void		ptr_check_malloc_return(void *ptr, t_string msg);
+void		*safe_malloc(size_t size);
+void		vector_debug(char **vector);
+
 
 #endif

@@ -46,7 +46,7 @@ environment3.c
 */
 t_list			*env_findvar(t_environment env, t_string var_name);
 size_t			env_count_num_vars(t_environment env);
-t_string		*env_to_string(t_environment env);
+t_string		*env_to_vector(t_environment env);
 
 void			env_debug(t_environment env);
 

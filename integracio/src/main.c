@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/17 19:48:50 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/20 18:02:14 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int	main(int argc, char **argv, char **env)
 		printf("%d", shell.status.return_status);
 	}
 	minishell_destroy(shell);
-    rl_clear_history();
+    //rl_clear_history();
 	return (shell.status.return_status);
 }

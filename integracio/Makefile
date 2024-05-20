@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
+#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/16 21:34:11 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/20 18:01:38 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME	= minishell
 
 CC		= gcc
 DFLAGS	+= -g
-DFLAGS	+= -fsanitize=address -fsanitize=leak
+DFLAGS	+= -fsanitize=address
 DFLAGS	+= -DDEBUG_MODE=1
 CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
 RM		= rm -f

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/16 21:13:41 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/20 21:19:39 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,11 @@ t_string	path_getcwd(void)
 
 void    path_chdir(t_string newdir, t_minishell *shell)
 {
-	t_string	cwd;
 	t_string	abs_path;
 	
-	cwd = shell->cfg.pwd;
 	if (path_isrelative(newdir))
 	{
-		(void)cwd;
+		abs_path = shell->cfg.pwd;
 	}
 	else
 	{

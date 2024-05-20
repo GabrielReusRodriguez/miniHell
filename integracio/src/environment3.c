@@ -47,7 +47,7 @@ size_t	env_count_num_vars(t_environment env)
 	return (num_vars);
 }
 
-t_string	*env_to_string(t_environment env)
+t_string	*env_to_vector(t_environment env)
 {
 	t_string	*str_env;
 	size_t		i;

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 21:34:19 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/17 19:37:51 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/20 21:23:53 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ static	t_string	cmd_heredoc_get(t_string limit)
             free (next_line);
 			break;
         }
-		aux = here_doc;
+ 		here_doc = text_join(here_doc, next_line);
+        aux = here_doc;
 		here_doc = ft_strjoin(here_doc, "\n");
-		free (aux);
 		ptr_check_malloc_return(here_doc, "Error at memory malloc\n.");
-		here_doc = text_join(here_doc, next_line);
+        free (aux);
 	}
 	return (here_doc);
 }
