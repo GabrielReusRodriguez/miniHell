@@ -6,13 +6,14 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 21:23:44 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/16 22:10:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/21 23:12:50 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "datatypes.h"
 #include "expansor.h"
 #include "libft.h"
+#include "ptr.h"
 
 /*
 	Para validar el formato de variable lo hacemos con la funcion vars_find_end
@@ -28,4 +29,16 @@ bool    var_has_valid_name(t_string key)
 	if (len == end_var)
 		return (true);
 	return (false);
+}
+
+
+t_var   var_new_wargs(t_string key, t_string value)
+{
+	t_var   var;
+
+	var.key = ft_strdup(key);
+	ptr_check_malloc_return(var.key, "Error at memory malloc.\n");
+	var.value = ft_strdup(value);
+	ptr_check_malloc_return(var.value, "Error at memory malloc.\n");
+	return (var);
 }
