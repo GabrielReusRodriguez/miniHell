@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/20 23:35:53 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:07:09 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 		node = node->next;
 	}
 	if (cfg->var_pwd != NULL)
-		cfg->pwd = ft_strdup(cfg->var_pwd->value);
+	    cfg->pwd = ft_strdup(cfg->var_pwd->value);
 	else
 //		cfg->pwd = ft_strdup("");
         cfg->pwd = path_getcwd();

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 23:26:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:05:18 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "minishell.h"
 #include "error_handler.h"
 #include "environment.h"
+#include "ptr.h"
 
 /*
 	If it starts with / it is an absolute route else relative route.
@@ -90,29 +91,34 @@ bool	path_is_special_route(t_string input_path)
 t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 {
 	t_var		*var;
-	t_string	absolute;
 	
 	if (ft_strcmp(input_path, "-") == 0)
 	{
 		var = env_get_var(shell->cfg.env, "OLDPWD");
 		if (var != NULL)
-			absolute = ft_strdup(var->value);
+			return (ft_strdup(var->value));
 		else
-			return (NULL);
+        {
+            error_print("Error: Previous cwd not found.\n");
+			return (ft_strdup("."));
+        }
 	}
 	if (ft_strcmp(input_path, "~") == 0)
 	{
 		var = env_get_var(shell->cfg.env, "HOME");
 		if (var != NULL)
-			absolute = ft_strdup(var->value);
+			return (ft_strdup(var->value));
 		else
-			return (NULL);		
-	}
-	return (absolute);
+        {
+            error_print("Error: HOME not found.\n");
+			return (ft_strdup("."));
+        }
+    }
+    return (NULL);
 }    
 
 
-void    path_chdir(t_string newdir, t_minishell *shell)
+int    path_chdir(t_string newdir, t_minishell *shell)
 {
 	t_string	abs_path;
 	
@@ -121,15 +127,25 @@ void    path_chdir(t_string newdir, t_minishell *shell)
 		if (path_is_special_route(newdir))
 			abs_path = path_get_special_route(newdir, shell);
 		else
-			abs_path = shell->cfg.pwd;
+			//abs_path = shell->cfg.pwd;
+            abs_path = ft_strdup(newdir);
 	}
 	else
-	{
 		abs_path = ft_strdup(newdir);
-	}
+    ptr_check_malloc_return(abs_path, "Error at  memory malloc.\n");
 	if (abs_path != NULL)
 	{
-		free (shell->cfg.pwd);
-		shell->cfg.pwd = abs_path;
+        if (chdir(abs_path) < 0)
+        {
+            if (errno == ENOMEM)
+                error_system_crash("Error, insuficient memory avaible");
+            perror ("Error");
+            free (abs_path);
+            return (EXIT_FAILURE);
+        }
+		//free (shell->cfg.pwd);
+		//shell->cfg.pwd = abs_path;
 	}
+    free (abs_path);
+    return (EXIT_SUCCESS);
 }
