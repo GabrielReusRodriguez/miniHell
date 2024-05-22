@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 21:05:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 23:25:25 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_minishell	minishell_new(char **env);
 void		minishell_destroy(t_minishell shell);
 //void		minishell_cfg_debug(t_minishell_cfg *cfg);
 bool		minishell_check(t_minishell shell);
+t_string    minishell_get_prompt(void);
+
 
 void		signal_set_mode(int mode);
 
