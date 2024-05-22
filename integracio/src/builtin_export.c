@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:08:45 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/12 23:35:00 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:14:30 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,37 @@ export [-f] [-n] [name[=value] ...]
 #include <stdio.h>
 
 #include "minishell.h"
+#include "environment.h"
 #include "cmd.h"
+#include "libft.h"
+
+static	void	builtin_export_minishell_refresh_vars(t_minishell *shell, \
+					t_string param)
+{
+	t_var	*var;
+
+	var = env_get_var(shell->cfg.env, param);
+	if (var != NULL)
+		return ;
+	if (ft_strcmp("OLDPWD", param) == 0)
+	{
+		var_destroy(shell->cfg.var_oldpwd);
+		free (shell->cfg.var_oldpwd);
+		shell->cfg.var_oldpwd = var;
+	}
+	if (ft_strcmp("PATH", param) == 0)
+	{
+		var_destroy(shell->cfg.var_oldpwd);
+		free (shell->cfg.var_oldpwd);
+		shell->cfg.var_path = var;
+	}
+	if (ft_strcmp("PWD", param) == 0)
+	{
+		var_destroy(shell->cfg.var_oldpwd);
+		free (shell->cfg.var_oldpwd);
+		shell->cfg.var_pwd = var;
+	}
+}
 
 static int	builtin_export_noargs(t_minishell *shell)
 {
@@ -65,8 +95,8 @@ static int	builtin_export_wargs(t_minishell *shell, t_list *args)
 	param = ((t_token *)args->content)->value;
 	if (var_init(param, &var) == NULL)
 	{
-		printf("Syntax error\n");
-		return (1);
+		ft_putendl_fd("Syntax error", STDERR_FILENO);
+		return (EXIT_FAILURE);
 	}
 	existing_var = env_findvar(shell->cfg.env, var.key);
 	if (existing_var != NULL)
@@ -79,6 +109,7 @@ static int	builtin_export_wargs(t_minishell *shell, t_list *args)
 		if (env_add_var(&shell->cfg.env, var) == NULL)
 			return (builtin_export_destroy(&var, shell));
 	}
+	builtin_export_minishell_refresh_vars(shell, var.key);
 	var_destroy(&var);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 20:29:58 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 21:05:04 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
 	minishell_cfg2.c
 */
 void    minishell_cfg_load_default(t_minishell_cfg *cfg);
-void	minishell_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
+void	minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
 
 
 /*
