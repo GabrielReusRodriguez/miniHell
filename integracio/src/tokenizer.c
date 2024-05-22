@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/17 19:32:57 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 21:47:13 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "expansor.h"
 #include "error_handler.h"
 #include "minishell.h"
+#include "ptr.h"
 
 static void	tokenizer_add_space(t_list **token_list)
 {
@@ -25,15 +26,11 @@ static void	tokenizer_add_space(t_list **token_list)
 	t_string	space;
 
 	space = ft_strdup("");
-	if (space == NULL)
-		error_system_crash("Error at memory malloc\n");
+    ptr_check_malloc_return(space, "Error at memory malloc.\n");
 	node = tokenizer_new_token_node(TOKEN_TYPE_SPACE, space);
 	ft_lstadd_back(token_list, node);
 }
 
-/*
-static void	tokenizer_expand_vars(t_list *list, t_environment *env)
-*/
 static void	tokenizer_expand_vars(t_list *list, t_minishell shell)
 {
 	t_list	*node;
@@ -74,9 +71,6 @@ void	tokenizer_loop(t_string str, t_token_set *token_list)
 	}
 }
 
-/*
-t_token_set	tokenizer(t_string str, t_environment *env)
-*/
 t_token_set	tokenizer(t_string str, t_minishell shell)
 {
 	t_token_set	token_list;
@@ -87,38 +81,6 @@ t_token_set	tokenizer(t_string str, t_minishell shell)
 	tokens_debug(token_list);
 	return (token_list);
 }
-
-/*
-t_token_set	tokenizer(t_string str, t_environment *env)
-{
-	t_token_set	token_list;
-	t_list		*node;
-	size_t		i;
-
-	i = 0;
-	token_list = token_set_new();
-	while (str[i] != '\0')
-	{
-		while (tokenizer_charinset(str[i], TOKENS_SEPARATORS) == true)
-		(i)++;	
-		if (str[i] == '\0')
-			break ;
-		node = tokenizer_get_next_token(str, &i);
-		if (node == NULL)
-		{
-			tokens_destroy_tokenlist(&token_list);
-			return (token_list);
-		}
-		ft_lstadd_back(&token_list.tokens, node);
-		token_list.total++;
-		if (tokenizer_charinset(str[i], TOKENS_SEPARATORS))
-			tokenizer_add_space(&token_list.tokens);
-	}
-	tokenizer_expand_vars(token_list.tokens, env);
-	tokens_debug(token_list);
-	return (token_list);
-}
-*/
 
 /*
 	

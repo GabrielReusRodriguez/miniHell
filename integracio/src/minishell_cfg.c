@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 21:04:26 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:40:46 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 bool	minishell_cfg_unload(t_minishell_cfg *cfg)
 {
 	env_destroy(&cfg->env);
-//	ptr_free(cfg->pwd);
 	return (true);
 }
 

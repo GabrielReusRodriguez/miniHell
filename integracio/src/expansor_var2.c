@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/17 19:55:47 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:51:59 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_string	expansor_vars_replace_status(t_string acum, t_expansor *limits, 
 	t_string	res;
 
     substring = ft_itoa(shell.status.return_status);
-        ptr_check_malloc_return(substring, "Error recovering status.\n");
+    ptr_check_malloc_return(substring, "Error at memory malloc.\n");
 	res = text_join(acum, substring);
 	limits->i = limits->i + 2;
 	limits->init = limits->i;
@@ -41,8 +41,7 @@ static t_string	expansor_vars_add_dollar(t_string acum, t_expansor *limits)
 	t_string	res;
 
 	substring = ft_strdup("$");
-	if (substring == NULL)
-		error_system_crash("Error at memory malloc\n");
+    ptr_check_malloc_return(substring, "Error at memory malloc.\n");
 	res = text_join(acum, substring);
 	limits->i++;
 	limits->init = limits->i;
@@ -55,8 +54,7 @@ static t_string	expansor_vars_replace_vars_init(t_expansor	*limits, \
 	t_string	expanded;
 
 	expanded = ft_strdup("");
-	if (expanded == NULL)
-		error_system_crash("Error at memory malloc\n");
+    ptr_check_malloc_return(expanded, "Error memory malloc.\n");
 	limits->i = 0;
 	limits->init = 0;
 	limits->str = str;
@@ -100,10 +98,6 @@ static t_string	expansor_vars_replace_loop(t_string expanded, \
 	return (expanded);
 }
 
-/*
-void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
-			t_environment *env)
-*/
 void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
 			t_minishell shell)
 

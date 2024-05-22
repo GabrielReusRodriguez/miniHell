@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:28:04 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 21:28:06 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 21:44:18 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*safe_malloc(size_t size)
 	ptr = malloc(size);
 	if (ptr == NULL)
 	{
-		perror("malloc");
+		perror("Error at memory malloc");
 		exit(errno);
 	}
 	return (ptr);

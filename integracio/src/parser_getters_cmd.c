@@ -6,13 +6,14 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:35:39 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/17 19:28:32 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:39:21 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
 #include "cmd.h"
 #include "error_handler.h"
+#include "ptr.h"
 
 static	t_string	parser_parse_word_get_value(t_list **token_list)
 {
@@ -21,13 +22,13 @@ static	t_string	parser_parse_word_get_value(t_list **token_list)
 	t_string	aux;
 
 	value = ft_strdup("");
-	if (value == NULL)
-		error_system_crash("Error en memory malloc\n");
+    ptr_check_malloc_return(value, "Error in memory malloc.\n");
 	token = (*token_list)->content;
 	while (*token_list != NULL && tokens_isword(*token) == true)
 	{
 		aux = value;
 		value = ft_strjoin(value, token->value);
+        ptr_check_malloc_return(value, "Error at memoruy malloc.\n");
 		free (aux);
 		*token_list = (*token_list)->next;
 		if (*token_list != NULL)

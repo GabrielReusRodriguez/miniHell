@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/17 19:24:57 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:55:24 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ t_string	*expansor_vars_create_chunks(t_string str)
 	size_t		i;
 
 	num_chunks = expansor_vars_count_vars(str);
-	chunks = (t_string *)malloc((num_chunks + 1) * sizeof(t_string));
-	if (chunks == NULL)
-		error_system_crash("Error at memory malloc\n");
+    chunks = (t_string *)safe_malloc((num_chunks + 1) * sizeof(t_string));
 	i = 0;
 	while (i <= num_chunks)
 	{
@@ -118,14 +116,12 @@ t_string	expansor_vars_join_chunks(t_string *chunks)
 
 	i = 0;
 	str_joined = ft_strdup("");
-	if (str_joined == NULL)
-		error_system_crash("ERROR at memory malloc\n");
+	ptr_check_malloc_return(str_joined, "Error at memory malloc\n");
 	while (chunks[i] != NULL)
 	{
 		aux = str_joined;
 		str_joined = ft_strjoin(str_joined, chunks[i]);
-		if (str_joined == NULL)
-			error_system_crash("ERROR at memory malloc\n");
+        ptr_check_malloc_return(str_joined, "Error at memory malloc\n");
 		free (aux);
 		i++;
 	}

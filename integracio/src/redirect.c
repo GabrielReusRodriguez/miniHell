@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:49:52 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 21:58:33 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/22 22:28:37 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
 #include "redirect.h"
+#include "ptr.h"
 
+/*
 t_redirect	*redirect_new(void)
 {
 	t_redirect	*redir;
@@ -24,7 +26,16 @@ t_redirect	*redirect_new(void)
 	redir->type = NULL;
 	return (redir);
 }
+*/
+t_redirect	*redirect_new(void)
+{
+	t_redirect	*redir;
 
+    redir  = (t_redirect *)safe_malloc(sizeof(t_redirect));
+	redir->target = NULL;
+	redir->type = NULL;
+	return (redir);
+}
 /*
 	We do not free any memory because they are pointers to token so they
 	will be free when we "destroy" the tokens.

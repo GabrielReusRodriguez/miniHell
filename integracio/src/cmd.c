@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/14 21:31:44 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:25:21 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "debug.h"
 #include "redirect.h"
 #include "error_handler.h"
+#include "ptr.h"
 
 //TODO: WORK IN PROGRESS.....
 t_cmd	cmd_new(void)
@@ -73,6 +74,28 @@ t_cmd_set	cmd_create_set(t_token_set token_set)
 		cmd_set.cmds = NULL;
 		return (cmd_set);
 	}
+	cmd_set.cmds = (t_cmd *)safe_malloc(cmd_set.cmd_count * sizeof(t_cmd));
+	i = 0;
+	while (i < cmd_set.cmd_count)
+	{
+		cmd_set.cmds[i] = cmd_new();
+		i++;
+	}
+	return (cmd_set);
+}
+
+/*
+t_cmd_set	cmd_create_set(t_token_set token_set)
+{
+	t_cmd_set	cmd_set;
+	size_t		i;
+
+	cmd_set.cmd_count = parser_count_cmds(token_set);
+	if (cmd_set.cmd_count == 0)
+	{
+		cmd_set.cmds = NULL;
+		return (cmd_set);
+	}
 	cmd_set.cmds = (t_cmd *)malloc(cmd_set.cmd_count * sizeof(t_cmd));
 	if (cmd_set.cmds == NULL)
 	{
@@ -88,3 +111,4 @@ t_cmd_set	cmd_create_set(t_token_set token_set)
 	}
 	return (cmd_set);
 }
+*/

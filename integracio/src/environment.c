@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/14 23:53:14 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 21:35:06 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@
 #include "ptr.h"
 #include "var.h"
 
+t_list	*env_new_varnode(t_string str)
+{
+	t_list		*node;
+	t_var		*env_var;
+
+    env_var = (t_var *)safe_malloc(sizeof(t_var));
+	if (var_init(str, env_var) == NULL)
+	{
+		var_destroy(env_var);
+		free(env_var);
+		return (NULL);
+	}
+	node = ft_lstnew(env_var);
+    ptr_check_malloc_return(node, "Error at memory malloc.\n");
+	return (node);
+}
+/*
 t_list	*env_new_varnode(t_string str)
 {
 	t_list		*node;
@@ -38,7 +55,7 @@ t_list	*env_new_varnode(t_string str)
 	}
 	return (node);
 }
-
+*/
 void	env_del_varnode(void *arg)
 {
 	t_var	*var;

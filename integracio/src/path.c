@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/22 20:30:39 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:31:30 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_string	path_getcwd(void)
 }
 
 
-bool	path_is_special_route(t_string input_path)
+static bool	path_is_special_route(t_string input_path)
 {
 	if (ft_strcmp(input_path, "-") == 0)
 		return (true);
@@ -88,7 +88,7 @@ bool	path_is_special_route(t_string input_path)
 	return (false);
 }
 
-t_string	path_get_special_route(t_string input_path, t_minishell *shell)
+static t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 {
 	t_var		*var;
 	

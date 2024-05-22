@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/17 19:45:24 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 22:32:48 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,6 @@ size_t	parser_count_cmds(t_token_set token_set)
 	return (cmd_count + 1);
 }
 
-/*
-void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd, \
-			t_environment *env)
-*/
 void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 {
 	t_list	*node;
@@ -109,10 +105,6 @@ void	*parser_get_next_cmd(t_token_set *token_set, t_cmd *cmd)
 	return (parser_create_cmd(first_token, last_token, cmd));
 }
 
-/*
-void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd, \
-			t_environment *env)
-            */
 void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 {
 	t_list	*node;

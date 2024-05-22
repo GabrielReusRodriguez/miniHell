@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 21:33:42 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:52:12 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 #include "error_handler.h"
+#include "ptr.h"
 
 void	*tokenizer_add_token(t_list *node, t_token_set *token_list)
 {
@@ -89,6 +90,21 @@ t_list	*tokenizer_new_token_node(int type, t_string value)
 
 	if (value == NULL)
 		return (NULL);
+    token = (t_token *)safe_malloc(sizeof(t_token));
+	token->type = type;
+	token->value = value;
+	token_node = ft_lstnew(token);
+    ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
+	return (token_node);
+}
+/*
+t_list	*tokenizer_new_token_node(int type, t_string value)
+{
+	t_token	*token;
+	t_list	*token_node;
+
+	if (value == NULL)
+		return (NULL);
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		error_system_crash("Error at memory malloc\n");
@@ -99,3 +115,4 @@ t_list	*tokenizer_new_token_node(int type, t_string value)
 		error_system_crash("Error at memory malloc\n");
 	return (token_node);
 }
+*/
