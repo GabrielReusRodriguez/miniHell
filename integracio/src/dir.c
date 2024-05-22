@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:37:17 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 22:30:46 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 00:11:31 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ S_ISREG() is a macro used to interpret the values in a stat-struct, as
                // Handle regular file 
            }
 */
-
+/*
 bool    dir_isdir(t_string path)
 {
 	struct stat	path_stat;
@@ -120,7 +120,7 @@ static  size_t  dir_get_num_valid_parts(t_string *parts)
     return (num);
 }
 
-/*We remove the empty dirs liek /home//gabriel/ */
+//We remove the empty dirs liek /home//gabriel/ 
 static t_string *dir_normalize_parts(t_string *parts)
 {
     t_string    *norm_parts;
@@ -155,3 +155,4 @@ t_string    *dir_getparts_of_path(t_string path)
     ptr_freematrix(parts);
     return (norm_parts);
 }
+*/

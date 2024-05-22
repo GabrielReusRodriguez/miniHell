@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/21 23:29:21 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 20:29:58 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_minishell_cfg
 	t_environment	env;
 	t_var			*var_path;
 	t_var			*var_pwd;
-    t_var           *var_oldpwd;
+	t_var           *var_oldpwd;
 //	t_string		pwd;
 //	struct termios	termios;
 }	t_minishell_cfg;
@@ -48,7 +48,7 @@ typedef struct s_minishell
 }	t_minishell;
 
 /*
-    minishell.c
+	minishell.c
 */
 t_minishell	minishell_new(char **env);
 void		minishell_destroy(t_minishell shell);
@@ -58,24 +58,28 @@ bool		minishell_check(t_minishell shell);
 void		signal_set_mode(int mode);
 
 /*
-    minishell_stat.c
+	minishell_stat.c
 */
 void		minishell_stat_init(t_minishell_status *stat);
 void		minishell_stat_destroy(t_minishell_status *stat);
+void		minishell_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
 
 /*
-    minishell_cfg.c
+	minishell_cfg.c
 */
 bool		minishell_cfg_load(t_minishell_cfg *cfg, char **env);
 bool		minishell_cfg_unload(t_minishell_cfg *cfg);
+void		minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
 
 /*
-    minishell_cfg2.c
+	minishell_cfg2.c
 */
-void minishell_cfg_load_default(t_minishell_cfg *cfg);
+void    minishell_cfg_load_default(t_minishell_cfg *cfg);
+void	minishell_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
+
 
 /*
-    minishell_debug    
+	minishell_debug    
 */
 
 

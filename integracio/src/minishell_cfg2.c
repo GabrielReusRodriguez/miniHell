@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 00:02:09 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 20:49:56 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static	void	minishell_cfg_default_pwd(t_minishell_cfg *cfg)
 	var = var_new_wargs("PWD", str_value);
 	if (env_add_var(&cfg->env, var) == NULL)
 		error_system_crash("Error creating PWD var\n");
+	cfg->var_oldpwd = env_get_var(cfg->env, "PWD");
 	var_destroy(&var);
 	free (str_value);
 }
@@ -84,9 +85,9 @@ static void		minishell_cfg_default_oldpwd(t_minishell_cfg *cfg)
 	var = var_new_wargs("OLDPWD", str_value);
 	if (env_add_var(&cfg->env, var) == NULL)
 		error_system_crash("Error creating OLDPWD var\n");
+	cfg->var_oldpwd = env_get_var(cfg->env, "OLDPWD");
 	var_destroy(&var);
 	free (str_value);
-
 }
 
 void minishell_cfg_load_default(t_minishell_cfg *cfg)

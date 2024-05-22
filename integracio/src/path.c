@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/21 22:05:18 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 20:30:39 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 		if (var != NULL)
 			return (ft_strdup(var->value));
 		else
-        {
-            error_print("Error: Previous cwd not found.\n");
+		{
+			error_print("Error: Previous cwd not found.\n");
 			return (ft_strdup("."));
-        }
+		}
 	}
 	if (ft_strcmp(input_path, "~") == 0)
 	{
@@ -109,43 +109,38 @@ t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 		if (var != NULL)
 			return (ft_strdup(var->value));
 		else
-        {
-            error_print("Error: HOME not found.\n");
+		{
+			error_print("Error: HOME not found.\n");
 			return (ft_strdup("."));
-        }
-    }
-    return (NULL);
+		}
+	}
+	return (NULL);
 }    
 
 
 int    path_chdir(t_string newdir, t_minishell *shell)
 {
-	t_string	abs_path;
+	t_string	new_path;
 	
 	if (path_isrelative(newdir))
 	{
 		if (path_is_special_route(newdir))
-			abs_path = path_get_special_route(newdir, shell);
+			new_path = path_get_special_route(newdir, shell);
 		else
-			//abs_path = shell->cfg.pwd;
-            abs_path = ft_strdup(newdir);
+			new_path = ft_strdup(newdir);
 	}
 	else
-		abs_path = ft_strdup(newdir);
-    ptr_check_malloc_return(abs_path, "Error at  memory malloc.\n");
-	if (abs_path != NULL)
+		new_path = ft_strdup(newdir);
+	ptr_check_malloc_return(new_path, "Error at  memory malloc.\n");
+	if (chdir(new_path) < 0)
 	{
-        if (chdir(abs_path) < 0)
-        {
-            if (errno == ENOMEM)
-                error_system_crash("Error, insuficient memory avaible");
-            perror ("Error");
-            free (abs_path);
-            return (EXIT_FAILURE);
-        }
-		//free (shell->cfg.pwd);
-		//shell->cfg.pwd = abs_path;
+		if (errno == ENOMEM)
+			error_system_crash("Error, insuficient memory avaible");
+		perror ("Error");
+		free (new_path);
+		return (EXIT_FAILURE);
 	}
-    free (abs_path);
-    return (EXIT_SUCCESS);
+	minishell_cfg_refresh_pwd_vars(shell, new_path);
+	free (new_path);
+	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:30:46 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/12 23:51:30 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:22:19 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ environment3.c
 t_list			*env_findvar(t_environment env, t_string var_name);
 size_t			env_count_num_vars(t_environment env);
 t_string		*env_to_vector(t_environment env);
+
 
 void			env_debug(t_environment env);
 

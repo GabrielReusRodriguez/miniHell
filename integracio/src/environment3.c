@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/21 00:24:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 20:28:54 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "ptr.h"
 #include "var.h"
+#include "minishell.h"
 
 t_list	*env_findvar(t_environment env, t_string var_name)
 {
@@ -26,7 +27,7 @@ t_list	*env_findvar(t_environment env, t_string var_name)
 	{
 		var = (t_var *)node->content;
 		if (ft_strcmp(var_name, var->key) == 0)
-		    return (node);
+			return (node);
 		node = node->next;
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/21 23:16:40 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/22 20:42:42 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,23 @@ bool	minishell_cfg_unload(t_minishell_cfg *cfg)
 	env_destroy(&cfg->env);
 //	ptr_free(cfg->pwd);
 	return (true);
+}
+
+void    minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd)
+{
+	if (shell->cfg.var_oldpwd != NULL)
+	{
+		free (shell->cfg.var_oldpwd->value);
+		if (shell->cfg.var_pwd != NULL)
+			shell->cfg.var_oldpwd->value = ft_strdup(shell->cfg.var_pwd->value);
+		else
+			shell->cfg.var_oldpwd->value = ft_strdup(new_cwd);
+		ptr_check_malloc_return(shell->cfg.var_oldpwd->value, "Error at memory malloc\n.");
+	}
+	if (shell->cfg.var_pwd != NULL)
+	{
+		free (shell->cfg.var_pwd->value);
+		shell->cfg.var_pwd->value = ft_strdup(new_cwd);
+		ptr_check_malloc_return(shell->cfg.var_pwd->value, "Error at memory malloc\n.");
+	}
 }
