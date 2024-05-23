@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:37:17 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/23 18:37:51 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:25:59 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ static t_string *dir_normalize_parts(t_string *parts)
     while (parts[i] != NULL)
     {
         if (ft_strlen(parts[i]) > 0)
-        {
             norm_parts[total] = ft_strdup (parts[i]);
+        {
             ptr_check_malloc_return(norm_parts[total],"Error at memory malloc.\n");
             total++;
         }

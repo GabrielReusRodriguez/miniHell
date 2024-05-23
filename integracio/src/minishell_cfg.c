@@ -71,7 +71,7 @@ void	minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd)
 	if (shell->cfg.var_pwd != NULL)
 	{
 		free (shell->cfg.var_pwd->value);
-		shell->cfg.var_pwd->value = ft_strdup(new_cwd);
+		shell->cfg.var_pwd->value = path_getcwd();
 		ptr_check_malloc_return(shell->cfg.var_pwd->value, \
 			"Error at memory malloc\n.");
 	}
