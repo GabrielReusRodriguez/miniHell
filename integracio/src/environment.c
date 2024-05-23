@@ -16,6 +16,9 @@
 #include "ptr.h"
 #include "var.h"
 
+/*
+	We create a new node of list of vars from the string a=b
+*/
 t_list	*env_new_varnode(t_string str)
 {
 	t_list		*node;
@@ -33,29 +36,8 @@ t_list	*env_new_varnode(t_string str)
 	return (node);
 }
 
-/*
-t_list	*env_new_varnode(t_string str)
-{
-	t_list		*node;
-	t_var		*env_var;
-
-	env_var = (t_var *)malloc(sizeof(t_var));
-	if (env_var == NULL)
-		return (NULL);
-	if (var_init(str, env_var) == NULL)
-	{
-		var_destroy(env_var);
-		free(env_var);
-		return (NULL);
-	}
-	node = ft_lstnew(env_var);
-	if (node == NULL)
-	{
-		var_destroy(env_var);
-		free (env_var);
-	}
-	return (node);
-}
+/* 
+	Function to use when we delete ALL the var list. ( from libft)
 */
 void	env_del_varnode(void *arg)
 {
@@ -66,6 +48,9 @@ void	env_del_varnode(void *arg)
 	free (arg);
 }
 
+/*
+	We create an enviroment.
+*/
 t_environment	env_create(void)
 {
 	t_environment	env;
@@ -74,11 +59,19 @@ t_environment	env_create(void)
 	return (env);
 }
 
+/*
+	We clear the list of vars
+*/
 void	env_destroy(t_environment *env)
 {
 	ft_lstclear(&env->vars, env_del_varnode);
 }
 
+/*
+	We init  the list of environemnt vars
+	we  get a char ** var and we treat every string
+	to get the variable.
+*/
 void	*env_init(t_environment *env, t_string *str_env)
 {
 	t_list		*new_list_env;

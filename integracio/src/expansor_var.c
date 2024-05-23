@@ -21,6 +21,10 @@
 
 #include <stdio.h>
 
+/*
+	We find the position of the end of the var
+	The format var is ${not num}{alphanum | _ }+
+*/
 size_t	expansor_vars_find_end_var(t_string str, size_t init)
 {
 	size_t	j;
@@ -36,8 +40,7 @@ size_t	expansor_vars_find_end_var(t_string str, size_t init)
 }
 
 /*
-t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, \
-				t_environment *env)
+	We get the name of the var . ${name}
 */
 t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, \
 				t_minishell shell)
@@ -67,6 +70,9 @@ t_string	expansor_vars_get_var(t_string str, size_t init, size_t *end_var, \
 	return (var_value);
 }
 
+/*
+	We count the number of $ that is the number of possible vars to replace
+*/
 size_t	expansor_vars_count_vars(t_string str)
 {
 	size_t	num;
@@ -91,6 +97,10 @@ size_t	expansor_vars_count_vars(t_string str)
 	return (num + 1);
 }
 
+/*
+	We create the chunks, one for every var candidate and after
+	we will replace the value of the var if it has...
+*/
 t_string	*expansor_vars_create_chunks(t_string str)
 {
 	t_string	*chunks;
@@ -108,6 +118,9 @@ t_string	*expansor_vars_create_chunks(t_string str)
 	return (chunks);
 }
 
+/*
+	We join all the chunks in a string.
+*/
 t_string	expansor_vars_join_chunks(t_string *chunks)
 {
 	t_string	str_joined;

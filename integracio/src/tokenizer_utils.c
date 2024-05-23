@@ -16,18 +16,9 @@
 #include "error_handler.h"
 #include "ptr.h"
 
-void	*tokenizer_add_token(t_list *node, t_token_set *token_list)
-{
-	if (node == NULL)
-	{
-		tokens_destroy_tokenlist(token_list);
-		return (NULL);
-	}
-	ft_lstadd_back(&token_list->tokens, node);
-	token_list->total++;
-	return (token_list);
-}
-
+/*
+	We check if the string has closed quotes.
+*/
 bool	tokenizer_ischarclosed(t_string str, size_t pos, char quote)
 {
 	size_t	i;
@@ -41,6 +32,9 @@ bool	tokenizer_ischarclosed(t_string str, size_t pos, char quote)
 		return (false);
 }
 
+/*
+	We check if a char is one of the charset we pass in set.
+*/
 bool	tokenizer_charinset(char c, t_string set)
 {
 	size_t	i;
@@ -55,6 +49,9 @@ bool	tokenizer_charinset(char c, t_string set)
 	return (false);
 }
 
+/*
+	We validate the line readed ( are quotes closed... ?)
+*/
 bool	tokenizer_valida_str(t_string str)
 {
 	size_t	i;
@@ -83,6 +80,9 @@ bool	tokenizer_valida_str(t_string str)
 	return (!opened_quote);
 }
 
+/*
+	Function to create a token with type and value.
+*/
 t_list	*tokenizer_new_token_node(int type, t_string value)
 {
 	t_token	*token;
@@ -97,22 +97,3 @@ t_list	*tokenizer_new_token_node(int type, t_string value)
 	ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
 	return (token_node);
 }
-/*
-t_list	*tokenizer_new_token_node(int type, t_string value)
-{
-	t_token	*token;
-	t_list	*token_node;
-
-	if (value == NULL)
-		return (NULL);
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		error_system_crash("Error at memory malloc\n");
-	token->type = type;
-	token->value = value;
-	token_node = ft_lstnew(token);
-	if (token_node == NULL)
-		error_system_crash("Error at memory malloc\n");
-	return (token_node);
-}
-*/

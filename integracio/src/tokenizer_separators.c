@@ -15,6 +15,9 @@
 #include "tokens.h"
 #include "ptr.h"
 
+/*
+	We check if the token is one off the separators of cmd
+*/
 bool	tokens_iscmdseparator(t_token token)
 {
 	if (token.type == TOKEN_TYPE_AND || token.type == TOKEN_TYPE_OR || \
@@ -25,24 +28,7 @@ bool	tokens_iscmdseparator(t_token token)
 }
 
 /*
-t_list	*tokenizer_new_pipe(size_t *i)
-{
-	t_token		*token;
-	t_list		*token_node;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->type = TOKEN_TYPE_PIPE;
-	token->value = ft_strdup("|");
-	if (token->value == NULL)
-		return (token_free(token));
-	(*i)++;
-	token_node = ft_lstnew(token);
-	if (token_node == NULL)
-		return (token_free(token));
-	return (token_node);
-}
+	We create a new token with type pipe.
 */
 t_list	*tokenizer_new_pipe(size_t *i)
 {
@@ -60,24 +46,7 @@ t_list	*tokenizer_new_pipe(size_t *i)
 }
 
 /*
-t_list	*tokenizer_new_semicolon(size_t *i)
-{
-	t_token		*token;
-	t_list		*token_node;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->type = TOKEN_TYPE_SEMICOLON;
-	token->value = ft_strdup(";");
-	if (token->value == NULL)
-		return (token_free(token));
-	(*i)++;
-	token_node = ft_lstnew(token);
-	if (token_node == NULL)
-		return (token_free(token));
-	return (token_node);
-}
+	We create a new token with type semicolon.
 */
 t_list	*tokenizer_new_semicolon(size_t *i)
 {

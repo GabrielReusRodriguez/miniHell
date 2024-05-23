@@ -20,6 +20,9 @@
 #include "txt_utils.h"
 #include "minishell.h"
 
+/*
+	We replace the value of the var $?
+*/
 static t_string	expansor_vars_replace_status(t_string acum, \
 					t_expansor *limits, t_minishell shell)
 {
@@ -34,6 +37,9 @@ static t_string	expansor_vars_replace_status(t_string acum, \
 	return (res);
 }
 
+/*
+	We treat the case of $$ => we print a $
+*/
 static t_string	expansor_vars_add_dollar(t_string acum, t_expansor *limits)
 {
 	t_string	substring;
@@ -47,6 +53,13 @@ static t_string	expansor_vars_add_dollar(t_string acum, t_expansor *limits)
 	return (res);
 }
 
+/*
+	We have an structure to grt the chunks. 
+		it is the init position of the chunk
+		the i position that is the end of the chuink
+		and str, the string.
+	In this function we init the structure
+*/
 static t_string	expansor_vars_replace_vars_init(t_expansor	*limits, \
 					t_string str)
 {
@@ -61,11 +74,10 @@ static t_string	expansor_vars_replace_vars_init(t_expansor	*limits, \
 }
 
 /*
-El caso  if (limits->str[limits->i + 1] == '\0' && (next_t == NULL || 
+The case if (limits->str[limits->i + 1] == '\0' && (next_t == NULL || 
 next_t->type == TOKEN_TYPE_SPACE))
-es para que no pinte el dolar antes en $"PATH" ya que como un chunk seria $ 
-y el siguiente
-seria DQWORD, pintaria el dolar y luego la var.
+
+is to print the lonely $ because we now the next token is a space.
 */
 static t_string	expansor_vars_replace_loop(t_string expanded, \
 			t_expansor *limits, t_token *next_t, t_minishell shell)
@@ -97,6 +109,12 @@ static t_string	expansor_vars_replace_loop(t_string expanded, \
 	return (expanded);
 }
 
+/*
+	This is the function where we replace the vars found in token
+	We get the token and the next token because we can find a $PA"TH" 
+		it is a token $ and the next_t is a double quoted token. So
+		we have to analize both.
+*/
 void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
 			t_minishell shell)
 

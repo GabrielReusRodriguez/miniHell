@@ -50,6 +50,10 @@ void	*token_free(t_token *token)
 	return (NULL);
 }
 
+/*
+	We clone a token in a new memory space
+*/
+/*
 t_token	*tokens_clone(t_token token)
 {
 	t_token	*new_token;
@@ -58,20 +62,6 @@ t_token	*tokens_clone(t_token token)
 	new_token->type = token.type;
 	new_token->value = ft_strdup(token.value);
 	ptr_check_malloc_return(new_token->value, "Error at memory malloc.\n");
-	return (new_token);
-}
-/*
-t_token	*tokens_clone(t_token token)
-{
-	t_token	*new_token;
-
-	new_token = (t_token *)malloc(sizeof(t_token));
-	if (new_token == NULL)
-		return (NULL);
-	new_token->type = token.type;
-	new_token->value = ft_strdup(token.value);
-	if (new_token->value == NULL)
-		return (token_free(new_token));
 	return (new_token);
 }
 */

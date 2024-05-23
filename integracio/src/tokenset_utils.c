@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokens.h"
-#include "debug.h"
 
 void	tokens_destroy_tokenlist(t_token_set *list)
 {
@@ -31,6 +30,11 @@ t_token_set	token_set_new(void)
 	return (token_set);
 }
 
+/*
+	We have a token and we want to search the node of the list of tokens. 
+	if it exists BEFORE last_node. 
+	That is usefull to treat commands that are a sublist of tokens.
+*/
 t_list	*tokens_goto(t_list *token_list, t_token *token_searched, \
 			t_list *last_node)
 {

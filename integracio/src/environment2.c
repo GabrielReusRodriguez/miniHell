@@ -16,6 +16,9 @@
 #include "ptr.h"
 #include "var.h"
 
+/*
+	We get the var struct with name var_name.
+*/
 t_var	*env_get_var(t_environment env, t_string var_name)
 {
 	t_var	*var;
@@ -28,6 +31,10 @@ t_var	*env_get_var(t_environment env, t_string var_name)
 	return (var);
 }
 
+/*
+	We update the var of the list with the values of new_var.
+	We DO NOT replace pointers.
+*/
 void	*env_update_var(t_list *node, t_var new_var)
 {
 	t_var		*var;
@@ -42,6 +49,10 @@ void	*env_update_var(t_list *node, t_var new_var)
 	return (node);
 }
 
+/*
+	We add new variable to the list.
+	We clone the var with a new malloc .
+*/
 void	*env_add_var(t_environment *env, t_var var)
 {
 	t_list	*last_node;
@@ -63,6 +74,10 @@ void	*env_add_var(t_environment *env, t_var var)
 	return (env);
 }
 
+/*
+	This function adds or updates a var depending if it 
+	finds or not in the enviroment list.
+*/
 void	*env_addorupdate_var(t_environment *env, t_var var)
 {
 	t_list	*node;
@@ -74,6 +89,9 @@ void	*env_addorupdate_var(t_environment *env, t_var var)
 		return (env_add_var(env, var));
 }
 
+/*
+	We remove  the var with key from the list.
+*/
 void	*env_remove_var(t_environment *env, t_string key)
 {
 	t_list	*node;

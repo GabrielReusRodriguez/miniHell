@@ -16,6 +16,10 @@
 #include "expansor.h"
 #include "txt_utils.h"
 
+/*
+	We join the string cumulated when we replace vars with the new string
+	we get expanding vars.
+*/
 t_string	expansor_vars_join_acumulated(t_string acum, t_expansor limits)
 {
 	t_string	res;

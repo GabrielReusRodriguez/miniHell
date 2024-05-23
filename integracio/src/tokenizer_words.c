@@ -18,33 +18,9 @@
 #include "ptr.h"
 
 /*
-t_list	*tokenizer_new_word(t_string str, size_t *final_pos)
-{
-	t_token		*token;
-	size_t		i;
-	size_t		word_init;
-	t_list		*token_node;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	i = 0;
-	word_init = i;
-	while (str[i] != '\0' && tokenizer_charinset(str[i], TOKENS_SEPARATORS) \
-				== false && tokenizer_charinset(str[i], PARSER_CMD_SEPARATORS) \
-				== false && tokenizer_charinset(str[i], "\"\'") \
-				== false)
-		i++;
-	token->type = TOKEN_TYPE_WORD;
-	token->value = ft_substr(str, word_init, i - word_init);
-	if (token->value == NULL)
-		return (token_free(token));
-	*final_pos = *final_pos + i;
-	token_node = ft_lstnew(token);
-	if (token_node == NULL)
-		return (token_free(token));
-	return (token_node);
-}
+	We found a new word, so we create a token with type word.
+	it includes all letter until we get a space, tab , pipe or 
+	quote.
 */
 
 t_list	*tokenizer_new_word(t_string str, size_t *final_pos)

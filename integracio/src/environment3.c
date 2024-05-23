@@ -17,6 +17,9 @@
 #include "var.h"
 #include "minishell.h"
 
+/*
+	We find a var in the list of vars of the environmment.
+*/
 t_list	*env_findvar(t_environment env, t_string var_name)
 {
 	t_var	*var;
@@ -33,6 +36,9 @@ t_list	*env_findvar(t_environment env, t_string var_name)
 	return (NULL);
 }
 
+/*
+	We count the number of vars
+*/
 size_t	env_count_num_vars(t_environment env)
 {
 	size_t	num_vars;
@@ -48,6 +54,10 @@ size_t	env_count_num_vars(t_environment env)
 	return (num_vars);
 }
 
+/*
+	We transform the list of vars to a char**
+	it is used to pass the char ** to execve.
+*/
 t_string	*env_to_vector(t_environment env)
 {
 	t_string	*str_env;

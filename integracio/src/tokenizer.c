@@ -20,6 +20,9 @@
 #include "minishell.h"
 #include "ptr.h"
 
+/*
+	We add the token with type space.
+*/
 static void	tokenizer_add_space(t_list **token_list)
 {
 	t_list		*node;
@@ -31,6 +34,9 @@ static void	tokenizer_add_space(t_list **token_list)
 	ft_lstadd_back(token_list, node);
 }
 
+/*
+	We replace vars in the token list.
+*/
 static void	tokenizer_expand_vars(t_list *list, t_minishell shell)
 {
 	t_list	*node;
@@ -47,6 +53,14 @@ static void	tokenizer_expand_vars(t_list *list, t_minishell shell)
 	}
 }
 
+/*
+	This is the logic loop of the tokenizer. 
+	We ignore the spaces tabs...
+	when we get something different, we creaete next token 
+		it depends the char we get, the type of token.
+	We add the toklen to the list and we add a space token if the next
+	chars are spaces or tabs.
+*/
 void	tokenizer_loop(t_string str, t_token_set *token_list)
 {
 	t_list		*node;
@@ -72,6 +86,10 @@ void	tokenizer_loop(t_string str, t_token_set *token_list)
 	}
 }
 
+/*
+	This function creates a list of tokens with types from the string (line)
+	we read from readline.
+*/
 t_token_set	tokenizer(t_string str, t_minishell shell)
 {
 	t_token_set	token_list;

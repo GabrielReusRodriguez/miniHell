@@ -47,6 +47,9 @@ static void	signal_interactive_mode_handler(int signal)
 	}
 }
 
+/*
+	We do not do anything.
+*/
 static void	signal_noop_handler(int signal)
 {
 	if (signal == SIGINT)
