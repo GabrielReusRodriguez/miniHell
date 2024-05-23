@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/22 22:31:30 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:52:11 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,32 @@
 /*
 	If it starts with / it is an absolute route else relative route.
 */
-bool    path_isrelative(t_string route)
+bool	path_isrelative(t_string route)
 {
 	if (route[0] == '/')
 		return (false);
 	return (true);
-
 }
 
 /*
- The getcwd() function copies an absolute pathname of the current working directory to the array pointed to by buf, which is
-	   of length size.
+ The getcwd() function copies an absolute pathname of the current working 
+ 	directory to the array pointed to by buf, which is of length size.
 
-	   If  the length of the absolute pathname of the current working directory, including the terminating null byte, exceeds size
-	   bytes, NULL is returned, and errno is set to ERANGE; an application should check for this error, and allocate a larger buf‐
+	   If  the length of the absolute pathname of the current working 
+	   directory, including the terminating null byte, exceeds size
+	   bytes, NULL is returned, and errno is set to ERANGE; an 
+	   application should check for this error, and allocate a larger buf‐
 	   fer if necessary.
 
-	   As  an  extension to the POSIX.1-2001 standard, glibc's getcwd() allocates the buffer dynamically using malloc(3) if buf is
-	   NULL.  In this case, the allocated buffer has the length size unless size is zero, when buf is allocated as big  as  neces‐
+	   As  an  extension to the POSIX.1-2001 standard, glibc's getcwd() 
+	   allocates the buffer dynamically using malloc(3) if buf is
+	   NULL.  In this case, the allocated buffer has the length size 
+	   unless size is zero, when buf is allocated as big  as  neces‐
 	   sary.  The caller should free(3) the returned buffer.
 
 	   ERRORS
-	   EACCES Permission to read or search a component of the filename was denied.
+	   EACCES Permission to read or search a component of the filename 
+	   was denied.
 
 	   EFAULT buf points to a bad address.
 
@@ -54,19 +58,22 @@ bool    path_isrelative(t_string route)
 	   EINVAL getwd(): buf is NULL.
 
 	   ENAMETOOLONG
-			  getwd(): The size of the null-terminated absolute pathname string exceeds PATH_MAX bytes.
+			  getwd(): The size of the null-terminated absolute pathname 
+			  string exceeds PATH_MAX bytes.
 
 	   ENOENT The current working directory has been unlinked.
 
 	   ENOMEM Out of memory.
 
-	   ERANGE The size argument is less than the length of the absolute pathname of the working directory, including the terminat‐
-			  ing null byte.  You need to allocate a bigger array and try again.
+	   ERANGE The size argument is less than the length of the absolute 
+	   		pathname of the working directory, including the terminat‐
+			  ing null byte.  You need to allocate a bigger array and 
+			  try again.
 
 */
 t_string	path_getcwd(void)
 {
-	t_string    path;
+	t_string	path;
 
 	path = getcwd(NULL, 0);
 	if (path == NULL)
@@ -75,9 +82,8 @@ t_string	path_getcwd(void)
 			error_system_crash("Error at memory malloc.\n");
 		perror("Error");
 	}
-	return (path);	
+	return (path);
 }
-
 
 static bool	path_is_special_route(t_string input_path)
 {
@@ -90,8 +96,8 @@ static bool	path_is_special_route(t_string input_path)
 
 static t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 {
-	t_var		*var;
-	
+	t_var	*var;
+
 	if (ft_strcmp(input_path, "-") == 0)
 	{
 		var = env_get_var(shell->cfg.env, "OLDPWD");
@@ -115,13 +121,12 @@ static t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 		}
 	}
 	return (NULL);
-}    
+}
 
-
-int    path_chdir(t_string newdir, t_minishell *shell)
+int	path_chdir(t_string newdir, t_minishell *shell)
 {
 	t_string	new_path;
-	
+
 	if (path_isrelative(newdir))
 	{
 		if (path_is_special_route(newdir))

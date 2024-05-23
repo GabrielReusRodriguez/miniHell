@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:49:13 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 22:47:50 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:58:35 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ static t_string	expansor_treat_squoted(size_t *i, t_string str)
 	if (str[*i + j + 1] == '\0')
 	{
 		chunk = ft_substr(str, *i, j + 1);
-        ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
+		ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
 		*i = *i + j + 1;
 	}
 	else
 	{
 		chunk = ft_substr(str, *i, j + 1);
-        ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
+		ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
 		*i = *i + j + 1;
 	}
 	return (chunk);
@@ -104,13 +104,13 @@ static t_string	expansor_treat_dquoted(size_t *i, t_string str)
 	if (str[*i + j] == '\0')
 	{
 		chunk = ft_substr(str, *i, j);
-        ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
+		ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
 		*i = *i + j;
 	}
 	else
 	{
 		chunk = ft_substr(str, *i, j);
-        ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
+		ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
 		*i = *i + j + 1;
 	}
 	return (chunk);
@@ -153,13 +153,13 @@ static t_string	expansor_treat_normal(size_t *i, t_string str)
 	if (str[*i + j] == '\0')
 	{
 		chunk = ft_substr(str, *i, j);
-        ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
+		ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
 		*i = *i + j;
 	}
 	else
 	{
 		chunk = ft_substr(str, *i, j - 1);
-        ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
+		ptr_check_malloc_return(chunk, "Error at memory malloc\n.");
 		*i = *i + j;
 	}
 	return (chunk);
@@ -211,7 +211,7 @@ void	expansor_expand(t_token *token)
 
 	i = 0;
 	acum = ft_strdup("");
-    ptr_check_malloc_return(acum, "Error at memory malloc\n.");
+	ptr_check_malloc_return(acum, "Error at memory malloc\n.");
 	while (token->value[i] != '\0')
 	{
 		if (token->value[i] == '\'')
@@ -220,7 +220,7 @@ void	expansor_expand(t_token *token)
 			chunk = expansor_treat_expand(&i, token->value);
 		aux = acum;
 		acum = ft_strjoin(aux, chunk);
-        ptr_check_malloc_return(acum, "Error at memory malloc\n.");
+		ptr_check_malloc_return(acum, "Error at memory malloc\n.");
 		free(aux);
 		free (chunk);
 	}

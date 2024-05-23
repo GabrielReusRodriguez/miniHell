@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:37:17 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/22 00:11:31 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:37:51 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ stat()  and  fstatat()  retrieve  information about the file pointed to by
 
 */
 
-
 /*
 S_ISREG() is a macro used to interpret the values in a stat-struct, as 
 	returned from the system call stat(). It evaluates to true if the 
@@ -88,6 +87,7 @@ S_ISREG() is a macro used to interpret the values in a stat-struct, as
                // Handle regular file 
            }
 */
+
 /*
 bool    dir_isdir(t_string path)
 {

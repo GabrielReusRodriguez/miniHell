@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:38:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 22:05:03 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:45:59 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ t_list	*tokenizer_new_pipe(size_t *i)
 	t_token		*token;
 	t_list		*token_node;
 
-    token = (t_token *)safe_malloc(sizeof(t_token));
+	token = (t_token *)safe_malloc(sizeof(t_token));
 	token->type = TOKEN_TYPE_PIPE;
 	token->value = ft_strdup("|");
-    ptr_check_malloc_return(token->value, "Error at memory malloc.\n");
+	ptr_check_malloc_return(token->value, "Error at memory malloc.\n");
 	(*i)++;
 	token_node = ft_lstnew(token);
-    ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
+	ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
 	return (token_node);
 }
 
@@ -84,12 +84,12 @@ t_list	*tokenizer_new_semicolon(size_t *i)
 	t_token		*token;
 	t_list		*token_node;
 
-    token = (t_token *)safe_malloc(sizeof(t_token));
+	token = (t_token *)safe_malloc(sizeof(t_token));
 	token->type = TOKEN_TYPE_SEMICOLON;
 	token->value = ft_strdup(";");
-    ptr_check_malloc_return(token->value, "Error at memory malloc.\n");
+	ptr_check_malloc_return(token->value, "Error at memory malloc.\n");
 	(*i)++;
 	token_node = ft_lstnew(token);
-    ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
+	ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
 	return (token_node);
 }

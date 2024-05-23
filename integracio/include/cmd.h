@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/17 19:31:02 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:04:57 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_cmd
 	t_list		*args;
 	t_list		*redir_in;
 	t_list		*redir_out;
-    t_string    here_doc;
+	t_string	here_doc;
 	int			pipe[2];
 	int			status;
 }	t_cmd;
@@ -73,13 +73,9 @@ bool		cmd_isbuiltin(t_cmd cmd);
 */
 void		cmd_debug(t_cmd cmd);
 
-//char		*cmd_builtin(t_cmd cmd);
-
 /*
-    cmd_redirect.c
+	cmd_redirect.c
 */
-//void        cmd_heredoc(t_cmd *cmd, t_environment env);
-void        cmd_heredoc(t_cmd *cmd, t_minishell shell);
-
+void		cmd_heredoc(t_cmd *cmd, t_minishell shell);
 
 #endif

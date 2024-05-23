@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 23:25:25 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:11:06 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ typedef struct s_minishell_cfg
 	t_environment	env;
 	t_var			*var_path;
 	t_var			*var_pwd;
-	t_var           *var_oldpwd;
-//	t_string		pwd;
-//	struct termios	termios;
+	t_var			*var_oldpwd;
 }	t_minishell_cfg;
 
 typedef struct s_minishell_status
@@ -54,8 +52,7 @@ t_minishell	minishell_new(char **env);
 void		minishell_destroy(t_minishell shell);
 //void		minishell_cfg_debug(t_minishell_cfg *cfg);
 bool		minishell_check(t_minishell shell);
-t_string    minishell_get_prompt(void);
-
+t_string	minishell_get_prompt(void);
 
 void		signal_set_mode(int mode);
 
@@ -64,25 +61,19 @@ void		signal_set_mode(int mode);
 */
 void		minishell_stat_init(t_minishell_status *stat);
 void		minishell_stat_destroy(t_minishell_status *stat);
-void		minishell_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
+//void		minishell_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
 
 /*
 	minishell_cfg.c
 */
 bool		minishell_cfg_load(t_minishell_cfg *cfg, char **env);
 bool		minishell_cfg_unload(t_minishell_cfg *cfg);
-void		minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
+void		minishell_cfg_refresh_pwd_vars(t_minishell *shell, \
+				t_string new_cwd);
 
 /*
 	minishell_cfg2.c
 */
-void    minishell_cfg_load_default(t_minishell_cfg *cfg);
-void	minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd);
-
-
-/*
-	minishell_debug    
-*/
-
+void		minishell_cfg_load_default(t_minishell_cfg *cfg);
 
 #endif

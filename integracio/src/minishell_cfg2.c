@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 20:49:56 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:34:33 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include "path.h"
 #include <stdio.h>
 
-static  void    minishell_cfg_default_shlevel(t_minishell_cfg *cfg)
-{	
+static void	minishell_cfg_default_shlevel(t_minishell_cfg *cfg)
+{
 	int			level;
 	t_var		*env_var;
 	t_var		var;
@@ -29,7 +29,7 @@ static  void    minishell_cfg_default_shlevel(t_minishell_cfg *cfg)
 	env_var = env_get_var(cfg->env, "SHLVL");
 	if (env_var == NULL)
 	{
-		var = var_new_wargs("SHLVL","1");
+		var = var_new_wargs("SHLVL", "1");
 		if (env_add_var(&cfg->env, var) == NULL)
 			error_system_crash("Error creating PWD var\n");
 		var_destroy(&var);
@@ -47,7 +47,7 @@ static  void    minishell_cfg_default_shlevel(t_minishell_cfg *cfg)
 	}
 }
 
-static void		minishell_cfg_default_shell(t_minishell_cfg *cfg)
+static void	minishell_cfg_default_shell(t_minishell_cfg *cfg)
 {
 	t_var	var;
 
@@ -55,10 +55,9 @@ static void		minishell_cfg_default_shell(t_minishell_cfg *cfg)
 	if (env_addorupdate_var(&cfg->env, var) == NULL)
 		error_system_crash("Error at memory malloc.\n");
 	var_destroy(&var);
-
 }
 
-static	void	minishell_cfg_default_pwd(t_minishell_cfg *cfg)
+static void	minishell_cfg_default_pwd(t_minishell_cfg *cfg)
 {
 	t_var		var;
 	t_string	str_value;
@@ -74,7 +73,7 @@ static	void	minishell_cfg_default_pwd(t_minishell_cfg *cfg)
 	free (str_value);
 }
 
-static void		minishell_cfg_default_oldpwd(t_minishell_cfg *cfg)
+static void	minishell_cfg_default_oldpwd(t_minishell_cfg *cfg)
 {
 	t_var		var;
 	t_string	str_value;
@@ -90,7 +89,7 @@ static void		minishell_cfg_default_oldpwd(t_minishell_cfg *cfg)
 	free (str_value);
 }
 
-void minishell_cfg_load_default(t_minishell_cfg *cfg)
+void	minishell_cfg_load_default(t_minishell_cfg *cfg)
 {
 	if (cfg->var_pwd == NULL)
 		minishell_cfg_default_pwd(cfg);

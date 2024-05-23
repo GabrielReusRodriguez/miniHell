@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/22 22:51:59 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:39:27 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@
 #include "txt_utils.h"
 #include "minishell.h"
 
-//#include <stdio.h>
-
-static t_string	expansor_vars_replace_status(t_string acum, t_expansor *limits, t_minishell shell)
+static t_string	expansor_vars_replace_status(t_string acum, \
+					t_expansor *limits, t_minishell shell)
 {
 	t_string	substring;
 	t_string	res;
 
-    substring = ft_itoa(shell.status.return_status);
-    ptr_check_malloc_return(substring, "Error at memory malloc.\n");
+	substring = ft_itoa(shell.status.return_status);
+	ptr_check_malloc_return(substring, "Error at memory malloc.\n");
 	res = text_join(acum, substring);
 	limits->i = limits->i + 2;
 	limits->init = limits->i;
@@ -41,7 +40,7 @@ static t_string	expansor_vars_add_dollar(t_string acum, t_expansor *limits)
 	t_string	res;
 
 	substring = ft_strdup("$");
-    ptr_check_malloc_return(substring, "Error at memory malloc.\n");
+	ptr_check_malloc_return(substring, "Error at memory malloc.\n");
 	res = text_join(acum, substring);
 	limits->i++;
 	limits->init = limits->i;
@@ -54,7 +53,7 @@ static t_string	expansor_vars_replace_vars_init(t_expansor	*limits, \
 	t_string	expanded;
 
 	expanded = ft_strdup("");
-    ptr_check_malloc_return(expanded, "Error memory malloc.\n");
+	ptr_check_malloc_return(expanded, "Error memory malloc.\n");
 	limits->i = 0;
 	limits->init = 0;
 	limits->str = str;
@@ -110,7 +109,8 @@ void	expansor_vars_replace_vars(t_token *token, t_token *next_t, \
 	expanded = expansor_vars_replace_vars_init(&expansor, token->value);
 	while (token->value[expansor.i] != '\0')
 	{
-		expanded = expansor_vars_replace_loop(expanded, &expansor, next_t, shell);
+		expanded = expansor_vars_replace_loop(expanded, &expansor, next_t, \
+						shell);
 	}
 	if (expansor.init < expansor.i)
 		expanded = expansor_vars_join_acumulated(expanded, expansor);

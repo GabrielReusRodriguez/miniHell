@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 21:35:06 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:24:38 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*env_new_varnode(t_string str)
 	t_list		*node;
 	t_var		*env_var;
 
-    env_var = (t_var *)safe_malloc(sizeof(t_var));
+	env_var = (t_var *)safe_malloc(sizeof(t_var));
 	if (var_init(str, env_var) == NULL)
 	{
 		var_destroy(env_var);
@@ -29,9 +29,10 @@ t_list	*env_new_varnode(t_string str)
 		return (NULL);
 	}
 	node = ft_lstnew(env_var);
-    ptr_check_malloc_return(node, "Error at memory malloc.\n");
+	ptr_check_malloc_return(node, "Error at memory malloc.\n");
 	return (node);
 }
+
 /*
 t_list	*env_new_varnode(t_string str)
 {

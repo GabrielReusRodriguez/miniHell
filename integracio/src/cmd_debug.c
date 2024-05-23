@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:10:08 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/14 22:50:06 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:57:54 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	cmd_debug(t_cmd cmd)
 	{
 		printf("CMD***********************\n");
 		node = cmd.redir_in;
-        while (node != NULL)
+		while (node != NULL)
 		{
 			redirect = (t_redirect *)node->content;
 			if (redirect->type->type == TOKEN_TYPE_RED_INPUT)
@@ -45,10 +45,10 @@ void	cmd_debug(t_cmd cmd)
 			}
 			node = node->next;
 		}
-        if (cmd.redir_in != NULL)
-        {
-            printf("\t here_doc read: _%s_\n", cmd.here_doc);
-        }
+		if (cmd.redir_in != NULL)
+		{
+			printf("\t here_doc read: _%s_\n", cmd.here_doc);
+		}
 		if (cmd.exec != NULL)
 		{
 			printf("\tExec: %s\n", cmd.exec->value);

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 23:25:35 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:30:34 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,16 @@
 
 #include "datatypes.h"
 #include "libft.h"
-//#include "get_next_line.h"
 #include "minishell.h"
-//#include "builtin.h"
 #include "tokens.h"
 #include "parser.h"
 #include "cmd.h"
-//#include "environment.h"
 #include "tokens.h"
 
-static bool    is_empty_line(t_string line)
+static bool	is_empty_line(t_string line)
 {
-	
-	size_t  i;
-	
+	size_t	i;
+
 	if (ft_strlen(line) == 0)
 		return (true);
 	i = 0;
@@ -36,7 +32,7 @@ static bool    is_empty_line(t_string line)
 	{
 		if (tokenizer_charinset(line[i], TOKENS_SEPARATORS) == false)
 			return (false);
-		i++;        
+		i++;
 	}
 	return (true);
 }
@@ -69,7 +65,7 @@ static void	treat_line(t_minishell *shell, t_string line)
 	cmd_destroy_set(&cmd_set);
 }
 
-static void main_loop(t_minishell *shell)
+static void	main_loop(t_minishell *shell)
 {
 	t_string	line;
 	t_string	prompt;		

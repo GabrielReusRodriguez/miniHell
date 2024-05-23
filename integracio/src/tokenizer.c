@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:04 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 21:47:13 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:03:52 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	tokenizer_add_space(t_list **token_list)
 	t_string	space;
 
 	space = ft_strdup("");
-    ptr_check_malloc_return(space, "Error at memory malloc.\n");
+	ptr_check_malloc_return(space, "Error at memory malloc.\n");
 	node = tokenizer_new_token_node(TOKEN_TYPE_SPACE, space);
 	ft_lstadd_back(token_list, node);
 }
@@ -39,7 +39,8 @@ static void	tokenizer_expand_vars(t_list *list, t_minishell shell)
 	while (node != NULL)
 	{
 		if (node->next != NULL)
-			expansor_vars_replace_vars(node->content, node->next->content, shell);
+			expansor_vars_replace_vars(node->content, node->next->content, \
+				shell);
 		else
 			expansor_vars_replace_vars(node->content, NULL, shell);
 		node = node->next;

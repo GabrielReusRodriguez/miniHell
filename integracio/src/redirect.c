@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:49:52 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 22:28:37 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:04:38 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ t_redirect	*redirect_new(void)
 {
 	t_redirect	*redir;
 
-    redir  = (t_redirect *)safe_malloc(sizeof(t_redirect));
+	redir = (t_redirect *)safe_malloc(sizeof(t_redirect));
 	redir->target = NULL;
 	redir->type = NULL;
 	return (redir);
 }
+
 /*
 	We do not free any memory because they are pointers to token so they
 	will be free when we "destroy" the tokens.

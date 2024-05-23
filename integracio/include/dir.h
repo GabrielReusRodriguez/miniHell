@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:39:25 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 21:40:10 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:02:45 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "datatypes.h"
 
-bool    dir_isdir(t_string path);
+bool	dir_isdir(t_string path);
 
 #endif

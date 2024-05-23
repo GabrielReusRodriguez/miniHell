@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 20:04:11 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/22 22:55:24 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:22:52 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t	expansor_vars_find_end_var(t_string str, size_t init)
 	if (str[init + j] == '\0' || !(ft_isalpha(str[init + j]) || \
 			tokenizer_charinset(str[init + j], "_")))
 		return (0);
-    j++;
+	j++;
 	while (ft_isalnum(str[init + j]) || tokenizer_charinset(str[init + j], "_"))
 		j++;
 	return (j);
@@ -98,7 +98,7 @@ t_string	*expansor_vars_create_chunks(t_string str)
 	size_t		i;
 
 	num_chunks = expansor_vars_count_vars(str);
-    chunks = (t_string *)safe_malloc((num_chunks + 1) * sizeof(t_string));
+	chunks = (t_string *)safe_malloc((num_chunks + 1) * sizeof(t_string));
 	i = 0;
 	while (i <= num_chunks)
 	{
@@ -121,7 +121,7 @@ t_string	expansor_vars_join_chunks(t_string *chunks)
 	{
 		aux = str_joined;
 		str_joined = ft_strjoin(str_joined, chunks[i]);
-        ptr_check_malloc_return(str_joined, "Error at memory malloc\n");
+		ptr_check_malloc_return(str_joined, "Error at memory malloc\n");
 		free (aux);
 		i++;
 	}

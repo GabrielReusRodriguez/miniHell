@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:32:51 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/21 23:11:00 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:03:29 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ t_string	var_2_string(t_var var);
 void		var_destroy(t_var	*var);
 t_var		var_getenvvar(t_string var_name);
 
-
 /*
-    var2.c
+	var2.c
 */
-bool    var_has_valid_name(t_string key);
-t_var   var_new_wargs(t_string key, t_string value);
+bool		var_has_valid_name(t_string key);
+t_var		var_new_wargs(t_string key, t_string value);
 
 #endif

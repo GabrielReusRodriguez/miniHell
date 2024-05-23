@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/22 22:40:46 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:21:22 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@
 #include "path.h"
 #include <stdio.h>
 
-
-static void minishell_cfg_init(t_minishell_cfg *cfg)
+static void	minishell_cfg_init(t_minishell_cfg *cfg)
 {
 	cfg->var_path = NULL;
 	cfg->var_pwd = NULL;
 	cfg->var_oldpwd = NULL;
 }
-
 
 bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 {
@@ -58,7 +56,7 @@ bool	minishell_cfg_unload(t_minishell_cfg *cfg)
 	return (true);
 }
 
-void    minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd)
+void	minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd)
 {
 	if (shell->cfg.var_oldpwd != NULL)
 	{
@@ -67,12 +65,14 @@ void    minishell_cfg_refresh_pwd_vars(t_minishell *shell, t_string new_cwd)
 			shell->cfg.var_oldpwd->value = ft_strdup(shell->cfg.var_pwd->value);
 		else
 			shell->cfg.var_oldpwd->value = ft_strdup(new_cwd);
-		ptr_check_malloc_return(shell->cfg.var_oldpwd->value, "Error at memory malloc\n.");
+		ptr_check_malloc_return(shell->cfg.var_oldpwd->value, \
+			"Error at memory malloc\n.");
 	}
 	if (shell->cfg.var_pwd != NULL)
 	{
 		free (shell->cfg.var_pwd->value);
 		shell->cfg.var_pwd->value = ft_strdup(new_cwd);
-		ptr_check_malloc_return(shell->cfg.var_pwd->value, "Error at memory malloc\n.");
+		ptr_check_malloc_return(shell->cfg.var_pwd->value, \
+			"Error at memory malloc\n.");
 	}
 }

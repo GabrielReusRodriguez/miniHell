@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 21:52:12 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:59:24 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ t_list	*tokenizer_new_token_node(int type, t_string value)
 
 	if (value == NULL)
 		return (NULL);
-    token = (t_token *)safe_malloc(sizeof(t_token));
+	token = (t_token *)safe_malloc(sizeof(t_token));
 	token->type = type;
 	token->value = value;
 	token_node = ft_lstnew(token);
-    ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
+	ptr_check_malloc_return(token_node, "Error at memory malloc.\n");
 	return (token_node);
 }
 /*

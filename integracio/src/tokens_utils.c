@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:28:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 21:45:49 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:58:46 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*token_new(int type, t_string value)
 {
 	t_token	*token;
 
-    token = (t_token *)safe_malloc(sizeof (t_token));
+	token = (t_token *)safe_malloc(sizeof (t_token));
 	token->type = type;
 	token->value = value;
 	return (token);
@@ -54,10 +54,10 @@ t_token	*tokens_clone(t_token token)
 {
 	t_token	*new_token;
 
-    new_token = (t_token *)safe_malloc(sizeof(t_token));
+	new_token = (t_token *)safe_malloc(sizeof(t_token));
 	new_token->type = token.type;
 	new_token->value = ft_strdup(token.value);
-    ptr_check_malloc_return(new_token->value, "Error at memory malloc.\n");
+	ptr_check_malloc_return(new_token->value, "Error at memory malloc.\n");
 	return (new_token);
 }
 /*

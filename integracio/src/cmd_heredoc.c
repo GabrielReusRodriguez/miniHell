@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 21:34:19 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/20 21:23:53 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:26:59 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include "get_next_line.h"
 
 static	void	cmd_heredoc_treat_var(t_expansor *expansor, t_string *acum, \
-                    t_minishell shell)
+					t_minishell shell)
 {
 	t_string	aux;
 	t_string	var_value;
@@ -46,10 +46,10 @@ static	void	cmd_heredoc_treat_var(t_expansor *expansor, t_string *acum, \
 	expansor->init = expansor->i;
 }
 
-static t_string	cmd_heredoc_expand_vars(t_string  heredoc, t_minishell shell)
+static t_string	cmd_heredoc_expand_vars(t_string heredoc, t_minishell shell)
 {
 	t_string	acum;
-	t_expansor  expansor;
+	t_expansor	expansor;
 
 	expansor.i = 0;
 	expansor.init = 0;
@@ -83,23 +83,23 @@ static	t_string	cmd_heredoc_get(t_string limit)
 	next_line = here_doc;
 	while (next_line != NULL)
 	{
-        ft_putstr_fd(">",STDOUT_FILENO);
-        next_line = get_next_line(STDIN_FILENO);
+		ft_putstr_fd(">", STDOUT_FILENO);
+		next_line = get_next_line(STDIN_FILENO);
 		if (next_line == NULL || ft_strcmp(limit, next_line) == 0)
-        {
-            free (next_line);
-			break;
-        }
- 		here_doc = text_join(here_doc, next_line);
-        aux = here_doc;
+		{
+			free (next_line);
+			break ;
+		}
+		here_doc = text_join(here_doc, next_line);
+		aux = here_doc;
 		here_doc = ft_strjoin(here_doc, "\n");
 		ptr_check_malloc_return(here_doc, "Error at memory malloc\n.");
-        free (aux);
+		free (aux);
 	}
 	return (here_doc);
 }
 
-void    cmd_heredoc(t_cmd *cmd, t_minishell shell)
+void	cmd_heredoc(t_cmd *cmd, t_minishell shell)
 {
 	t_redirect	*redir;
 	t_list		*node;

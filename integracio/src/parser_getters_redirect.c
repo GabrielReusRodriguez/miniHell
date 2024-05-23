@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 22:34:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:13:12 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static t_token	*parser_jump_spaces(t_list **node, t_list *end)
 	return (token);
 }
 
-static t_string parser_parse_redir_inout_join(t_string value, t_string token_value)
+static t_string	parser_parse_redir_inout_join(t_string value, \
+					t_string token_value)
 {
 	t_string	aux;
 
@@ -90,7 +91,7 @@ static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
 	t_list	*new_node;
 
 	new_node = ft_lstnew(red);
-    ptr_check_malloc_return(new_node, "Error in memory malloc.\n");
+	ptr_check_malloc_return(new_node, "Error in memory malloc.\n");
 	if (tokens_isredir_in(*token) == true)
 		ft_lstadd_back(&cmd->redir_in, new_node);
 	else

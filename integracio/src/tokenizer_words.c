@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 00:00:25 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/22 21:49:52 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:41:36 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_list	*tokenizer_new_word(t_string str, size_t *final_pos)
 	size_t		word_init;
 	t_list		*token_node;
 
-    token = (t_token *)safe_malloc(sizeof(t_token));
+	token = (t_token *)safe_malloc(sizeof(t_token));
 	i = 0;
 	word_init = i;
 	while (str[i] != '\0' && tokenizer_charinset(str[i], TOKENS_SEPARATORS) \
@@ -64,7 +64,7 @@ t_list	*tokenizer_new_word(t_string str, size_t *final_pos)
 		i++;
 	token->type = TOKEN_TYPE_WORD;
 	token->value = ft_substr(str, word_init, i - word_init);
-    ptr_check_malloc_return(token->value, "Error at memory malloc.\n");
+	ptr_check_malloc_return(token->value, "Error at memory malloc.\n");
 	*final_pos = *final_pos + i;
 	token_node = ft_lstnew(token);
 	ptr_check_malloc_return(token_node, "Error at memory malloc.\n");

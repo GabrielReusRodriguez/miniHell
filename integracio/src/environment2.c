@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/21 23:14:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:41:52 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*env_add_var(t_environment *env, t_var var)
 	t_list	*new_node;
 	t_var	*new_var;
 
-    last_node = ft_lstlast(env->vars);
+	last_node = ft_lstlast(env->vars);
 	new_var = var_clone(var);
 	if (new_var == NULL)
 		return (NULL);

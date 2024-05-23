@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:16:41 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/20 21:51:44 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:54:45 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_string	*ptr_new_matrix(size_t size)
 	size_t		i;
 
 	matrix = (t_string *)malloc((size + 1) * sizeof(t_string));
-    ptr_check_malloc_return(matrix, "Error at memory malloc.\n");
+	ptr_check_malloc_return(matrix, "Error at memory malloc.\n");
 	i = 0;
 	while (i < size)
 	{
