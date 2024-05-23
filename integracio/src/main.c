@@ -37,6 +37,7 @@ static bool	is_empty_line(t_string line)
 	return (true);
 }
 
+/*
 static void	treat_line(t_minishell *shell, t_string line)
 {
 	t_token_set	token_set;
@@ -60,7 +61,35 @@ static void	treat_line(t_minishell *shell, t_string line)
 		cmd_debug(cmd_set.cmds[i]);
 		i++;
 	}
-	cmd_set_run(shell, cmd_set);
+	shell->status.return_status = cmd_set_run(shell, cmd_set);
+	tokens_destroy_tokenlist(&token_set);
+	cmd_destroy_set(&cmd_set);
+}
+*/
+static void	treat_line(t_minishell *shell, t_string line)
+{
+	t_token_set	token_set;
+	t_cmd_set	cmd_set;
+	size_t		i;
+
+	if (tokenizer_valida_str(line) == false)
+	{
+		ft_putendl_fd("Syntax error quotes not closed", STDERR_FILENO);
+		shell->status.return_status = 127;	
+		return ;
+	}
+	token_set = tokenizer(line, *shell);
+	if (token_set.tokens == NULL)
+		return ;
+	if (parser_get_cmdset(&token_set, &cmd_set) == NULL)
+	{
+		shell->status.return_status = 127;	
+		return (tokens_destroy_tokenlist(&token_set));
+	}
+	i = 0;
+	while (i < cmd_set.cmd_count)
+		cmd_heredoc(&cmd_set.cmds[i++], *shell);
+	shell->status.return_status = cmd_set_run(shell, cmd_set);
 	tokens_destroy_tokenlist(&token_set);
 	cmd_destroy_set(&cmd_set);
 }
