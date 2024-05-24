@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/24 21:51:30 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/25 00:46:16 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ SRC		= 	main 					\
 		  	minishell 				\
 		  	minishell_cfg 			\
 			minishell_cfg2			\
+			minishell_cfg3			\
 		  	minishell_stat 			\
 			path					\
 			parser					\
