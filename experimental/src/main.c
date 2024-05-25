@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/23 18:30:34 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/25 01:50:01 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ static void	main_loop(t_minishell *shell)
 		prompt = minishell_get_prompt();
 		line = readline(prompt);
 		if (line == NULL)
+        {
+            free (prompt);
 			break ;
+        }
 		if (is_empty_line(line) == false)
 		{
 			treat_line(shell, line);

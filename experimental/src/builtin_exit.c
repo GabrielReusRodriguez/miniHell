@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:06:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/04 15:34:47 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/25 01:45:32 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 {
+    /*
 	t_list	*node;
 	t_token	*token;
 
@@ -30,4 +31,18 @@ int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 	if (parent)
 		shell->status.run = false;
 	return (shell->status.return_status);
+    */
+
+    t_list	*node;
+	t_token	*token;
+
+   (void)parent;
+   (void)shell;
+	node = cmd.args;
+	if (node)
+	{
+		token = (t_token *)node->content;
+		exit(ft_atoi(token->value));
+	}
+    exit (EXIT_SUCCESS);
 }

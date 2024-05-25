@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/25 01:20:12 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/25 02:10:07 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	runner_treat_outputredir(t_cmd cmd)
 	(void)cmd;
 }
 
+#include <stdio.h>
+
 int	runner_run_cmd(t_minishell *shell, t_cmd *cmd,t_string *paths, t_string *envp)
 {
 	pid_t pid;
@@ -84,14 +86,26 @@ int	runner_run_cmd(t_minishell *shell, t_cmd *cmd,t_string *paths, t_string *env
 			argv = cmd_join_exec_and_args(*cmd);
 			if (execve(cmd->exec->value, argv, envp) < 0)
 			{
+				//shell->status.return_status = EXIT_FAILURE;
 				ptr_freematrix(argv);
-				return (EXIT_FAILURE);
+				exit (EXIT_FAILURE);
 			}
 		}
 	}
 	return (EXIT_SUCCESS);
 }
 
+
+static int runner_determine_status(int status)
+{
+	if  (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (WTERMSIG(status));
+	if (WIFSTOPPED(status))
+		return (WSTOPSIG(status));
+	return (status);
+}
 /*
 	Nos quedamos con el status del mayor pid ya que el pid
 	es positivo e incremental.
@@ -114,16 +128,15 @@ void	runner_get_status(t_minishell *shell,t_cmd_set *cmd_set)
 			greater_pid = pid;
 		}
 		i++;
-	}	
+	}
+	shell->status.return_status = runner_determine_status(shell->status.return_status);
 }
-
-#include <stdio.h>
 
 bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
 {
-    if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
-        return (true);
-    return (false);
+	if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
+		return (true);
+	return (false);
 }
 
 int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
@@ -132,21 +145,20 @@ int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 	t_string    *paths;
 	t_string    *envp;
 
-    if (runner_is_unique_builtin_cmd(cmd_set) == true)
-    {
-        return (builtin_run(shell, cmd_set->cmds[0], true));
-    }
+	if (runner_is_unique_builtin_cmd(cmd_set) == true)
+	{
+		return (builtin_run(shell, cmd_set->cmds[0], true));
+	}
 	paths = minishell_path_2_vector(*shell);
 	envp = env_to_vector(shell->cfg.env);
 	i = 0;
-//	signal_set_mode(SIGNAL_MODE_DEFAULT);
 	while (i < cmd_set->cmd_count)
 	{
 		runner_run_cmd(shell, &cmd_set->cmds[i], paths, envp);
 		i++;
 	}
-    ptr_freematrix(envp);
-    ptr_freematrix(paths);
+	ptr_freematrix(envp);
+	ptr_freematrix(paths);
 	runner_get_status(shell, cmd_set);
-    return (shell->status.return_status);
+	return (shell->status.return_status);
 }

@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/25 00:47:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/25 01:34:57 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,14 @@ t_string    *cmd_join_exec_and_args(t_cmd cmd)
 	size = ft_lstsize(cmd.args);
 	//argv = safe_malloc((size + 1) * sizeof(t_string));
 	argv = (t_string *)malloc((size + 2) * sizeof(t_string));
-	argv[j++] = cmd.exec->value;
+	argv[j] = ft_strdup(cmd.exec->value);
+    ptr_check_malloc_return(argv[j], "Error at memory malloc.\n");
+    j++;
 	node = cmd.args;
 	while (node != NULL)
 	{
-		argv[j] = ((t_token *)node->content)->value;
+		argv[j] = ft_strdup(((t_token *)node->content)->value);
+        ptr_check_malloc_return(argv[j], "Error at memory malloc.\n");
 		node = node->next;
 		j++;
 	}
