@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/25 02:10:07 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/25 02:19:44 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,18 @@ int	runner_run_cmd(t_minishell *shell, t_cmd *cmd,t_string *paths, t_string *env
 	return (EXIT_SUCCESS);
 }
 
-
+/*
+in ash, zsh, pdksh, bash, the Bourne shell, $? is 128 + n. What that means is that in those shells, if you get a $? of 129, you don't know whether it's because the process exited with exit(129) or whether it was killed by the signal 1 (HUP on most systems). But the rationale is that shells, when they do exit themselves, by default return the exit status of the last exited command. By making sure $? is never greater than 255, that allows to have a consistent exit status:
+*/
+//https://unix.stackexchange.com/questions/99112/default-exit-code-when-process-is-terminated
 static int runner_determine_status(int status)
 {
 	if  (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
-		return (WTERMSIG(status));
+		return (128 + WTERMSIG(status));
 	if (WIFSTOPPED(status))
-		return (WSTOPSIG(status));
+		return (128 + WSTOPSIG(status));
 	return (status);
 }
 /*
