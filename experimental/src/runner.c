@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/26 22:49:37 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/26 23:54:49 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,27 @@
 #include "builtin.h"
 #include "error_handler.h"
 #include "runner.h"
+
+
+void    pipe_close_fd(int pipe)
+{
+	if (pipe >= 0)
+		close (pipe);
+}
+
+void	pipe_close_pipe(int pipe[2])
+{
+	pipe_close_fd(pipe[0]);
+	pipe_close_fd(pipe[1]);
+}
+
+bool	runner_islastcmd(t_run_env run_env)
+{
+	if (run_env.num_cmd == run_env.total_cmd - 1)
+		return (true);
+	return (false);
+}
+
 
 //https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
 //https://unix.stackexchange.com/questions/471221/how-bash-builtins-works-with-pipeline
@@ -60,189 +81,85 @@ void	runner_treat_inputredir(t_cmd *cmd)
 	(void)cmd;
 }
 
-void	runner_treat_outputredir(t_cmd_set *cmd_set, t_run_env run_env)
+void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 {
-	t_cmd	*cmd;
-	
-    cmd = &cmd_set->cmds[run_env.num_cmd];
-	if (run_env.total_cmd > 1)
+	if (run_env.total_cmd > 1 && runner_islastcmd(run_env) == false)
 	{
 		pipe(cmd->pipe);
 	}
-    else
-    {
-        cmd->pipe[PIPE_READ_FD] = -1;
-        cmd->pipe[PIPE_WRITE_FD] = -1;
-    }
-//	close (cmd->pipe[0]);
-//	close (cmd->pipe[1]);
+	else
+	{
+		cmd->pipe[PIPE_READ_FD] = -1;
+		cmd->pipe[PIPE_WRITE_FD] = -1;
+	}
+}
 
+void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
+{
+	t_string	*argv;
+
+	if (run_env.total_cmd > 1)
+	{
+		if (runner_islastcmd(run_env) == false)
+			dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
+
+		pipe_close_pipe(cmd->pipe);
+	}
+	if (cmd_isbuiltin(*cmd) == true)
+		exit(builtin_run(shell, *cmd, true));
+	else
+	{
+		if (runner_get_exec(cmd, run_env.paths) == false)
+		{
+			error_print("Error: Command not found\n");
+			exit(127);
+		}
+		argv = cmd_join_exec_and_args(*cmd);
+		if (execve(cmd->exec->value, argv, run_env.envp) < 0)
+		{
+			perror ("Error");
+			ptr_freematrix(argv);
+			exit (EXIT_FAILURE);
+		}
+	}	
+}
+
+int	runner_parent_process(t_cmd *cmd, t_run_env run_env)
+{
+	//Parent process
+	if (run_env.total_cmd > 1)
+	{
+		if (runner_islastcmd(run_env) == false)
+			dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
+		pipe_close_pipe(cmd->pipe);
+	}
+	return (0);	
 }
 
 int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 {
 	pid_t       pid;
-	t_string	*argv;
 	t_cmd		*cmd;
 
 	cmd = &cmd_set->cmds[run_env.num_cmd];
 
 	runner_treat_inputredir(cmd);
-	runner_treat_outputredir(cmd_set, run_env);
+	runner_treat_outputredir(cmd, run_env);
 	pid = fork();
 	if (pid != 0)
 	{
 		if (pid < 0)
 			return (EXIT_FAILURE);
-		//Parent process
 		signal_set_mode(SIGNAL_MODE_NOOP);
-		if (run_env.total_cmd > 1)
-		{
-            if (run_env.num_cmd != run_env.total_cmd - 1)
-            {
-			    close(cmd->pipe[PIPE_WRITE_FD]);
-                //cmd->pipe[PIPE_WRITE_FD] = -1;
-                dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
-			    close(cmd->pipe[PIPE_READ_FD]);
-                //cmd->pipe[PIPE_READ_FD] = -1;
-            }
-            else
-            {
-       			    close(cmd->pipe[PIPE_WRITE_FD]);
-    			    close(cmd->pipe[PIPE_READ_FD]);
-                    close(cmd_set->cmds[run_env.num_cmd - 1].pipe[PIPE_READ_FD]);
-//                        dup2(STDIN_FILENO, STDIN_FILENO);
-            }
-/*
-			if (run_env.num_cmd != run_env.total_cmd - 1)
-			{
-
-//				if (run_env.num_cmd > 0)
-//					close (cmd_set->cmds[run_env.num_cmd - 1].pipe[PIPE_READ_FD]);
-			}
-			else
-			{
-				close (cmd_set->cmds[run_env.num_cmd - 1].pipe[PIPE_READ_FD]);
-			}
-            */
-		}
+		runner_parent_process(cmd, run_env);
 	}
 	else
 	{
-		//child process
 		signal_set_mode(SIGNAL_MODE_DEFAULT);
-        if (run_env.total_cmd > 1)
-        {
-   			if (run_env.num_cmd != run_env.total_cmd - 1)
-			{
-                close(cmd->pipe[PIPE_READ_FD]);
-                dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
-                close (cmd->pipe[PIPE_WRITE_FD]);
-            }
-            else
-            {
-       			    close(cmd->pipe[PIPE_WRITE_FD]);
-    			    close(cmd->pipe[PIPE_READ_FD]);                
-            }
-        }
-		/*
-		if (run_env.total_cmd > 1)
-		{
-			if (run_env.num_cmd != run_env.total_cmd - 1)
-			{
-				printf("\tHIJO: dup2\n");
-				dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
-				close (cmd->pipe[PIPE_READ_FD]);
-			}
-			else
-			{
-				close (cmd_set->cmds[run_env.num_cmd - 1].pipe[PIPE_WRITE_FD]);
-			}
-		}
-		*/
-		if (cmd_isbuiltin(*cmd) == true)
-			exit(builtin_run(shell, *cmd, true));
-		else
-		{
-			if (runner_get_exec(cmd, run_env.paths) == false)
-			{
-				error_print("Error: Command not found\n");
-				exit(127);
-			}
-			argv = cmd_join_exec_and_args(*cmd);
-			if (execve(cmd->exec->value, argv, run_env.envp) < 0)
-			{
-				perror ("Error");
-				ptr_freematrix(argv);
-				exit (EXIT_FAILURE);
-			}
-		}
+		runner_child_process(shell, cmd, run_env);
 	}
 	return (EXIT_SUCCESS);
 }
-/*
-int	runner_run_cmd(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
-{
-	pid_t pid;
-	t_string	*argv;
-
-	runner_treat_inputredir(cmd);
-	runner_treat_outputredir(cmd);
-	pid = fork();
-	if (pid != 0)
-	{
-		if (pid < 0)
-			return (EXIT_FAILURE);
-		//Parent process
-		signal_set_mode(SIGNAL_MODE_NOOP);
-		printf("\tPADRE: num: %lu total : %lu \n",run_env.num_cmd, run_env.total_cmd);
-		if (run_env.num_cmd != run_env.total_cmd - 1)
-		{
-			printf("\tPADRE: dup2\n");
-			dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
-			close (cmd->pipe[PIPE_WRITE_FD]);
-		}
-		else
-		{
-			close (STDIN_FILENO);
-		}
-	}
-	else
-	{
-		//child process
-		signal_set_mode(SIGNAL_MODE_DEFAULT);
-		printf("\tHIJO: num: %lu total : %lu \n",run_env.num_cmd, run_env.total_cmd);
-		if (run_env.num_cmd != run_env.total_cmd - 1)
-		{
-			printf("\tHIJO: dup2\n");
-			dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
-			close (cmd->pipe[PIPE_READ_FD]);
-		}
-		else
-		{
-			close ();
-		}
-		if (cmd_isbuiltin(*cmd) == true)
-			exit(builtin_run(shell, *cmd, true));
-		else
-		{
-			if (runner_get_exec(cmd, run_env.paths) == false)
-			{
-				error_print("Error: Command not found\n");
-				exit(127);
-			}
-			argv = cmd_join_exec_and_args(*cmd);
-			if (execve(cmd->exec->value, argv, run_env.envp) < 0)
-			{
-				perror ("Error");
-				ptr_freematrix(argv);
-				exit (EXIT_FAILURE);
-			}
-		}
-	}
-	return (EXIT_SUCCESS);
-}
-*/
 
 /*
 in ash, zsh, pdksh, bash, the Bourne shell, $? is 128 + n. What that means is that in those shells, if you get a $? of 129, you don't know whether it's because the process exited with exit(129) or whether it was killed by the signal 1 (HUP on most systems). But the rationale is that shells, when they do exit themselves, by default return the exit status of the last exited command. By making sure $? is never greater than 255, that allows to have a consistent exit status:
@@ -309,7 +226,7 @@ int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 	run_env.envp = env_to_vector(shell->cfg.env);
 	run_env.total_cmd = cmd_set->cmd_count;
 	i = 0;
-    cmd_set->old_stdin = dup(STDIN_FILENO);
+	cmd_set->old_stdin = dup(STDIN_FILENO);
 	while (i < cmd_set->cmd_count)
 	{
 		run_env.num_cmd = i;
@@ -317,8 +234,8 @@ int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 		runner_run_cmd(shell, cmd_set, run_env);
 		i++;
 	}
-    dup2(cmd_set->old_stdin, STDIN_FILENO);
-    close(cmd_set->old_stdin);
+	dup2(cmd_set->old_stdin, STDIN_FILENO);
+	close(cmd_set->old_stdin);
 	ptr_freematrix(run_env.envp);
 	ptr_freematrix(run_env.paths);
 	runner_get_status(shell, cmd_set);
