@@ -6,12 +6,13 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/25 01:50:01 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:01:45 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <unistd.h>
 
 #include "datatypes.h"
 #include "libft.h"
@@ -91,21 +92,25 @@ static void	main_loop(t_minishell *shell)
 	{
 		signal_set_mode(SIGNAL_MODE_INTERACTIVE);
 		prompt = minishell_get_prompt();
-		line = readline(prompt);
-		if (line == NULL)
+        //printf("IS ATTY: %d\n", isatty(STDIN_FILENO));
+        if (isatty(STDIN_FILENO) == 1)
         {
-            free (prompt);
-			break ;
+		    line = readline(prompt);
+		    if (line == NULL)
+            {
+                free (prompt);
+			    break ;
+            }
+		    if (is_empty_line(line) == false)
+		    {
+			    treat_line(shell, line);
+			    //rl_on_new_line();
+			    add_history(line);
+		    }
+		    free(line);
+		    free(prompt);
+		    printf("%d", shell->status.return_status);
         }
-		if (is_empty_line(line) == false)
-		{
-			treat_line(shell, line);
-			//rl_on_new_line();
-			add_history(line);
-		}
-		free(line);
-		free(prompt);
-		printf("%d", shell->status.return_status);
 	}
 }
 

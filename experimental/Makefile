@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/26 19:52:41 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/26 20:17:41 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,6 +117,7 @@ OBJS	= $(addprefix $(BUILD_D)/, $(addsuffix .o, $(SRC)))
 HDR		= 	minishell.h			\
 			builtin.h			\
 			cmd.h				\
+			color.h				\
 			datatypes.h			\
 			debug.h				\
 			dir.h				\
@@ -128,6 +129,7 @@ HDR		= 	minishell.h			\
 			path.h				\
 			ptr.h				\
 			redirect.h			\
+			runner.h			\
 			signal_handler.h	\
 			tokens.h			\
 			txt_utils.h			\

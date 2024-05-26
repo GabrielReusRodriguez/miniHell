@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/24 23:34:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/26 22:44:36 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ typedef struct s_cmd_set
 {
 	size_t	cmd_count;
 	t_cmd	*cmds;
+    //Rueba
+    int old_stdin;
+    //FIN prueba
 }	t_cmd_set;
 
 /*

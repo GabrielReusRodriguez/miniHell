@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:13:48 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/23 19:10:09 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:10:37 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int	builtin_unset(t_minishell *shell, t_cmd cmd)
 	node = cmd.args;
 	if (node == NULL)
 	{
-		ft_putendl_fd("Syntax error", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		//ft_putendl_fd("Syntax error", STDERR_FILENO);
+		//return (EXIT_FAILURE);
+		ft_putendl_fd("", STDOUT_FILENO);
+		return (EXIT_SUCCESS);
 	}
 	param = ((t_token *)node->content)->value;
 	existing_var = env_findvar(shell->cfg.env, param);
