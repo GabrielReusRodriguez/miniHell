@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/26 23:54:49 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/27 00:07:30 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ bool	runner_islastcmd(t_run_env run_env)
 //https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
 //https://unix.stackexchange.com/questions/471221/how-bash-builtins-works-with-pipeline
 
+/*
+	We get the full route of the exec cmd.
+*/
 bool	runner_get_exec(t_cmd *cmd, t_string *paths)
 {
 	size_t      i;
@@ -76,11 +79,17 @@ bool	runner_get_exec(t_cmd *cmd, t_string *paths)
 	return (false);
 }
 
+/*
+	Here we prepare the input redirections
+*/
 void	runner_treat_inputredir(t_cmd *cmd)
 {
 	(void)cmd;
 }
 
+/*
+	Here we prepare the output redirections
+*/
 void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 {
 	if (run_env.total_cmd > 1 && runner_islastcmd(run_env) == false)
@@ -93,7 +102,11 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		cmd->pipe[PIPE_WRITE_FD] = -1;
 	}
 }
-
+/*
+	The child process.
+	we run do the dup of stdout to write at the entry of pipe.
+	then we get the route and execute 
+*/
 void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 {
 	t_string	*argv;
@@ -124,6 +137,10 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	}	
 }
 
+/*
+	The parent process, we only have to do the dup of stdin of the pipe to 
+	prepare the reading of stdin (pipe ) of the next proc.
+*/
 int	runner_parent_process(t_cmd *cmd, t_run_env run_env)
 {
 	//Parent process
@@ -136,6 +153,10 @@ int	runner_parent_process(t_cmd *cmd, t_run_env run_env)
 	return (0);	
 }
 
+/*
+	HEre we run the comm<nd. we have to prepare redirections of input
+	and output before fork.
+*/
 int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 {
 	pid_t       pid;
@@ -201,6 +222,9 @@ void	runner_get_status(t_minishell *shell,t_cmd_set *cmd_set)
 	shell->status.return_status = runner_determine_status(shell->status.return_status);
 }
 
+/*
+	We check if there is only a command and it is a builtin
+*/
 bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
 {
 	if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
@@ -212,6 +236,8 @@ bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
 https://stackoverflow.com/questions/53924800/how-to-recover-stdin-overwritten-by-dup2
 
 If we start to do dup2 we loose the original stdin, so we have to save and when we finish, we do the reverse dup2
+We do not save the original stdout because we do the dup2 at children process of fork and when
+ process exit it closes automaticaly
 */
 int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 {
@@ -230,7 +256,6 @@ int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 	while (i < cmd_set->cmd_count)
 	{
 		run_env.num_cmd = i;
-//		runner_run_cmd(shell, &cmd_set->cmds[i], run_env);
 		runner_run_cmd(shell, cmd_set, run_env);
 		i++;
 	}

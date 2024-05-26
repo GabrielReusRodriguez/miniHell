@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/26 21:01:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/27 00:11:13 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ static void	treat_line(t_minishell *shell, t_string line)
 		we check if it is empty.
 		we treat the line ( tokenize + parse+ execute)
 		we add to history.
+    We use isatty to check that STDIN is bounded to 
+the terminal
+SYNOPSIS
+       #include <unistd.h>
+
+       int isatty(int fd);
+
+DESCRIPTION
+       The isatty() function tests whether fd is an open file descriptor referring to a terminal.
 */
 static void	main_loop(t_minishell *shell)
 {
@@ -92,7 +101,6 @@ static void	main_loop(t_minishell *shell)
 	{
 		signal_set_mode(SIGNAL_MODE_INTERACTIVE);
 		prompt = minishell_get_prompt();
-        //printf("IS ATTY: %d\n", isatty(STDIN_FILENO));
         if (isatty(STDIN_FILENO) == 1)
         {
 		    line = readline(prompt);
@@ -104,12 +112,10 @@ static void	main_loop(t_minishell *shell)
 		    if (is_empty_line(line) == false)
 		    {
 			    treat_line(shell, line);
-			    //rl_on_new_line();
 			    add_history(line);
 		    }
 		    free(line);
 		    free(prompt);
-		    printf("%d", shell->status.return_status);
         }
 	}
 }
