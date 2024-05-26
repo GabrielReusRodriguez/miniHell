@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dir.h                                              :+:      :+:    :+:   */
+/*   perm.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 21:39:25 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/23 18:02:45 by gabriel          ###   ########.fr       */
+/*   Created: 2024/05/25 18:17:13 by abluis-m          #+#    #+#             */
+/*   Updated: 2024/05/25 18:22:40 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DIR_H
-# define DIR_H
+#ifndef	PERM_H
+# define PERM_H
 
-# include "datatypes.h"
+# define PERM_OK 0
+# define NO_FILE 400
+# define NO_READ 404
+# define NO_WRITE 402
+# define NO_EXEC 126
+# define NO_COMMAND 127
 
-bool	dir_isdir(t_string path);
+# define IN 1
+# define OUT 0
 
 #endif

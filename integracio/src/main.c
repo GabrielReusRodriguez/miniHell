@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/23 18:30:34 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:46:55 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	treat_line(t_minishell *shell, t_string line)
 	i = 0;
 	while (i < cmd_set.cmd_count)
 		cmd_heredoc(&cmd_set.cmds[i++], *shell);
-	shell->status.return_status = cmd_set_run(shell, cmd_set);
+	shell->status.return_status = cmd_set_run(shell, &cmd_set);
 	tokens_destroy_tokenlist(&token_set);
 	cmd_destroy_set(&cmd_set);
 }

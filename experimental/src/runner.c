@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/25 02:19:44 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/26 19:54:34 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@
 #include "environment.h"
 #include "ptr.h"
 #include "builtin.h"
-
+#include "error_handler.h"
 
 //https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
 //https://unix.stackexchange.com/questions/471221/how-bash-builtins-works-with-pipeline
 
-void	runner_get_exec(t_cmd *cmd, t_string *paths)
+bool	runner_get_exec(t_cmd *cmd, t_string *paths)
 {
 	size_t      i;
 	t_string	exec;
-	
+
+	if (access(cmd->exec->value, X_OK) == 0)
+		return (true);
 	i = 0;
 	while (paths[i] != NULL)
 	{
@@ -39,11 +41,12 @@ void	runner_get_exec(t_cmd *cmd, t_string *paths)
 		{
 			free (cmd->exec->value);
 			cmd->exec->value = exec;
-			return ;
+			return (true);
 		}
 		free (exec);
 		i++;
 	}
+	return (false);
 }
 
 void	runner_treat_inputredir(t_cmd cmd)
@@ -63,8 +66,6 @@ int	runner_run_cmd(t_minishell *shell, t_cmd *cmd,t_string *paths, t_string *env
 	pid_t pid;
 	t_string	*argv;
 
-	if (cmd_isbuiltin(*cmd) == false)
-		runner_get_exec(cmd, paths);
 	runner_treat_inputredir(*cmd);
 	runner_treat_outputredir(*cmd);
 	pid = fork();
@@ -83,10 +84,15 @@ int	runner_run_cmd(t_minishell *shell, t_cmd *cmd,t_string *paths, t_string *env
 			exit(builtin_run(shell, *cmd, true));
 		else
 		{
+			if (runner_get_exec(cmd, paths) == false)
+			{
+				error_print("Error: Command not found\n");
+				exit(127);
+			}
 			argv = cmd_join_exec_and_args(*cmd);
 			if (execve(cmd->exec->value, argv, envp) < 0)
 			{
-				//shell->status.return_status = EXIT_FAILURE;
+				perror ("Error");
 				ptr_freematrix(argv);
 				exit (EXIT_FAILURE);
 			}

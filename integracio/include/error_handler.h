@@ -17,5 +17,6 @@
 
 void	*error_print(t_cstring msg);
 void	error_system_crash(t_cstring msg);
+int	    ft_error(int error_code, char *str);
 
 #endif

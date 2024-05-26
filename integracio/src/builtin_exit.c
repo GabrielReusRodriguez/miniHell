@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:06:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/04 15:34:47 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:42:35 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 	t_token	*token;
 
 	node = cmd.args;
+	// bash: exit: too many arguments
+	// bash: exit: 42barcelona: numeric argument required
 	if (node)
 	{
 		token = (t_token *)node->content;

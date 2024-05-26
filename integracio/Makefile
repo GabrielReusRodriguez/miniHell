@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
+#    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/24 21:51:30 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/25 19:16:22 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,13 +71,11 @@ SRC		= 	main 					\
 			cmd_heredoc				\
 			cmd_run					\
 			cmd_validator			\
-			dir						\
 		  	environment 			\
 			environment2			\
 			environment3			\
 			environment_debug		\
 			error_handler			\
-			file					\
 			expansor				\
 			expansor_var			\
 			expansor_var2			\
@@ -91,10 +89,10 @@ SRC		= 	main 					\
 			parser_getters_cmd		\
 			parser_getters_redirect	\
 			parser_utils			\
+			permission				\
 			ptr 					\
-			ptr2					\
+			ptr2 					\
 			redirect				\
-			runner					\
 		  	signal_handler 			\
 		  	tokenizer				\
 			tokenizer_parenthesis	\
@@ -118,13 +116,12 @@ HDR		= 	minishell.h			\
 			cmd.h				\
 			datatypes.h			\
 			debug.h				\
-			dir.h				\
 			environment.h		\
 			error_handler.h		\
 			expansor.h			\
-			file.h				\
 			parser.h			\
 			path.h				\
+			perm.h				\
 			ptr.h				\
 			redirect.h			\
 			signal_handler.h	\
@@ -140,7 +137,7 @@ GNL_LIB = $(GNL_D)/gnl.a
 # **************************************************************************** #
 
 $(NAME):	libft gnl $(OBJS) $(HDRS) Makefile 
-	@echo "$(WHITE)Compiling $(NAME) executable: $(RST)"
+	@echo "$(WHITE)Linking $(NAME) executable: $(RST)"
 	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) $(GNL_LIB) -lreadline -o $(NAME)
 	@echo "$(GREEN)Binary $(NAME) compiled! $(RST)"
 

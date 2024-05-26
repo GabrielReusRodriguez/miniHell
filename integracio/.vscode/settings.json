@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdlib.h": "c",
-        "cerrno": "c"
+        "cerrno": "c",
+        "stdio.h": "c"
     }
 }

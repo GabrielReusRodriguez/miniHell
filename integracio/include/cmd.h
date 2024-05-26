@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/23 18:04:57 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:46:30 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool		cmd_isvalid(t_cmd cmd);
 /*
 	cmd_run.c
 */
-int			cmd_set_run(t_minishell *shell, t_cmd_set cmd_set);
+int			cmd_set_run(t_minishell *shell, t_cmd_set *cmd_set);
 
 /*
 	builtin.c

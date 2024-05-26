@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/25 00:46:16 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/26 19:52:41 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME	= minishell
 CC		= gcc
 DFLAGS	+= -g
 DFLAGS	+= -fsanitize=address
-DFLAGS	+= -DDEBUG_MODE=1
+DFLAGS	+= -DDEBUG_MODE=0
 CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
 RM		= rm -f
 RMDIR	= rm -rf

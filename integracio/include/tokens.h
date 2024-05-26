@@ -109,7 +109,7 @@ bool		tokens_is_parenthesis(t_token token);
 t_token_set	tokens_new(void);
 void		token_free_node(void *ptr);
 void		*token_free(t_token *ptr);
-//t_token		*tokens_clone(t_token token);
+t_token		*tokens_clone(t_token token);
 
 /*
 	tokens_utils_types.c
@@ -123,6 +123,7 @@ bool		tokens_isredir(t_token token);
 	tokenizer_utils.c
 */
 
+void		*tokenizer_add_token(t_list *node, t_token_set *token_list);
 bool		tokenizer_ischarclosed(t_string str, size_t pos, char quote);
 bool		tokenizer_charinset(char c, t_string set);
 bool		tokenizer_valida_str(t_string str);

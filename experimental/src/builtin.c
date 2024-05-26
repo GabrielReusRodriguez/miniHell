@@ -6,12 +6,13 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:18:22 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/20 23:37:03 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/26 19:53:14 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
 #include "builtin.h"
+#include "error_handler.h"
 
 int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 {
@@ -32,7 +33,8 @@ int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 		return (builtin_pwd(shell, cmd));
 	if (ft_strcmp(cmd.exec->value, BUILTIN_UNSET) == 0)
 		return (builtin_unset(shell, cmd));
-	return (0);
+	error_print("Error: Command not found\n");
+	return (127);
 }
 
 bool	cmd_isbuiltin(t_cmd cmd)
