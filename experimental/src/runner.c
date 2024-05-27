@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/27 23:21:06 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/27 23:34:43 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	pipe_init(int *pipe)
 	pipe[0] = -1;
 	pipe[1] = -1;
 }
-void    pipe_close_fd(int pipe)
+void    fd_close(int fd)
 {
-	if (pipe >= 0)
-		close (pipe);
+	if (fd >= 0)
+		close (fd);
 }
 
 void	pipe_close_pipe(int pipe[2])
 {
-	pipe_close_fd(pipe[0]);
-	pipe_close_fd(pipe[1]);
+	fd_close(pipe[0]);
+	fd_close(pipe[1]);
 }
 
 bool	runner_islastcmd(t_run_env run_env)
@@ -103,9 +103,9 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 	while (node != NULL)
 	{
 		token = ((t_redirect *)node->content);
+		fd_close(cmd->fd_input);
 		if (token->type->type == TOKEN_TYPE_RED_INPUT)
 		{
-			pipe_close_fd(cmd->fd_input);
 			cmd->fd_input = open(token->target->value, O_RDONLY);
 			if (cmd->fd_input < 0)
 			{
@@ -116,14 +116,7 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 			last_heredoc = false;
 		}
 		if (token->type->type == TOKEN_TYPE_RED_HERE_DOC)
-		{
-		//	pipe(heredoc_fd);
-		//	dup2(heredoc_fd[PIPE_READ_FD],STDIN_FILENO);
-			pipe_close_fd(cmd->fd_input);
 			last_heredoc = true;
-			//ft_putstr_fd(cmd->here_doc, heredoc_fd[PIPE_WRITE_FD]);
-			//pipe_close_pipe(heredoc_fd);
-		}
 		node = node->next;
 	}
 	if (last_heredoc)
@@ -134,7 +127,6 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 		pipe_close_pipe(heredoc_fd);
 		cmd->fd_input = -1;
 	}
-
 	return (true);
 }
 
@@ -170,7 +162,7 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	/*else
 		dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
 	*/
-	pipe_close_fd(cmd->fd_input);
+	fd_close(cmd->fd_input);
 	if (run_env.total_cmd > 1)
 	{
 		if (runner_islastcmd(run_env) == false)
@@ -203,7 +195,7 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 */
 int	runner_parent_process(t_cmd *cmd, t_run_env run_env)
 {
-	pipe_close_fd(cmd->fd_input);
+	fd_close(cmd->fd_input);
 	//Parent process
 	if (run_env.total_cmd > 1)
 	{
