@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 21:34:19 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/23 18:26:59 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/27 23:25:31 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static	t_string	cmd_heredoc_get(t_string limit)
 	next_line = here_doc;
 	while (next_line != NULL)
 	{
-		ft_putstr_fd(">", STDOUT_FILENO);
+		ft_putstr_fd("> ", STDOUT_FILENO);
 		next_line = get_next_line(STDIN_FILENO);
 		if (next_line == NULL || ft_strcmp(limit, next_line) == 0)
 		{

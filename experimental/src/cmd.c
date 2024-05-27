@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/26 21:48:17 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/27 22:48:51 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_cmd	cmd_new(void)
 	cmd.redir_out = NULL;
 	cmd.status = -1;
 	cmd.here_doc = NULL;
+    cmd.fd_input = -1;
+    cmd.fd_output = -1;
 	return (cmd);
 }
 

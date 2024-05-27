@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/26 22:44:36 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/27 19:50:03 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_cmd
 	t_string	here_doc;
 	int			pipe[2];
 	int			status;
+    int         fd_input;
+    int         fd_output;
 }	t_cmd;
 
 typedef struct s_cmd_set
