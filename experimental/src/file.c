@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:46:37 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/23 19:09:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 00:35:37 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ S_ISREG() is a macro used to interpret the values in a stat-struct, as
 			   // Handle regular file 
 		   }
 */
-
+/*
 bool	file_isfile(t_string path)
 {
 	struct stat	path_stat;	
@@ -98,3 +98,4 @@ bool	file_isfile(t_string path)
 	}
 	return (S_ISREG(path_stat.st_mode));
 }
+*/

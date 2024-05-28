@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/27 21:17:50 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/29 00:55:47 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,13 +71,13 @@ SRC		= 	main 					\
 			cmd_heredoc				\
 			cmd_run					\
 			cmd_validator			\
-			dir						\
 		  	environment 			\
 			environment2			\
 			environment3			\
 			environment_debug		\
 			error_handler			\
 			file					\
+			fd						\
 			expansor				\
 			expansor_var			\
 			expansor_var2			\
@@ -92,10 +92,15 @@ SRC		= 	main 					\
 			parser_getters_cmd		\
 			parser_getters_redirect	\
 			parser_utils			\
+			pipes					\
 			ptr 					\
 			ptr2					\
 			redirect				\
 			runner					\
+			runner_utils			\
+			runner_redirects		\
+			runner_parent			\
+			runner_child			\
 		  	signal_handler 			\
 		  	tokenizer				\
 			tokenizer_parenthesis	\
@@ -125,8 +130,10 @@ HDR		= 	minishell.h			\
 			error_handler.h		\
 			expansor.h			\
 			file.h				\
+			fd.h				\
 			parser.h			\
 			path.h				\
+			pipes.h				\
 			ptr.h				\
 			redirect.h			\
 			runner.h			\

@@ -6,259 +6,20 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/28 23:06:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 01:05:59 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-#include <readline/readline.h>
-#include <readline/history.h>
-
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <sys/wait.h>
-#include <unistd.h>
-#include <fcntl.h>
 
 #include "minishell.h"
 #include "cmd.h"
 #include "signal_handler.h"
-#include "environment.h"
 #include "ptr.h"
 #include "builtin.h"
 #include "error_handler.h"
 #include "runner.h"
-#include "redirect.h"
-
-void	pipe_init(int *pipe)
-{
-	pipe[0] = -1;
-	pipe[1] = -1;
-}
-void    fd_close(int fd)
-{
-	if (fd >= 0)
-		close (fd);
-}
-
-void	pipe_close_pipe(int pipe[2])
-{
-	fd_close(pipe[0]);
-	fd_close(pipe[1]);
-}
-
-bool	runner_islastcmd(t_run_env run_env)
-{
-	if (run_env.num_cmd == run_env.total_cmd - 1)
-		return (true);
-	return (false);
-}
-
-
-/*
-	We check if there is only a command and it is a builtin
-*/
-bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
-{
-	if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
-		return (true);
-	return (false);
-}
-
-//https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
-//https://unix.stackexchange.com/questions/471221/how-bash-builtins-works-with-pipeline
-
-/*
-	We get the full route of the exec cmd.
-*/
-bool	runner_get_exec(t_cmd *cmd, t_string *paths)
-{
-	size_t      i;
-	t_string	exec;
-
-	if (access(cmd->exec->value, X_OK) == 0)
-		return (true);
-	i = 0;
-	while (paths[i] != NULL)
-	{
-		exec = ft_strjoin(paths[i], cmd->exec->value);
-		ptr_check_malloc_return(exec, "Error at memory malloc.\n");
-		if (access(exec, X_OK) == 0)
-		{
-			free (cmd->exec->value);
-			cmd->exec->value = exec;
-			return (true);
-		}
-		free (exec);
-		i++;
-	}
-	return (false);
-}
-
-/*
-	Here we prepare the input redirections
-	We have to take the last redirect 
-*/
-bool	runner_treat_inputredir(t_cmd *cmd)
-{
-	t_list		*node;
-	t_redirect	*token;
-	int			heredoc_fd[2];
-	bool		last_is_heredoc;
-	
-	last_is_heredoc = false;
-	node = cmd->redir_in;
-	while (node != NULL)
-	{
-		token = ((t_redirect *)node->content);
-		fd_close(cmd->fd_input);
-		if (token->type->type == TOKEN_TYPE_RED_INPUT)
-		{
-			cmd->fd_input = open(token->target->value, O_RDONLY);
-			if (cmd->fd_input < 0)
-			{
-				perror("Error");
-				cmd->status = EXIT_FAILURE;
-				return (false);
-			}
-			last_is_heredoc = false;
-		}
-		if (token->type->type == TOKEN_TYPE_RED_HERE_DOC)
-			last_is_heredoc = true;
-		node = node->next;
-	}
-	if (last_is_heredoc)
-	{
-		pipe(heredoc_fd);
-		dup2(heredoc_fd[PIPE_READ_FD],STDIN_FILENO);
-		ft_putstr_fd(cmd->here_doc, heredoc_fd[PIPE_WRITE_FD]);
-		pipe_close_pipe(heredoc_fd);
-		cmd->fd_input = -1;
-	}
-	return (true);
-}
-
-/*
-	Here we prepare the output redirections
-	First we check if there is a output redirect
-*/
-void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
-{
-	t_list		*node;
-	t_redirect	*redirect;
-
-	node = cmd->redir_out;
-	while (node != NULL)
-	{
-		fd_close(cmd->fd_output);
-		redirect = (t_redirect *)node->content;
-		if (redirect->type->type == TOKEN_TYPE_RED_TRUNCATE)
-		{
-			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-			if ( cmd->fd_output < 0)
-			{
-				perror("Error");
-				cmd->status = EXIT_FAILURE;
-				return ;
-			}
-		}
-		if (redirect->type->type == TOKEN_TYPE_RED_APPEND)
-		{
-			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-			if ( cmd->fd_output < 0)
-			{
-				perror("Error");
-				cmd->status = EXIT_FAILURE;
-				return ;
-			}
-		}
-		node = node->next;	
-	}
-	if (run_env.total_cmd > 1 && runner_islastcmd(run_env) == false)
-	{
-		pipe(cmd->pipe);
-	}
-	else
-	{
-		cmd->pipe[PIPE_READ_FD] = -1;
-		cmd->pipe[PIPE_WRITE_FD] = -1;
-	}
-}
-
-/*
-	The child process.
-	we run do the dup of stdout to write at the entry of pipe.
-	then we get the route and execute 
-*/
-void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
-{
-	t_string	*argv;
-
-	if (cmd->status > 0)
-		exit (cmd->status);
-	
-	if (cmd->fd_input > 0)
-		dup2(cmd->fd_input, STDIN_FILENO);
-	if (cmd->fd_output > 0)
-		dup2(cmd->fd_output, STDOUT_FILENO);
-	else
-	{
-		if (run_env.total_cmd > 1)
-		{
-			if (runner_islastcmd(run_env) == false)
-				dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
-		}
-	}
-	/*else
-		dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
-	*/
-	fd_close(cmd->fd_output);
-	fd_close(cmd->fd_input);
-	/*
-	if (run_env.total_cmd > 1)
-	{
-		if (runner_islastcmd(run_env) == false)
-			dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
-//		pipe_close_pipe(cmd->pipe);
-	}
-	*/
-	pipe_close_pipe(cmd->pipe);
-	if (cmd_isbuiltin(*cmd) == true)
-		exit(builtin_run(shell, *cmd, true));
-	else
-	{
-		if (runner_get_exec(cmd, run_env.paths) == false)
-		{
-			error_print("Error: Command not found\n");
-			exit(127);
-		}
-		argv = cmd_join_exec_and_args(*cmd);
-		if (execve(cmd->exec->value, argv, run_env.envp) < 0)
-		{
-			perror ("Error");
-			ptr_freematrix(argv);
-			exit (EXIT_FAILURE);
-		}
-	}	
-}
-
-/*
-	The parent process, we only have to do the dup of stdin of the pipe to 
-	prepare the reading of stdin (pipe ) of the next proc.
-*/
-int	runner_parent_process(t_cmd *cmd, t_run_env run_env)
-{
-	fd_close(cmd->fd_input);
-	//Parent process
-	if (run_env.total_cmd > 1)
-	{
-		if (runner_islastcmd(run_env) == false)
-			dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
-		pipe_close_pipe(cmd->pipe);
-	}
-	return (0);	
-}
+#include "fd.h"
 
 /*
 	HEre we run the comm<nd. we have to prepare redirections of input
@@ -271,9 +32,7 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 
 	cmd = &cmd_set->cmds[run_env.num_cmd];
 	if (runner_treat_inputredir(cmd) == true)
-	{
 		runner_treat_outputredir(cmd, run_env);
-	}
 	if (runner_is_unique_builtin_cmd(cmd_set) == true)
 	{
 		if (cmd->status >= 0)
