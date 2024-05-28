@@ -30,6 +30,7 @@ t_cmd	cmd_new(void)
 	cmd.redir_out = NULL;
 	cmd.status = -1;
 	cmd.here_doc = NULL;
+	cmd.pid = 0;
 	return (cmd);
 }
 

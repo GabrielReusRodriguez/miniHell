@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/25 18:46:30 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:29:24 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ typedef struct s_cmd
 	t_list		*redir_in;
 	t_list		*redir_out;
 	t_string	here_doc;
+	pid_t		pid;
 	int			pipe[2];
 	int			status;
 }	t_cmd;
 
 typedef struct s_cmd_set
 {
-	size_t	cmd_count;
-	t_cmd	*cmds;
+	size_t		cmd_count;
+	t_cmd		*cmds;
+	int			fd_in;
+	t_string	*paths;
+	t_string	*env;
 }	t_cmd_set;
 
 /*

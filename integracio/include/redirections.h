@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.h                                    :+:      :+:    :+:   */
+/*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abluis-m <abluis-m@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 19:14:00 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/05 19:08:53 by greus-ro         ###   ########.fr       */
+/*   Created: 2024/05/26 19:11:26 by abluis-m          #+#    #+#             */
+/*   Updated: 2024/05/27 19:10:14 by abluis-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_HANDLER_H
-# define ERROR_HANDLER_H
+#ifndef REDIRECTIONS_H
+# define REDIRECTIONS_H
 
-# include "datatypes.h"
-
-# define FORK_ERROR 5
-# define DUP_ERROR 4
-
-void	*error_print(t_cstring msg);
-void	error_system_crash(t_cstring msg);
-int	    ft_error(int error_code, char *str);
+int	handle_redir_in(t_minishell *shell, t_cmd_set *cmd_set, int pos);
+int	clean_fd(t_minishell *shell, t_cmd_set *cmd_set, int pos);
 
 #endif

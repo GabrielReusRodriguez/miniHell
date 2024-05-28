@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/27 23:34:43 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/28 22:16:16 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -54,6 +55,16 @@ bool	runner_islastcmd(t_run_env run_env)
 	return (false);
 }
 
+
+/*
+	We check if there is only a command and it is a builtin
+*/
+bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
+{
+	if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
+		return (true);
+	return (false);
+}
 
 //https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
 //https://unix.stackexchange.com/questions/471221/how-bash-builtins-works-with-pipeline
@@ -95,10 +106,9 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 	t_list		*node;
 	t_redirect	*token;
 	int			heredoc_fd[2];
-	bool		last_heredoc;
+	bool		last_is_heredoc;
 	
-	last_heredoc = false;
-	pipe_init(heredoc_fd);
+	last_is_heredoc = false;
 	node = cmd->redir_in;
 	while (node != NULL)
 	{
@@ -113,13 +123,13 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 				cmd->status = EXIT_FAILURE;
 				return (false);
 			}
-			last_heredoc = false;
+			last_is_heredoc = false;
 		}
 		if (token->type->type == TOKEN_TYPE_RED_HERE_DOC)
-			last_heredoc = true;
+			last_is_heredoc = true;
 		node = node->next;
 	}
-	if (last_heredoc)
+	if (last_is_heredoc)
 	{
 		pipe(heredoc_fd);
 		dup2(heredoc_fd[PIPE_READ_FD],STDIN_FILENO);
@@ -132,9 +142,40 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 
 /*
 	Here we prepare the output redirections
+	First we check if there is a output redirect
 */
 void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 {
+	t_list		*node;
+	t_redirect	*redirect;
+
+	node = cmd->redir_out;
+	while (node != NULL)
+	{
+		fd_close(cmd->fd_output);
+		redirect = (t_redirect *)node->content;
+		if (redirect->type->type == TOKEN_TYPE_RED_TRUNCATE)
+		{
+			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+			if ( cmd->fd_output < 0)
+			{
+				perror("Error");
+				cmd->status = EXIT_FAILURE;
+				return ;
+			}
+		}
+		if (redirect->type->type == TOKEN_TYPE_RED_APPEND)
+		{
+			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+			if ( cmd->fd_output < 0)
+			{
+				perror("Error");
+				cmd->status = EXIT_FAILURE;
+				return ;
+			}
+		}
+		node = node->next;	
+	}
 	if (run_env.total_cmd > 1 && runner_islastcmd(run_env) == false)
 	{
 		pipe(cmd->pipe);
@@ -145,6 +186,7 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		cmd->pipe[PIPE_WRITE_FD] = -1;
 	}
 }
+
 /*
 	The child process.
 	we run do the dup of stdout to write at the entry of pipe.
@@ -159,16 +201,29 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	
 	if (cmd->fd_input > 0)
 		dup2(cmd->fd_input, STDIN_FILENO);
+	if (cmd->fd_output > 0)
+		dup2(cmd->fd_output, STDOUT_FILENO);
+	else
+	{
+		if (run_env.total_cmd > 1)
+		{
+			if (runner_islastcmd(run_env) == false)
+				dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
+		}
+	}
 	/*else
 		dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
 	*/
+	fd_close(cmd->fd_output);
 	fd_close(cmd->fd_input);
+	/*
 	if (run_env.total_cmd > 1)
 	{
 		if (runner_islastcmd(run_env) == false)
 			dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
 //		pipe_close_pipe(cmd->pipe);
 	}
+	*/
 	pipe_close_pipe(cmd->pipe);
 	if (cmd_isbuiltin(*cmd) == true)
 		exit(builtin_run(shell, *cmd, true));
@@ -216,14 +271,20 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 	t_cmd		*cmd;
 
 	cmd = &cmd_set->cmds[run_env.num_cmd];
-
 	if (runner_treat_inputredir(cmd) == true)
-	//runner_treat_inputredir(cmd);
 	{
 		runner_treat_outputredir(cmd, run_env);
-	//	return (EXIT_FAILURE);
 	}
-	//printf("post input\n");
+	if (runner_is_unique_builtin_cmd(cmd_set) == true)
+	{
+		if (cmd->fd_output > 0)
+		{
+			dup2(cmd->fd_output, STDOUT_FILENO);
+			fd_close(cmd->fd_output);
+		}
+		shell->status.return_status = builtin_run(shell, cmd_set->cmds[0], true);
+		return (shell->status.return_status);
+	}
 	pid = fork();
 	if (pid != 0)
 	{
@@ -265,6 +326,8 @@ void	runner_get_status(t_minishell *shell,t_cmd_set *cmd_set)
 	size_t	i;
 	int		status;
 	
+	if (shell->status.return_status >= 0)
+		return ;
 	greater_pid = 0;
 	i = 0;
 	while (i < cmd_set->cmd_count)
@@ -281,19 +344,9 @@ void	runner_get_status(t_minishell *shell,t_cmd_set *cmd_set)
 }
 
 /*
-	We check if there is only a command and it is a builtin
-*/
-bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
-{
-	if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
-		return (true);
-	return (false);
-}
-
-/*
 https://stackoverflow.com/questions/53924800/how-to-recover-stdin-overwritten-by-dup2
 
-If we start to do dup2 we loose the original stdin, so we have to save and when we finish, we do the reverse dup2
+If we start to do dup2 we loose the original stdin, so we have to save and when we finish, we do the reverse dup2IN
 We do not save the original stdout because we do the dup2 at children process of fork and when
  process exit it closes automaticaly
 */
@@ -302,15 +355,13 @@ int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 	size_t	    i;
 	t_run_env	run_env;
 
-	if (runner_is_unique_builtin_cmd(cmd_set) == true)
-	{
-		return (builtin_run(shell, cmd_set->cmds[0], true));
-	}
+	shell->status.return_status = -1;
 	run_env.paths = minishell_path_2_vector(*shell);
 	run_env.envp = env_to_vector(shell->cfg.env);
 	run_env.total_cmd = cmd_set->cmd_count;
 	i = 0;
 	cmd_set->old_stdin = dup(STDIN_FILENO);
+	cmd_set->old_stdout = dup(STDOUT_FILENO);
 	while (i < cmd_set->cmd_count)
 	{
 		run_env.num_cmd = i;
@@ -318,7 +369,9 @@ int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 		i++;
 	}
 	dup2(cmd_set->old_stdin, STDIN_FILENO);
-	close(cmd_set->old_stdin);
+	dup2(cmd_set->old_stdout, STDOUT_FILENO);
+	fd_close(cmd_set->old_stdin);
+	fd_close(cmd_set->old_stdout);
 	ptr_freematrix(run_env.envp);
 	ptr_freematrix(run_env.paths);
 	runner_get_status(shell, cmd_set);

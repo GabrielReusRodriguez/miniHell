@@ -35,7 +35,7 @@ void	error_system_crash(t_cstring msg)
 
 void	put_cmd_error(char *str)
 {
-	ft_putstr_fd("Pipex: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": Command not found\n", STDERR_FILENO);
 }
@@ -45,13 +45,13 @@ void	put_file_error(int error_code, char *str)
 	if (error_code == NO_READ || error_code == NO_WRITE
 		|| error_code == NO_EXEC)
 	{
-		ft_putstr_fd("Pipex: ", STDERR_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 	}
 	else if (error_code == NO_FILE)
 	{
-		ft_putstr_fd("Pipex: ", STDERR_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
 	}
@@ -69,12 +69,12 @@ int	ft_error(int error_code, char *str)
 	}
 	else if (str)
 	{
-		ft_putstr_fd("Pipex: ", STDERR_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putendl_fd(strerror(error_code), STDERR_FILENO);
+		//ft_putstr_fd(": ", STDERR_FILENO);
+		//ft_putendl_fd(strerror(error_code), STDERR_FILENO);
 	}
 	else
-		perror("Pipex");
+		perror("minishell");
 	exit(error_code);
 }

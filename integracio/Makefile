@@ -6,7 +6,7 @@
 #    By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/25 19:16:22 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/05/26 19:13:50 by abluis-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ SRC		= 	main 					\
 			ptr 					\
 			ptr2 					\
 			redirect				\
+			redirections			\
 		  	signal_handler 			\
 		  	tokenizer				\
 			tokenizer_parenthesis	\
@@ -124,6 +125,7 @@ HDR		= 	minishell.h			\
 			perm.h				\
 			ptr.h				\
 			redirect.h			\
+			redirections.h		\
 			signal_handler.h	\
 			tokens.h			\
 			txt_utils.h			\
