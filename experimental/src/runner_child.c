@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:56:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 01:00:38 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 01:09:23 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	t_string	*argv;
 
 	if (cmd->status > 0)
-		exit (cmd->status);
-	
+		exit (cmd->status);	
 	if (cmd->fd_input > 0)
 		dup2(cmd->fd_input, STDIN_FILENO);
 	if (cmd->fd_output > 0)
@@ -45,19 +44,8 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 				dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
 		}
 	}
-	/*else
-		dup2(cmd->pipe[PIPE_READ_FD], STDIN_FILENO);
-	*/
 	fd_close(cmd->fd_output);
 	fd_close(cmd->fd_input);
-	/*
-	if (run_env.total_cmd > 1)
-	{
-		if (runner_islastcmd(run_env) == false)
-			dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
-//		pipe_close_pipe(cmd->pipe);
-	}
-	*/
 	pipes_close_pipe(cmd->pipe);
 	if (cmd_isbuiltin(*cmd) == true)
 		exit(builtin_run(shell, *cmd, true));
