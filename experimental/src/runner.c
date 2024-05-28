@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/28 22:16:16 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/28 23:06:04 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ bool	runner_get_exec(t_cmd *cmd, t_string *paths)
 	return (false);
 }
 
-#include <stdio.h>
 /*
 	Here we prepare the input redirections
 	We have to take the last redirect 
@@ -277,6 +276,11 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 	}
 	if (runner_is_unique_builtin_cmd(cmd_set) == true)
 	{
+		if (cmd->status >= 0)
+		{
+			shell->status.return_status = cmd->status;
+			return (shell->status.return_status);
+		}
 		if (cmd->fd_output > 0)
 		{
 			dup2(cmd->fd_output, STDOUT_FILENO);
