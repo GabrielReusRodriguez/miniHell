@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:54:34 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/16 22:30:30 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:21:36 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*read_file(int fd, char *static_buffer)
 	if (!buffer)
 		return (ft_free(&static_buffer));
 	buffer[0] = '\0';
-    while (bytes_read > 0 && !gnl_strchr(buffer, '\n'))
+	while (bytes_read > 0 && !gnl_strchr(buffer, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read > 0)

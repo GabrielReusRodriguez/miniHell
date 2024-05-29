@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/29 09:52:45 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/05/29 22:11:34 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRC		= 	main 					\
 			cmd_heredoc				\
 			cmd_run					\
 			cmd_validator			\
+			dir						\
 		  	environment 			\
 			environment2			\
 			environment3			\
@@ -91,6 +92,7 @@ SRC		= 	main 					\
 			parser_getters_cmd		\
 			parser_getters_redirect	\
 			parser_utils			\
+			permission_exec			\
 			pipes					\
 			ptr 					\
 			ptr2					\
@@ -124,12 +126,14 @@ HDR		= 	minishell.h			\
 			color.h				\
 			datatypes.h			\
 			debug.h				\
+			dir.h				\
 			environment.h		\
 			error_handler.h		\
 			expansor.h			\
 			fd.h				\
 			parser.h			\
 			path.h				\
+			perm.h				\
 			pipes.h				\
 			ptr.h				\
 			redirect.h			\
