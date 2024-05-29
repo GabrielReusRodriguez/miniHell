@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:21:39 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/05 19:00:41 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:37:21 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "cmd.h"
 
-bool	check_nflag(t_cmd cmd)
+static bool	check_nflag(t_cmd cmd)
 {
 	t_list	*node;
 	t_token	*token;
@@ -32,25 +32,25 @@ int	builtin_echo(t_cmd cmd)
 	t_list	*node;
 	t_token	*token;
 	bool	nflag;
-	int		out;
+	bool	payload_found;
 
-//	if (cmd.red_out)
-//		out = cmd.pipe[1];
-//	else
-	out = STDOUT_FILENO;
+	payload_found= false;
 	nflag = check_nflag(cmd);
 	node = cmd.args;
-	if (nflag)
-		node = node->next;
 	while (node != NULL)
 	{
 		token = (t_token *)node->content;
-		ft_putstr_fd(token->value, out);
-		if (node->next)
-			ft_putchar_fd(' ', out);
+		if (ft_strcmp("-n", token->value) != 0)
+			payload_found = true;
+		if (payload_found)
+		{
+			ft_putstr_fd(token->value, STDOUT_FILENO);
+			if (node->next)
+				ft_putchar_fd(' ', STDOUT_FILENO);
+		}
 		node = node->next;
 	}
 	if (!nflag)
-		ft_putchar_fd('\n', out);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
