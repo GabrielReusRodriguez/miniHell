@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:50:21 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 08:14:46 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:55:18 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		redirect = (t_redirect *)node->content;
 		if (redirect->type->type == TOKEN_TYPE_RED_TRUNCATE)
 		{
-			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_CREAT, \
-					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+			cmd->fd_output = fd_open_file_truncate(redirect->target->value);
 			if (cmd->fd_output < 0)
 			{
 				perror("Error");
@@ -90,9 +89,7 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		}
 		if (redirect->type->type == TOKEN_TYPE_RED_APPEND)
 		{
-			cmd->fd_output = open(redirect->target->value, \
-					O_WRONLY | O_APPEND | O_CREAT, \
-					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+			cmd->fd_output = fd_open_file_append(redirect->target->value);
 			if (cmd->fd_output < 0)
 			{
 				perror("Error");
@@ -103,12 +100,7 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		node = node->next;
 	}
 	if (run_env.total_cmd > 1 && runner_islastcmd(run_env) == false)
-	{
 		pipe(cmd->pipe);
-	}
 	else
-	{
-		cmd->pipe[PIPE_READ_FD] = -1;
-		cmd->pipe[PIPE_WRITE_FD] = -1;
-	}
+		pipes_init(cmd->pipe);
 }

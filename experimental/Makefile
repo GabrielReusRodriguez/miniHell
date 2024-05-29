@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
+#    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/29 00:55:47 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/29 09:52:45 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,6 @@ SRC		= 	main 					\
 			environment3			\
 			environment_debug		\
 			error_handler			\
-			file					\
 			fd						\
 			expansor				\
 			expansor_var			\
@@ -125,11 +124,9 @@ HDR		= 	minishell.h			\
 			color.h				\
 			datatypes.h			\
 			debug.h				\
-			dir.h				\
 			environment.h		\
 			error_handler.h		\
 			expansor.h			\
-			file.h				\
 			fd.h				\
 			parser.h			\
 			path.h				\
