@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 09:28:51 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:05:06 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 			cmd_set->cmds[0], true);
 		return (shell->status.return_status);
 	}
-	return (0);
+	return (-1);
 }
 
 /*
@@ -59,7 +59,7 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 
 	cmd = &cmd_set->cmds[run_env.num_cmd];
 	result = runner_config_redirs(shell, cmd_set, cmd, run_env);
-	if (result != 0)
+	if (result >= 0)
 		return (shell->status.return_status);
 	pid = fork();
 	if (pid != 0)
