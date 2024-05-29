@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:21:39 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/29 13:37:10 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:50:30 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	builtin_echo(t_cmd cmd)
 	bool	nflag;
 	bool	payload_found;
 
-	payload_found= false;
+	payload_found = false;
 	nflag = check_nflag(cmd);
 	node = cmd.args;
 	while (node != NULL)

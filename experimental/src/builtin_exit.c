@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:06:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/29 07:54:50 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:55:36 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ static bool	bultin_exit_is_numeric(t_string arg)
 	return (true);
 }
 
+/*
+	YASFTAN
+	Yet Another Stupid Function To Avoid Norminette
+*/
+static int	builtin_exit_print_error(t_string msg, int result)
+{
+	error_print(msg);
+	return (result);
+}
+
 int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 {
 	t_list	*node;
@@ -39,10 +49,7 @@ int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 	(void)shell;
 	num_args = ft_lstsize(cmd.args);
 	if (num_args > 1)
-	{
-		error_print("Error: Too many arguments\n");
-		return (127);
-	}
+		return (builtin_exit_print_error("Error: Too many arguments\n", 127));
 	node = cmd.args;
 	if (node)
 	{
@@ -50,7 +57,12 @@ int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 		if (bultin_exit_is_numeric(token->value))
 			exit(ft_atoi(token->value));
 		else
-			exit(EXIT_SUCCESS);
+		{
+			error_print("Error: A numeric arg is required\n");
+			if (num_args > 1)
+				exit(2);
+			return (2);
+		}
 	}
 	exit (EXIT_SUCCESS);
 }
