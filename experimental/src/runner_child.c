@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:56:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 22:19:59 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:45:34 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,7 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	else
 	{
 		if (runner_get_exec(cmd, run_env.paths) == false)
-		{
-            exit (cmd->status);
-			//error_print("Error: Command not found\n");
-			//exit(127);
-		}
+			exit (cmd->status);
 		argv = cmd_join_exec_and_args(*cmd);
 		if (execve(cmd->exec->value, argv, run_env.envp) < 0)
 		{

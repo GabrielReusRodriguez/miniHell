@@ -6,11 +6,11 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 18:17:13 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/29 22:18:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:43:54 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	PERM_H
+#ifndef PERM_H
 # define PERM_H
 
 # define PERM_OK 0
@@ -25,10 +25,9 @@
 # include "cmd.h"
 
 /*
-    permission_exec.c
+	permission_exec.c
 */
-bool permission_exec_check(t_cmd *cmd);
-bool permission_exec_check_with_path(t_cmd *cmd, t_string *paths);
-
+bool	permission_exec_check(t_cmd *cmd);
+bool	permission_exec_check_with_path(t_cmd *cmd, t_string *paths);
 
 #endif
