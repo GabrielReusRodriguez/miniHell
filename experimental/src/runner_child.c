@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:56:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 01:09:23 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:19:52 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	t_string	*argv;
 
 	if (cmd->status > 0)
-		exit (cmd->status);	
+		exit(cmd->status);
 	if (cmd->fd_input > 0)
 		dup2(cmd->fd_input, STDIN_FILENO);
 	if (cmd->fd_output > 0)
@@ -63,5 +63,5 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 			ptr_freematrix(argv);
 			exit (EXIT_FAILURE);
 		}
-	}	
+	}
 }

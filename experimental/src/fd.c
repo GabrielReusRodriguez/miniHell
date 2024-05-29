@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:37:00 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 00:43:52 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:01:35 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void    fd_close(int fd)
+void	fd_close(int fd)
 {
 	if (fd >= 0)
 		close (fd);

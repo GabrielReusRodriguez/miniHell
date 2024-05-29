@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:35:18 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 00:36:45 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 07:46:33 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FD_H
 
 /*
-    fd.c
+	fd.c
 */
-void    fd_close(int fd);
+void	fd_close(int fd);
 
 #endif

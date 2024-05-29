@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:27:53 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/28 22:06:25 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 07:48:57 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ typedef struct s_cmd
 	t_string	here_doc;
 	int			pipe[2];
 	int			status;
-    int         fd_input;
-    int         fd_output;
+	int			fd_input;
+	int			fd_output;
 }	t_cmd;
 
 typedef struct s_cmd_set
 {
 	size_t	cmd_count;
 	t_cmd	*cmds;
-    int old_stdin;
-    int old_stdout;
+	int		old_stdin;
+	int		old_stdout;
 }	t_cmd_set;
 
 /*
@@ -53,16 +53,15 @@ typedef struct s_cmd_set
 */
 t_cmd		cmd_new(void);
 void		cmd_destroy(t_cmd *cmd);
-//bool		cmd_isvalid(t_cmd cmd);
 void		cmd_destroy_set(t_cmd_set *cmd_set);
 t_cmd_set	cmd_create_set(t_token_set token_set);
-t_string    *cmd_join_exec_and_args(t_cmd cmd);
+t_string	*cmd_join_exec_and_args(t_cmd cmd);
 
 /*
 	cmd_validator.c
 */
-//bool		cmd_validate_set(t_cmd_set cmd_set);
 bool		cmd_isvalid(t_cmd cmd);
+
 /*
 	cmd_run.c
 */

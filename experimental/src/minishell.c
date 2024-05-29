@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:19:00 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/29 01:18:28 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:04:31 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	minishell_check(t_minishell shell)
 {
 	if (shell.cfg.env.vars == NULL)
 		return (false);
-	return (true); 
+	return (true);
 }
 
 t_string	minishell_get_prompt(void)

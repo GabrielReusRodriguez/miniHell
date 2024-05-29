@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 01:07:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:23:58 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 */
 int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 {
-	pid_t       pid;
+	pid_t		pid;
 	t_cmd		*cmd;
 
 	cmd = &cmd_set->cmds[run_env.num_cmd];
@@ -43,7 +43,8 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 		if (cmd->fd_output > 0)
 			dup2(cmd->fd_output, STDOUT_FILENO);
 		fd_close(cmd->fd_output);
-		shell->status.return_status = builtin_run(shell, cmd_set->cmds[0], true);
+		shell->status.return_status = builtin_run(shell, \
+			cmd_set->cmds[0], true);
 		return (shell->status.return_status);
 	}
 	pid = fork();
@@ -63,12 +64,20 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 }
 
 /*
-in ash, zsh, pdksh, bash, the Bourne shell, $? is 128 + n. What that means is that in those shells, if you get a $? of 129, you don't know whether it's because the process exited with exit(129) or whether it was killed by the signal 1 (HUP on most systems). But the rationale is that shells, when they do exit themselves, by default return the exit status of the last exited command. By making sure $? is never greater than 255, that allows to have a consistent exit status:
+in ash, zsh, pdksh, bash, the Bourne shell, $? is 128 + n. What that means is 
+	that in those shells, if you get a $? of 129, you don't know whether it's 
+	because the process exited with exit(129) or whether it was killed by the 
+	signal 1 (HUP on most systems). But the rationale is that shells, when they
+	do exit themselves, by default return the exit status of the last exited 
+	command. By making sure $? is never greater than 255, that allows to have 
+	a consistent exit status:
+
+https://unix.stackexchange.com/questions/99112/default-exit-code-when-process\
+	-is-terminated
 */
-//https://unix.stackexchange.com/questions/99112/default-exit-code-when-process-is-terminated
-static int runner_determine_status(int status)
+static int	runner_determine_status(int status)
 {
-	if  (WIFEXITED(status))
+	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
@@ -76,17 +85,18 @@ static int runner_determine_status(int status)
 		return (128 + WSTOPSIG(status));
 	return (status);
 }
+
 /*
 	Nos quedamos con el status del mayor pid ya que el pid
 	es positivo e incremental.
 */
-void	runner_get_status(t_minishell *shell,t_cmd_set *cmd_set)
+void	runner_get_status(t_minishell *shell, t_cmd_set *cmd_set)
 {
 	pid_t	pid;
 	pid_t	greater_pid;
 	size_t	i;
 	int		status;
-	
+
 	if (shell->status.return_status >= 0)
 		return ;
 	greater_pid = 0;
@@ -101,19 +111,22 @@ void	runner_get_status(t_minishell *shell,t_cmd_set *cmd_set)
 		}
 		i++;
 	}
-	shell->status.return_status = runner_determine_status(shell->status.return_status);
+	shell->status.return_status = runner_determine_status(\
+			shell->status.return_status);
 }
 
 /*
-https://stackoverflow.com/questions/53924800/how-to-recover-stdin-overwritten-by-dup2
+https://stackoverflow.com/questions/53924800/how-to-recover-stdin-overwritten-\
+	by-dup2
 
-If we start to do dup2 we loose the original stdin, so we have to save and when we finish, we do the reverse dup2IN
-We do not save the original stdout because we do the dup2 at children process of fork and when
- process exit it closes automaticaly
+If we start to do dup2 we loose the original stdin, so we have to save and when
+we finish, we do the reverse dup2IN
+We do not save the original stdout because we do the dup2 at children process 
+of fork and when process exit it closes automaticaly
 */
-int runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
+int	runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 {
-	size_t	    i;
+	size_t		i;
 	t_run_env	run_env;
 
 	shell->status.return_status = -1;

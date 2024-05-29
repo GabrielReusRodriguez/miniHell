@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:58:57 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/26 20:06:21 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 07:52:37 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ int	builtin_cd(t_minishell *shell, t_cmd cmd)
 		shell->status.return_status = path_chdir(destiny, shell);
 	}
 	return (shell->status.return_status);
-
 }

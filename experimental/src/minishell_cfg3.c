@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 22:20:56 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/24 22:45:17 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:05:42 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 t_string	*minishell_path_2_vector(t_minishell shell)
 {
-	t_string    *vector;
-	t_string    aux;
-	size_t      i;
+	t_string	*vector;
+	t_string	aux;
+	size_t		i;
 
 	if (shell.cfg.var_path == NULL)
 		return (NULL);
@@ -34,5 +34,5 @@ t_string	*minishell_path_2_vector(t_minishell shell)
 		free (aux);
 		i++;
 	}
-	return (vector);    
+	return (vector);
 }

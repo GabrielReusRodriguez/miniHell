@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:13:48 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/26 20:10:37 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 07:54:25 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	builtin_unset(t_minishell *shell, t_cmd cmd)
 	node = cmd.args;
 	if (node == NULL)
 	{
-		//ft_putendl_fd("Syntax error", STDERR_FILENO);
-		//return (EXIT_FAILURE);
 		ft_putendl_fd("", STDOUT_FILENO);
 		return (EXIT_SUCCESS);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:45:59 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/27 22:48:51 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 07:56:28 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include "error_handler.h"
 #include "ptr.h"
 
-//TODO: WORK IN PROGRESS.....
 t_cmd	cmd_new(void)
 {
 	t_cmd	cmd;
@@ -32,8 +31,8 @@ t_cmd	cmd_new(void)
 	cmd.redir_out = NULL;
 	cmd.status = -1;
 	cmd.here_doc = NULL;
-    cmd.fd_input = -1;
-    cmd.fd_output = -1;
+	cmd.fd_input = -1;
+	cmd.fd_output = -1;
 	return (cmd);
 }
 
@@ -88,7 +87,7 @@ t_cmd_set	cmd_create_set(t_token_set token_set)
 	return (cmd_set);
 }
 
-t_string    *cmd_join_exec_and_args(t_cmd cmd)
+t_string	*cmd_join_exec_and_args(t_cmd cmd)
 {
 	t_string	*argv;
 	size_t		size;
@@ -97,16 +96,15 @@ t_string    *cmd_join_exec_and_args(t_cmd cmd)
 
 	j = 0;
 	size = ft_lstsize(cmd.args);
-	//argv = safe_malloc((size + 1) * sizeof(t_string));
 	argv = (t_string *)malloc((size + 2) * sizeof(t_string));
 	argv[j] = ft_strdup(cmd.exec->value);
-    ptr_check_malloc_return(argv[j], "Error at memory malloc.\n");
-    j++;
+	ptr_check_malloc_return(argv[j], "Error at memory malloc.\n");
+	j++;
 	node = cmd.args;
 	while (node != NULL)
 	{
 		argv[j] = ft_strdup(((t_token *)node->content)->value);
-        ptr_check_malloc_return(argv[j], "Error at memory malloc.\n");
+		ptr_check_malloc_return(argv[j], "Error at memory malloc.\n");
 		node = node->next;
 		j++;
 	}

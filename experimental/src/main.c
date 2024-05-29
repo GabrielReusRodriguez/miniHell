@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/28 21:29:53 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:04:01 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ SYNOPSIS
        int isatty(int fd);
 
 DESCRIPTION
-       The isatty() function tests whether fd is an open file descriptor referring to a terminal.
+       The isatty() function tests whether fd is an open file 
+	descriptor referring to a terminal.
 */
 static void	main_loop(t_minishell *shell)
 {
@@ -101,22 +102,22 @@ static void	main_loop(t_minishell *shell)
 	{
 		signal_set_mode(SIGNAL_MODE_INTERACTIVE);
 		prompt = minishell_get_prompt();
-        if (isatty(STDIN_FILENO) == 1)
-        {
-		    line = readline(prompt);
-		    if (line == NULL)
-            {
-                free (prompt);
-			    break ;
-            }
-		    if (is_empty_line(line) == false)
-		    {
-			    treat_line(shell, line);
-			    add_history(line);
-		    }
-		    free(line);
-		    free(prompt);
-        }
+		if (isatty(STDIN_FILENO) == 1)
+		{
+			line = readline(prompt);
+			if (line == NULL)
+			{
+				free (prompt);
+				break ;
+			}
+			if (is_empty_line(line) == false)
+			{
+				treat_line(shell, line);
+				add_history(line);
+			}
+			free(line);
+			free(prompt);
+		}
 	}
 }
 
@@ -134,6 +135,6 @@ int	main(int argc, char **argv, char **env)
 	shell = minishell_new(env);
 	main_loop(&shell);
 	minishell_destroy(shell);
-	//rl_clear_history();
+	rl_clear_history();
 	return (shell.status.return_status);
 }

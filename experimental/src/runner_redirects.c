@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:50:21 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 00:55:02 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:14:46 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 	t_redirect	*token;
 	int			heredoc_fd[2];
 	bool		last_is_heredoc;
-	
+
 	last_is_heredoc = false;
 	node = cmd->redir_in;
 	while (node != NULL)
@@ -55,7 +55,7 @@ bool	runner_treat_inputredir(t_cmd *cmd)
 	if (last_is_heredoc)
 	{
 		pipe(heredoc_fd);
-		dup2(heredoc_fd[PIPE_READ_FD],STDIN_FILENO);
+		dup2(heredoc_fd[PIPE_READ_FD], STDIN_FILENO);
 		ft_putstr_fd(cmd->here_doc, heredoc_fd[PIPE_WRITE_FD]);
 		pipes_close_pipe(heredoc_fd);
 		cmd->fd_input = -1;
@@ -79,8 +79,9 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		redirect = (t_redirect *)node->content;
 		if (redirect->type->type == TOKEN_TYPE_RED_TRUNCATE)
 		{
-			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-			if ( cmd->fd_output < 0)
+			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_CREAT, \
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+			if (cmd->fd_output < 0)
 			{
 				perror("Error");
 				cmd->status = EXIT_FAILURE;
@@ -89,15 +90,17 @@ void	runner_treat_outputredir(t_cmd *cmd, t_run_env run_env)
 		}
 		if (redirect->type->type == TOKEN_TYPE_RED_APPEND)
 		{
-			cmd->fd_output = open(redirect->target->value, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-			if ( cmd->fd_output < 0)
+			cmd->fd_output = open(redirect->target->value, \
+					O_WRONLY | O_APPEND | O_CREAT, \
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+			if (cmd->fd_output < 0)
 			{
 				perror("Error");
 				cmd->status = EXIT_FAILURE;
 				return ;
 			}
 		}
-		node = node->next;	
+		node = node->next;
 	}
 	if (run_env.total_cmd > 1 && runner_islastcmd(run_env) == false)
 	{

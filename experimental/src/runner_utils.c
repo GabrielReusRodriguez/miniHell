@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:47:28 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 01:03:49 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/29 08:09:52 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	runner_islastcmd(t_run_env run_env)
 /*
 	We check if there is only a command and it is a builtin
 */
-bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
+bool	runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
 {
 	if (cmd_set->cmd_count == 1 && cmd_isbuiltin(cmd_set->cmds[0]) == true)
 		return (true);
@@ -33,13 +33,14 @@ bool runner_is_unique_builtin_cmd(t_cmd_set *cmd_set)
 
 /*
 https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
-https://unix.stackexchange.com/questions/471221/how-bash-builtins-works-with-pipeline
+https://unix.stackexchange.com/questions/471221/\
+		how-bash-builtins-works-with-pipeline
 
 	We get the full route of the exec cmd.
 */
 bool	runner_get_exec(t_cmd *cmd, t_string *paths)
 {
-	size_t      i;
+	size_t		i;
 	t_string	exec;
 
 	if (access(cmd->exec->value, X_OK) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:21:39 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/05 19:00:41 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/29 07:52:51 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ int	builtin_echo(t_cmd cmd)
 	bool	nflag;
 	int		out;
 
-//	if (cmd.red_out)
-//		out = cmd.pipe[1];
-//	else
 	out = STDOUT_FILENO;
 	nflag = check_nflag(cmd);
 	node = cmd.args;
