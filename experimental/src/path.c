@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/23 18:52:11 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:15:52 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ static bool	path_is_special_route(t_string input_path)
 	return (false);
 }
 
+/*
+	Here we treat the special cases - , ~ 
+	We check malloc at exit because the function is
+	too large.
+*/
 static t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 {
 	t_var	*var;

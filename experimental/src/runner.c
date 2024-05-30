@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 12:05:06 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:18:36 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,45 +76,6 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 	}
 	return (EXIT_SUCCESS);
 }
-/*
-int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
-{
-	pid_t		pid;
-	t_cmd		*cmd;
-
-	cmd = &cmd_set->cmds[run_env.num_cmd];
-	if (runner_treat_inputredir(cmd) == true)
-		runner_treat_outputredir(cmd, run_env);
-	if (runner_is_unique_builtin_cmd(cmd_set) == true)
-	{
-		if (cmd->status >= 0)
-		{
-			shell->status.return_status = cmd->status;
-			return (shell->status.return_status);
-		}
-		if (cmd->fd_output > 0)
-			dup2(cmd->fd_output, STDOUT_FILENO);
-		fd_close(cmd->fd_output);
-		shell->status.return_status = builtin_run(shell, \
-			cmd_set->cmds[0], true);
-		return (shell->status.return_status);
-	}
-	pid = fork();
-	if (pid != 0)
-	{
-		if (pid < 0)
-			return (EXIT_FAILURE);
-		signal_set_mode(SIGNAL_MODE_NOOP);
-		runner_parent_process(cmd, run_env);
-	}
-	else
-	{
-		signal_set_mode(SIGNAL_MODE_DEFAULT);
-		runner_child_process(shell, cmd, run_env);
-	}
-	return (EXIT_SUCCESS);
-}
-*/
 
 /*
 in ash, zsh, pdksh, bash, the Bourne shell, $? is 128 + n. What that means is 

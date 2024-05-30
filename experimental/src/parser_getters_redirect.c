@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_getters_redirect.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:32:23 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/23 19:13:12 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:13:21 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,6 @@ static void	*parser_parse_redir_inout(t_list **list, t_list *node, t_list *end)
 	return (token_new(token_type, value));
 }
 
-/*
-static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
-				t_cmd *cmd)
-{
-	t_list	*new_node;
-
-	new_node = ft_lstnew(red);
-	if (new_node == NULL)
-		error_system_crash("Error in memory malloc\n");
-	if (tokens_isredir_in(*token) == true)
-		ft_lstadd_back(&cmd->redir_in, new_node);
-	else
-		ft_lstadd_back(&cmd->redir_out, new_node);
-}
-*/
 static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
 				t_cmd *cmd)
 {
@@ -98,32 +83,6 @@ static void	parser_parse_redir_push_red(t_redirect *red, t_token *token, \
 		ft_lstadd_back(&cmd->redir_out, new_node);
 }
 
-/*
-void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
-{
-	t_token		*token;
-	t_list		*node;
-	t_redirect	*red;
-
-	node = (*list);
-	red = redirect_new();
-	if (red == NULL)
-		error_system_crash("Error at malloc\n");
-	token = (t_token *)(node->content);
-	red->type = token;
-	if (tokens_isredir(*token) == true)
-	{
-		red->target = parser_parse_redir_inout(list, node->next, end);
-		if (red->target == NULL)
-		{
-			redirect_freenode(red);
-			return (NULL);
-		}
-		parser_parse_redir_push_red(red, token, cmd);
-	}
-	return (node);
-}
-*/
 void	*parser_parse_redir(t_list **list, t_list *end, t_cmd *cmd)
 {
 	t_token		*token;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/23 18:41:52 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:06:28 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*env_update_var(t_list *node, t_var new_var)
 	var = (t_var *)node->content;
 	aux = var->value;
 	var->value = ft_strdup(new_var.value);
+	ptr_check_malloc_return(var->value, "Error at memory malloc.\n");
 	free (aux);
 	if (var->value == NULL)
 		return (NULL);

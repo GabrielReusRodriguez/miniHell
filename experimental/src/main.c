@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/29 08:04:01 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:10:04 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "tokens.h"
 #include "parser.h"
 #include "cmd.h"
+#include "error_handler.h"
 
 /*
 	We check if the read line is an empty one or it is composed only 
@@ -56,7 +57,7 @@ static void	treat_line(t_minishell *shell, t_string line)
 
 	if (tokenizer_valida_str(line) == false)
 	{
-		ft_putendl_fd("Syntax error quotes not closed", STDERR_FILENO);
+		error_print("Syntax error quotes not closed.\n");
 		shell->status.return_status = 127;
 		return ;
 	}

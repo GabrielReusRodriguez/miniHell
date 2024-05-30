@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:18:22 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/26 19:53:14 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:04:53 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
 #include "builtin.h"
 #include "error_handler.h"
+#include "perm.h"
 
 int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 {
@@ -34,7 +35,7 @@ int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 	if (ft_strcmp(cmd.exec->value, BUILTIN_UNSET) == 0)
 		return (builtin_unset(shell, cmd));
 	error_print("Error: Command not found\n");
-	return (127);
+	return (PERM_NO_COMMAND);
 }
 
 bool	cmd_isbuiltin(t_cmd cmd)

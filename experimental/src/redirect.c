@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:49:52 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/23 19:04:38 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:16:53 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include "redirect.h"
 #include "ptr.h"
 
-/*
-t_redirect	*redirect_new(void)
-{
-	t_redirect	*redir;
-
-	redir = (t_redirect *)malloc(sizeof(t_redirect));
-	if (redir == NULL)
-		return (NULL);
-	redir->target = NULL;
-	redir->type = NULL;
-	return (redir);
-}
-*/
 t_redirect	*redirect_new(void)
 {
 	t_redirect	*redir;

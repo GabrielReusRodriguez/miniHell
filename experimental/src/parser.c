@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/22 22:32:48 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:13:37 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,10 @@
 #include "expansor.h"
 #include "error_handler.h"
 #include "minishell.h"
-/*
-Chuleta gramaticas bash
-https://cmdse.github.io/pages/appendix/bash-grammar.html
-*/
 
 /*
-void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set *cmd_set, \
-			t_environment *env)
+BASH Grammar
+https://cmdse.github.io/pages/appendix/bash-grammar.html
 */
 void	*parser_get_cmdset(t_token_set *token_set, t_cmd_set *cmd_set)
 {

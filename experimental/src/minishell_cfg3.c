@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 22:20:56 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 08:05:42 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:11:55 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_string	*minishell_path_2_vector(t_minishell shell)
 	if (shell.cfg.var_path == NULL)
 		return (NULL);
 	vector = ft_split(shell.cfg.var_path->value, ':');
+	ptr_check_malloc_return(vector, "Error at memory malloc.\n");
 	i = 0;
 	while (vector[i] != NULL)
 	{

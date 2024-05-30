@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stdlib.h": "c",
-        "cerrno": "c"
+        "cerrno": "c",
+        "minishell.h": "c",
+        "datatypes.h": "c"
     }
 }
