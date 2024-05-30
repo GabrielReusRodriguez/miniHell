@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 00:18:36 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:34:32 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	runner_run_cmd(t_minishell *shell, t_cmd_set *cmd_set, t_run_env run_env)
 	if (pid != 0)
 	{
 		if (pid < 0)
-			return (EXIT_FAILURE);
+		{
+			error_print("Error at fork.\n");
+			return (FORK_ERROR);
+		}
 		signal_set_mode(SIGNAL_MODE_NOOP);
 		runner_parent_process(cmd, run_env);
 	}

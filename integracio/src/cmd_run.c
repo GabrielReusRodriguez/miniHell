@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_run.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:00:30 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/28 22:33:08 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 00:24:10 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	cmd_dup(t_cmd_set *cmd_set, size_t pos, int fd_in)
 	if (pos > 0 && dup2(fd_in, STDIN_FILENO) < 0)
 		ft_error(DUP_ERROR, "dup error");
 	close (cmd_set->cmds[pos].pipe[0]);
-	if (cmd_set->cmd_count > pos && dup2(cmd_set->cmds[pos].pipe[1], STDOUT_FILENO < 0))
+	if (cmd_set->cmd_count > pos && dup2(cmd_set->cmds[pos].pipe[1], STDOUT_FILENO) < 0)
 		ft_error(DUP_ERROR, "dup error");
 	close (cmd_set->cmds[pos].pipe[1]);
 	if (pos > 0)
