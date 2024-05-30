@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:02:31 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 00:15:52 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 01:05:34 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static t_string	path_get_special_route(t_string input_path, t_minishell *shell)
 			return (ft_strdup(var->value));
 		else
 		{
-			error_print("Error: Previous cwd not found.\n");
+			error_print("Error: OLDPWD not found.\n");
 			return (ft_strdup("."));
 		}
 	}
