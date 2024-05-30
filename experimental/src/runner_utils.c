@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:47:28 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 22:45:01 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/05/31 01:24:48 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ https://unix.stackexchange.com/questions/471221/\
 
 	We get the full route of the exec cmd.
 */
-
 bool	runner_get_exec(t_cmd *cmd, t_string *paths)
 {
 	if (is_dir(cmd->exec->value) == true)
