@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:56:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 00:17:06 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:57:40 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static void	runner_child_check_init_status(t_cmd *cmd, t_run_env run_env)
 	if (cmd->status > 0)
 		exit(cmd->status);
 	if (cmd->fd_input > 0)
-		dup2(cmd->fd_input, STDIN_FILENO);
+		pipes_dup2(cmd->fd_input, STDIN_FILENO);
 	if (cmd->fd_output > 0)
-		dup2(cmd->fd_output, STDOUT_FILENO);
+		pipes_dup2(cmd->fd_output, STDOUT_FILENO);
 	else
 	{
 		if (run_env.total_cmd > 1)
 		{
 			if (runner_islastcmd(run_env) == false)
-				dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
+				pipes_dup2(cmd->pipe[PIPE_WRITE_FD], STDOUT_FILENO);
 		}
 	}
 }

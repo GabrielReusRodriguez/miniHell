@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 00:34:32 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:59:16 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "error_handler.h"
 #include "runner.h"
 #include "fd.h"
+#include "pipes.h"
 
 /*
 	YASFTAN
@@ -38,7 +39,7 @@ static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 			return (shell->status.return_status);
 		}
 		if (cmd->fd_output > 0)
-			dup2(cmd->fd_output, STDOUT_FILENO);
+			pipes_dup2(cmd->fd_output, STDOUT_FILENO);
 		fd_close(cmd->fd_output);
 		shell->status.return_status = builtin_run(shell, \
 			cmd_set->cmds[0], true);
@@ -151,16 +152,16 @@ int	runner_run_cmd_set(t_minishell *shell, t_cmd_set *cmd_set)
 	run_env.envp = env_to_vector(shell->cfg.env);
 	run_env.total_cmd = cmd_set->cmd_count;
 	i = 0;
-	cmd_set->old_stdin = dup(STDIN_FILENO);
-	cmd_set->old_stdout = dup(STDOUT_FILENO);
+	cmd_set->old_stdin = pipes_dup(STDIN_FILENO);
+	cmd_set->old_stdout = pipes_dup(STDOUT_FILENO);
 	while (i < cmd_set->cmd_count)
 	{
 		run_env.num_cmd = i;
 		runner_run_cmd(shell, cmd_set, run_env);
 		i++;
 	}
-	dup2(cmd_set->old_stdin, STDIN_FILENO);
-	dup2(cmd_set->old_stdout, STDOUT_FILENO);
+	pipes_dup2(cmd_set->old_stdin, STDIN_FILENO);
+	pipes_dup2(cmd_set->old_stdout, STDOUT_FILENO);
 	fd_close(cmd_set->old_stdin);
 	fd_close(cmd_set->old_stdout);
 	ptr_freematrix(run_env.envp);
