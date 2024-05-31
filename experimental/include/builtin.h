@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abluis-m <abluis-m@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 02:19:14 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/04 15:33:44 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/05/31 23:56:47 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,17 @@ int		builtin_pwd(t_minishell *shell, t_cmd cmd);
 int		builtin_env(t_minishell *shell);
 int		builtin_export(t_minishell *shell, t_cmd cmd);
 int		builtin_unset(t_minishell *shell, t_cmd cmd);
+
+/*
+	builtin_export.c
+*/
+int		builtin_export_destroy(t_var *var, t_minishell *shell);
+
+/*
+	builtin_export2.c
+*/
+int		builtin_export_wargs(t_minishell *shell, t_list *args);
+void	builtin_export_minishell_refresh_vars(t_minishell *shell, \
+					t_string param);
 
 #endif

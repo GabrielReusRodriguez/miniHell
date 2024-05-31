@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 22:20:56 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 00:11:55 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/01 00:53:51 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "var.h"
 #include "ptr.h"
 #include "libft.h"
+
+#include <stdio.h>
 
 t_string	*minishell_path_2_vector(t_minishell shell)
 {

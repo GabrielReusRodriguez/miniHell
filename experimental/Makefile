@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/05/29 22:11:34 by gabriel          ###   ########.fr        #
+#    Updated: 2024/05/31 23:50:22 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC		= gcc
 DFLAGS	+= -g
 DFLAGS	+= -fsanitize=address
 DFLAGS	+= -DDEBUG_MODE=0
-CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
+CFLAGS	= -Wall -Wextra -Werror $(DFLAGS)
 RM		= rm -f
 RMDIR	= rm -rf
 MKDIR	= mkdir -p
@@ -65,6 +65,7 @@ SRC		= 	main 					\
 			builtin_pwd				\
 			builtin_exit			\
 			builtin_export			\
+			builtin_export2			\
 			builtin_unset			\
 			cmd						\
 			cmd_debug				\
@@ -104,7 +105,6 @@ SRC		= 	main 					\
 			runner_child			\
 		  	signal_handler 			\
 		  	tokenizer				\
-			tokenizer_parenthesis	\
 			tokenizer_quotes		\
 			tokenizer_redirect		\
 			tokenizer_separators	\

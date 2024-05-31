@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:06:30 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/31 00:43:12 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:44:54 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static void	signal_noop_handler(int signal)
 	}
 }
 
-static	void	signal_setsignal(int signum, __sighandler_t handler)
+//static	void	signal_setsignal(int signum, void(*)__sighandler_t handler)
+static	void	signal_setsignal(int signum, void (*handler)(int) )
 {
 	if (signal(signum, handler) == SIG_ERR)
 	{

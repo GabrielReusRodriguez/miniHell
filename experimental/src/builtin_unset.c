@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:13:48 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/29 07:54:25 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:32:54 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	builtin_unset(t_minishell *shell, t_cmd cmd)
 		if (ft_strcmp("OLDPWD", param) == 0)
 			shell->cfg.var_oldpwd = NULL;
 		if (ft_strcmp("PATH", param) == 0)
-			shell->cfg.var_oldpwd = NULL;
+			shell->cfg.var_path = NULL;
 	}
 	return (EXIT_SUCCESS);
 }

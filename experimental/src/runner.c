@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 01:23:32 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:17:04 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,33 @@
 	YASFTAN
 	Yet Another Stupid Function To Avoid Norminette
 */
+/*
+MAC version., parece que en mac bash ejecuta todo aunque falle un redirect...
+*/
+static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
+				t_cmd *cmd, t_run_env run_env)
+{
+	runner_treat_inputredir(cmd);
+	runner_treat_outputredir(cmd, run_env);
+	if (runner_is_unique_builtin_cmd(cmd_set) == true)
+	{
+		if (cmd->status >= 0)
+		{
+			shell->status.return_status = cmd->status;
+			return (shell->status.return_status);
+		}
+		if (cmd->fd_output > 0)
+			pipes_dup2(cmd->fd_output, STDOUT_FILENO);
+		fd_close(cmd->fd_output);
+		shell->status.return_status = builtin_run(shell, \
+			cmd_set->cmds[0], true);
+		return (shell->status.return_status);
+	}
+	return (-1);
+}
+
+/*
+//	LINUX Version
 static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 				t_cmd *cmd, t_run_env run_env)
 {
@@ -47,6 +74,7 @@ static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 	}
 	return (-1);
 }
+*/
 
 /*
 	HEre we run the command. we have to prepare redirections of input

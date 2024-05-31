@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   permission_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 21:33:36 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 01:22:42 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:33:58 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	permission_exec_check_with_path(t_cmd *cmd, t_string *paths)
 
 	i = 0;
 	file_found = false;
-	while (paths[i] != NULL)
+	while (paths != NULL && paths[i] != NULL)
 	{
 		exec = ft_strjoin(paths[i], cmd->exec->value);
 		ptr_check_malloc_return(exec, "Error at memory malloc.\n");

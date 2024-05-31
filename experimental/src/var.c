@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:31:43 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 00:20:24 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/01 00:32:25 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "var.h"
 #include "ptr.h"
 #include "expansor.h"
+
+#include <stdio.h>
 
 t_var	var_new(void)
 {
@@ -31,7 +33,7 @@ t_var	*var_init(t_string str, t_var *var)
 
 	size = ft_strlen(str);
 	initial_pos = ft_istrchr(str, "=");
-	if (initial_pos < 0)
+	if (initial_pos <= 0)
 		return (NULL);
 	var->key = ft_substr(str, 0, initial_pos);
 	ptr_check_malloc_return(var->key, "Error at memory malloc.\n");
