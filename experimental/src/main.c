@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/31 20:33:30 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/01 01:49:39 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,15 @@ static void	treat_line(t_minishell *shell, t_string line)
 		we check if it is empty.
 		we treat the line ( tokenize + parse+ execute)
 		we add to history.
-    We use isatty to check that STDIN is bounded to 
+	We use isatty to check that STDIN is bounded to 
 the terminal
 SYNOPSIS
-       #include <unistd.h>
+	   #include <unistd.h>
 
-       int isatty(int fd);
+	   int isatty(int fd);
 
 DESCRIPTION
-       The isatty() function tests whether fd is an open file 
+	   The isatty() function tests whether fd is an open file 
 	descriptor referring to a terminal.
 */
 static void	main_loop(t_minishell *shell)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:43:57 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/31 00:13:37 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/01 02:23:10 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	*parser_create_cmd(t_list *first_token, t_list *last_token, t_cmd *cmd)
 		if (tokens_isword(*token) == true)
 			if (parser_parse_word(&node, cmd) == NULL)
 				return (NULL);
-		if (node != NULL)
+		if (node != NULL && ((t_token *)node->content)->type != TOKEN_TYPE_PIPE)
 			node = node->next;
 	}
 	return (cmd);
