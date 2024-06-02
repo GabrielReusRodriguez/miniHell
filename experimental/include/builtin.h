@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 02:19:14 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/31 23:56:47 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/02 21:11:08 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # define BUILTIN_UNSET	"unset"
 # define BUILTIN_ENV	"env"
 
-int		builtin_exit(t_minishell *shell, t_cmd cmd, bool parent);
+int		builtin_exit(t_minishell *shell, t_cmd cmd);
 int		builtin_echo(t_cmd cmd);
-int		builtin_run(t_minishell *shell, t_cmd cmd, bool parent);
+int		builtin_run(t_minishell *shell, t_cmd cmd);
 int		builtin_cd(t_minishell *shell, t_cmd cmd);
 int		builtin_pwd(t_minishell *shell, t_cmd cmd);
 int		builtin_env(t_minishell *shell);

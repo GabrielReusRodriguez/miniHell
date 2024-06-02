@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:18:22 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/31 00:04:53 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:11:52 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "error_handler.h"
 #include "perm.h"
 
-int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
+int	builtin_run(t_minishell *shell, t_cmd cmd)
 {
 	t_token	*token;
 
@@ -27,7 +27,7 @@ int	builtin_run(t_minishell *shell, t_cmd cmd, bool parent)
 	if (ft_strcmp(cmd.exec->value, BUILTIN_ENV) == 0)
 		return (builtin_env(shell));
 	if (ft_strcmp(token->value, BUILTIN_EXIT) == 0)
-		return (builtin_exit(shell, cmd, parent));
+		return (builtin_exit(shell, cmd));
 	if (ft_strcmp(cmd.exec->value, BUILTIN_EXPORT) == 0)
 		return (builtin_export(shell, cmd));
 	if (ft_strcmp(cmd.exec->value, BUILTIN_PWD) == 0)

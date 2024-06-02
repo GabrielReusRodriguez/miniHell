@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:06:42 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/29 13:59:17 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:14:17 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,34 @@ static int	builtin_exit_print_error(t_string msg, int result)
 	return (result);
 }
 
+int	builtin_exit(t_minishell *shell, t_cmd cmd)
+{
+	t_list	*node;
+	t_token	*token;
+	size_t	num_args;
+
+	(void)shell;
+	num_args = ft_lstsize(cmd.args);
+	node = cmd.args;
+	if (node)
+	{
+		token = (t_token *)node->content;
+		if (bultin_exit_is_numeric(token->value))
+		{
+			if (num_args > 1)
+				return (builtin_exit_print_error(\
+							"Error: Too many arguments\n", 1));
+			exit(ft_atoi(token->value));
+		}
+		else
+		{
+			error_print("Error: A numeric arg is required\n");
+			exit(2);
+		}
+	}
+	exit (EXIT_SUCCESS);
+}
+/*
 int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 {
 	t_list	*node;
@@ -66,3 +94,4 @@ int	builtin_exit(t_minishell *shell, t_cmd cmd, bool parent)
 	}
 	exit (EXIT_SUCCESS);
 }
+*/

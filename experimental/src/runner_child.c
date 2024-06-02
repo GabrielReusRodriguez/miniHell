@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner_child.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:56:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 21:14:52 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:13:15 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	runner_child_process(t_minishell *shell, t_cmd *cmd, t_run_env run_env)
 	fd_close(cmd->fd_input);
 	pipes_close_pipe(cmd->pipe);
 	if (cmd_isbuiltin(*cmd) == true)
-		exit(builtin_run(shell, *cmd, true));
+		exit(builtin_run(shell, *cmd));
 	else
 	{
 		if (runner_get_exec(cmd, run_env.paths) == false)

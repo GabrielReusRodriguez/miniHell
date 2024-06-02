@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 21:17:04 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:12:56 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 		if (cmd->fd_output > 0)
 			pipes_dup2(cmd->fd_output, STDOUT_FILENO);
 		fd_close(cmd->fd_output);
-		shell->status.return_status = builtin_run(shell, \
-			cmd_set->cmds[0], true);
+		shell->status.return_status = builtin_run(shell, cmd_set->cmds[0]);
 		return (shell->status.return_status);
 	}
 	return (-1);
@@ -68,8 +67,7 @@ static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 		if (cmd->fd_output > 0)
 			pipes_dup2(cmd->fd_output, STDOUT_FILENO);
 		fd_close(cmd->fd_output);
-		shell->status.return_status = builtin_run(shell, \
-			cmd_set->cmds[0], true);
+		shell->status.return_status = builtin_run(shell, cmd_set->cmds[0]);
 		return (shell->status.return_status);
 	}
 	return (-1);
