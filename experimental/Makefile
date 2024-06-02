@@ -6,7 +6,7 @@
 #    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/06/01 02:18:57 by gabriel          ###   ########.fr        #
+#    Updated: 2024/06/02 16:58:02 by abluis-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,7 +152,7 @@ GNL_LIB = $(GNL_D)/gnl.a
 
 $(NAME):	libft gnl $(OBJS) $(HDRS) Makefile 
 	@echo "$(WHITE)Compiling $(NAME) executable: $(RST)"
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) $(GNL_LIB) -lreadline -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) $(GNL_LIB) -lreadline -L ~/.brew/Cellar/readline/8.2.10/lib -o $(NAME)
 	@echo "$(GREEN)Binary $(NAME) compiled! $(RST)"
 
 #bonus:	$(NAME)
@@ -167,7 +167,7 @@ gnl:
 
 $(BUILD_D)/%.o:	$(SRC_D)/%.c $(HDRS) Makefile | $(BUILD_D) 
 	@echo "$(YELLOW)CC: $< $(RST)"
-	@$(CC) $(CFLAGS) -I $(FT_D) -I $(GNL_D) -I $(INC_D) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I $(FT_D) -I $(GNL_D) -I $(INC_D) -I ~/.brew/Cellar/readline/8.2.10/include/ -o $@ -c $<
 
 $(BUILD_D):
 	@$(MKDIR) $(BUILD_D)
