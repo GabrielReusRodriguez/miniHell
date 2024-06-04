@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
+#    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/06/02 16:58:02 by abluis-m         ###   ########.fr        #
+#    Updated: 2024/06/04 22:32:38 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,10 +99,11 @@ SRC		= 	main 					\
 			ptr2					\
 			redirect				\
 			runner					\
-			runner_utils			\
-			runner_redirects		\
-			runner_parent			\
 			runner_child			\
+			runner_parent			\
+			runner_redirects		\
+			runner_status			\
+			runner_utils			\
 		  	signal_handler 			\
 		  	tokenizer				\
 			tokenizer_quotes		\

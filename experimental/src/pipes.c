@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:16:01 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 21:16:39 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:45:51 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <errno.h>
 
 #include "fd.h"
 
@@ -42,7 +44,8 @@ void	pipes_dup2(int oldfd, int newfd)
 	if (dup2(oldfd, newfd) < 0)
 	{
 		perror ("Error");
-		exit(EXIT_FAILURE);
+		if (errno != EBADF)
+			exit(EXIT_FAILURE);
 	}
 }
 
@@ -54,7 +57,8 @@ int	pipes_dup(int oldfd)
 	if (result < 0)
 	{
 		perror ("Error");
-		exit(EXIT_FAILURE);
+		if (errno != EBADF)
+			exit(EXIT_FAILURE);
 	}
 	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cfg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:19:55 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/24 22:20:42 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/04 22:04:35 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include "libft.h"
 #include "error_handler.h"
 #include "ptr.h"
+#include "pipes.h"
 
+#include "fd.h"
 #include "path.h"
 #include <stdio.h>
 
@@ -24,6 +26,8 @@ static void	minishell_cfg_init(t_minishell_cfg *cfg)
 	cfg->var_path = NULL;
 	cfg->var_pwd = NULL;
 	cfg->var_oldpwd = NULL;
+	cfg->old_stdin = pipes_dup(STDIN_FILENO);
+	cfg->old_stdout = pipes_dup(STDOUT_FILENO);
 }
 
 bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
@@ -53,6 +57,8 @@ bool	minishell_cfg_load(t_minishell_cfg *cfg, char **str_env)
 bool	minishell_cfg_unload(t_minishell_cfg *cfg)
 {
 	env_destroy(&cfg->env);
+	fd_close(cfg->old_stdin);
+	fd_close(cfg->old_stdout);
 	return (true);
 }
 

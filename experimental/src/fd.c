@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:37:00 by gabriel           #+#    #+#             */
-/*   Updated: 2024/06/02 17:10:53 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 22:03:22 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,11 @@ int	fd_open_file_append(t_string file)
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	return (result);
 }
+/*
+bool	fd_is_valid(int fd)
+{
+	if (ioctl(fd,) < 0)
+		return (false);
+	return (true);
+}
+*/

@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/29 07:46:53 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:48:53 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@
 # include "datatypes.h"
 # include "environment.h"
 # include "var.h"
-# include <termios.h>
 
+/*
 # define SIGNAL_MODE_INTERACTIVE 0
 # define SIGNAL_MODE_DEFAULT 2
 # define SIGNAL_MODE_NOOP 3
+# define SIGNAL_MODE_HEREDOC 4
+*/
 
-# define MINISHELL_PROMPT	"\033[1;34mminishell> \033[0m"
+//# define MINISHELL_PROMPT	"\033[1;34mminishell> \033[0m"
+# define MINISHELL_PROMPT	"$>"
 # define MINISHELL_NAME     "minishell"
 
 typedef struct s_minishell_cfg
@@ -31,6 +34,8 @@ typedef struct s_minishell_cfg
 	t_var			*var_path;
 	t_var			*var_pwd;
 	t_var			*var_oldpwd;
+	int				old_stdin;
+	int				old_stdout;
 }	t_minishell_cfg;
 
 typedef struct s_minishell_status

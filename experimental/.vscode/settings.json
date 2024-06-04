@@ -3,6 +3,7 @@
         "stdlib.h": "c",
         "cerrno": "c",
         "minishell.h": "c",
-        "datatypes.h": "c"
+        "datatypes.h": "c",
+        "signal_handler.h": "c"
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:08:27 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/04/23 17:12:16 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:16:04 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define SIGNAL_MODE_INTERACTIVE 0
 # define SIGNAL_MODE_DEFAULT 2
 # define SIGNAL_MODE_NOOP 3
+# define SIGNAL_MODE_HEREDOC 4
 
 /*
 	Signals are a positive int so... we can mark NO_SIGNAL as -1

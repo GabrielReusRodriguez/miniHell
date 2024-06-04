@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:06:30 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/31 20:44:54 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 22:23:00 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <readline/readline.h>
+#include <unistd.h>
 #include "signal_handler.h"
 
 /*
@@ -24,6 +25,7 @@ Ctrl-Z sends a TSTP signal ("terminal stop", SIGTSTP); by default,
 Ctrl-\ sends a QUIT signal (SIGQUIT); by default, 
 			this causes the process to terminate and dump core.
 		it can be done with control + altgr + slash
+Ctrl-D sends an EOF.
 */
 
 static void	signal_interactive_mode_handler(int signal)
@@ -31,7 +33,7 @@ static void	signal_interactive_mode_handler(int signal)
 	if (signal == SIGINT)
 	{
 		rl_replace_line("", 0);
-		printf("\n");
+		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		return ;
@@ -49,25 +51,8 @@ static void	signal_interactive_mode_handler(int signal)
 }
 
 /*
-	We do not do anything.
+	Function to set the function that handles the signal.
 */
-static void	signal_noop_handler(int signal)
-{
-	if (signal == SIGINT)
-	{
-		return ;
-	}
-	if (signal == SIGQUIT)
-	{
-		return ;
-	}
-	if (signal == SIGTERM)
-	{
-		return ;
-	}
-}
-
-//static	void	signal_setsignal(int signum, void(*)__sighandler_t handler)
 static	void	signal_setsignal(int signum, void (*handler)(int) )
 {
 	if (signal(signum, handler) == SIG_ERR)
@@ -77,8 +62,27 @@ static	void	signal_setsignal(int signum, void (*handler)(int) )
 	}
 }
 
+static void	signal_heredoc_mode_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		close(STDIN_FILENO);
+		write(STDERR_FILENO, "\n", 1);
+	}
+}
+
 /*
-       SGL_DFL is a MACRO with the default handler.
+	YASFTAN
+	Yet Another Stupid Function To Avoid Norminette.
+*/
+static void	signal_heredoc_mode(void)
+{
+	signal_setsignal(SIGINT, signal_heredoc_mode_handler);
+}
+
+/*
+       SIG_DFL is a MACRO with the default handler.
+	   SIG_IGNL is a MACRO with the ignore signal.
 */
 void	signal_set_mode(int mode)
 {
@@ -98,9 +102,11 @@ void	signal_set_mode(int mode)
 	}
 	if (mode == SIGNAL_MODE_NOOP)
 	{
-		signal_setsignal(SIGINT, signal_noop_handler);
-		signal_setsignal(SIGQUIT, signal_noop_handler);
-		signal_setsignal(SIGTERM, signal_noop_handler);
+		signal_setsignal(SIGINT, SIG_IGN);
+		signal_setsignal(SIGQUIT, SIG_IGN);
+		signal_setsignal(SIGTERM, SIG_IGN);
 		return ;
 	}
+	if (mode == SIGNAL_MODE_HEREDOC)
+		signal_heredoc_mode();
 }

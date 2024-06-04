@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/06/01 01:49:39 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/04 22:25:39 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "parser.h"
 #include "cmd.h"
 #include "error_handler.h"
+#include "signal_handler.h"
 
 /*
 	We check if the read line is an empty one or it is composed only 
@@ -70,6 +71,7 @@ static void	treat_line(t_minishell *shell, t_string line)
 		return (tokens_destroy_tokenlist(&token_set));
 	}
 	i = 0;
+	signal_set_mode(SIGNAL_MODE_HEREDOC);
 	while (i < cmd_set.cmd_count)
 		cmd_heredoc(&cmd_set.cmds[i++], *shell);
 	shell->status.return_status = cmd_set_run(shell, cmd_set);
@@ -99,26 +101,23 @@ static void	main_loop(t_minishell *shell)
 	t_string	line;
 	t_string	prompt;		
 
-	while (shell->status.run == true)
+	while (true)
 	{
 		signal_set_mode(SIGNAL_MODE_INTERACTIVE);
 		prompt = minishell_get_prompt();
-		if (isatty(STDIN_FILENO) == 1)
+		line = readline(prompt);
+		if (line == NULL)
 		{
-			line = readline(prompt);
-			if (line == NULL)
-			{
-				free (prompt);
-				break ;
-			}
-			if (is_empty_line(line) == false)
-			{
-				treat_line(shell, line);
-				add_history(line);
-			}
-			free(line);
-			free(prompt);
+			free (prompt);
+			break ;
 		}
+		if (is_empty_line(line) == false)
+		{
+			treat_line(shell, line);
+			add_history(line);
+		}
+		free(line);
+		free(prompt);
 	}
 }
 

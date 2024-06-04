@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 00:56:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/06/02 21:13:15 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 21:13:58 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include "builtin.h"
 
 /*
-	Yet Another Stupid Function To Avoid Norminette
 	YASFTAN
+	Yet Another Stupid Function To Avoid Norminette
 */
 static void	runner_child_check_init_status(t_cmd *cmd, t_run_env run_env)
 {

@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 14:19:00 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/05/31 00:12:49 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:57:01 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ t_string	minishell_get_prompt(void)
 	}
 	else
 	{
-		prompt = ft_strjoin("msh:\033[1;34m", cwd);
+		prompt = ft_strjoin("msh:", cwd);
 		ptr_check_malloc_return(prompt, "Error at memory malloc.\n");
 		aux = prompt;
-		prompt = ft_strjoin(prompt, "\033[0m$ ");
+		prompt = ft_strjoin(prompt, "$ ");
 		ptr_check_malloc_return(prompt, "Error at memory malloc.\n");
 		free (aux);
 		free(cwd);
