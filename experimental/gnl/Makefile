@@ -2,6 +2,7 @@ NAME	= gnl.a
 
 CC		= gcc
 DFLAGS	= -fsanitize=address -g
+#DFLAGS	=  -g
 CFLAGS	= -Wall -Wextra -Werror $(DFLAGS) 
 AR		= ar rcs
 RM		= rm -f

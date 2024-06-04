@@ -6,7 +6,7 @@
 #    By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/06/04 22:32:38 by greus-ro         ###   ########.fr        #
+#    Updated: 2024/06/04 23:16:27 by greus-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME	= minishell
 # **************************************************************************** #
 
 CC		= gcc
-DFLAGS	+= -g
+#DFLAGS	+= -g
 DFLAGS	+= -fsanitize=address
 DFLAGS	+= -DDEBUG_MODE=0
 CFLAGS	= -Wall -Wextra -Werror $(DFLAGS)

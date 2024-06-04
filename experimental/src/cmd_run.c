@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:00:30 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/06/04 22:25:56 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:03:35 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 #include "runner.h"
 #include "signal_handler.h"
 
-int	cmd_run(t_minishell *shell, t_cmd cmd)
+int	cmd_run(t_minishell *shell, t_cmd cmd, bool parent)
 {
 	int		code;
 
 	code = 0;
 	if (cmd_isbuiltin(cmd))
-		code = builtin_run(shell, cmd);
+		code = builtin_run(shell, cmd, parent);
 	return (code);
 }
 

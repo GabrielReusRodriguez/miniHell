@@ -6,7 +6,7 @@
 /*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:35:29 by gabriel           #+#    #+#             */
-/*   Updated: 2024/06/04 22:23:35 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:15:42 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static int	runner_config_redirs(t_minishell *shell, t_cmd_set *cmd_set, \
 		if (cmd->fd_output > 0)
 			pipes_dup2(cmd->fd_output, STDOUT_FILENO);
 		fd_close(cmd->fd_output);
-		shell->status.return_status = builtin_run(shell, cmd_set->cmds[0]);
+		shell->status.return_status = builtin_run(shell, cmd_set->cmds[0], \
+										true);
 		return (shell->status.return_status);
 	}
 	return (-1);

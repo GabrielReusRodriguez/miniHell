@@ -25,3 +25,5 @@ Direct leak of 49 byte(s) in 9 object(s) allocated from:
     #8 0x742873a29d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
 
 SUMMARY: AddressSanitizer: 49 byte(s) leaked in 9 allocation(s).
+
+valgrind --track-fds=yes ./program
