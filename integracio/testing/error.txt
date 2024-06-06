@@ -1,8 +1,0 @@
-TODO TOkenizer /parser
-
-<< < in cat
-echo $(ARGS)
-
-$PWD"$USER"'$HOME'
-exit 42 barcelona
-exit 42barcelona
