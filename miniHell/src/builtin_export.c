@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:08:45 by gabriel           #+#    #+#             */
-/*   Updated: 2024/05/31 23:55:01 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/08 01:05:16 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	builtin_export_noargs(t_minishell *shell)
 	while (var_list != NULL)
 	{
 		var = (t_var *)var_list->content;
-		printf("declare -x %s=%s\n", var->key, var->value);
+		printf("declare -x %s=\"%s\"\n", var->key, var->value);
 		var_list = var_list->next;
 	}
 	return (EXIT_SUCCESS);

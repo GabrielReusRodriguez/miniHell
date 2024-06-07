@@ -18,6 +18,7 @@ echo -n
 echo -n -n -n ok
 echo ok bonjour
 echo salut coucou Woop woop -n
+echo "$=TEST"
 
 - EXIT (don't forget to relaunch minishell after each exit, test with echo $? in bash after each exit):
 exit

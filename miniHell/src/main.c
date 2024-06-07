@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:44:46 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/06/06 21:27:49 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/07 23:23:11 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,13 @@ static void	main_loop(t_minishell *shell)
 	}
 }
 
-int	run_argv(char **vector, char **env)
+int	run_argv(char **vector, char **env, int argc)
 {
 	t_minishell	shell;
 	t_string	line;
 
 	shell = minishell_new(env);
-	line = build_cmd_line(vector);
-	//check build_cmd_line malloc
-	//ft_putstr_fd(line, STDOUT_FILENO);
+	line = build_cmd_line(vector, argc);
 	if (is_empty_line(line) == false)
 		treat_line(&shell, line);
 	free(line);
@@ -152,7 +150,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 1 || argv[1])
 	{
-		exit(run_argv(argv, env));
+		exit(run_argv(argv, env, argc));
 	}
 	shell = minishell_new(env);
 	main_loop(&shell);

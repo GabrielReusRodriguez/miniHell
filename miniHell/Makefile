@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abluis-m <abluis-m@student.42barcelona.    +#+  +:+       +#+         #
+#    By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/08 13:07:00 by abluis-m          #+#    #+#              #
-#    Updated: 2024/06/06 18:46:08 by abluis-m         ###   ########.fr        #
+#    Updated: 2024/06/08 00:37:09 by gabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC		= 	main 					\
 			builtin_echo			\
 			builtin_env				\
 			builtin_exit			\
+			builtin_exit_utils		\
 			builtin_export			\
 			builtin_export2			\
 			builtin_pwd				\
@@ -83,6 +84,7 @@ SRC		= 	main 					\
 			expansor_var2			\
 			expansor_var3			\
 			fd						\
+			ft_atoull				\
 		  	minishell 				\
 		  	minishell_cfg 			\
 			minishell_cfg2			\

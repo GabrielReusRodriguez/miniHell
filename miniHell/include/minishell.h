@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abluis-m <abluis-m@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:33:43 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/06/06 18:19:48 by abluis-m         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:00:23 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ t_string	*minishell_path_2_vector(t_minishell shell);
 /*
 	main2.c
 */
-char		*build_cmd_line(char **vector);
+char		*build_cmd_line(char **vector, int argc);
 
 #endif
