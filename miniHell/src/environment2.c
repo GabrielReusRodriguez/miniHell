@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:26:11 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/06/01 00:37:15 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/09 19:02:40 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	*env_update_var(t_list *node, t_var new_var)
 	We add new variable to the list.
 	We clone the var with a new malloc .
 */
+
+//#include <stdio.h>
 void	*env_add_var(t_environment *env, t_var var)
 {
-	t_list	*last_node;
 	t_list	*new_node;
 	t_var	*new_var;
 
-	last_node = ft_lstlast(env->vars);
 	new_var = var_clone(var);
 	if (new_var == NULL)
 		return (NULL);
@@ -69,7 +69,7 @@ void	*env_add_var(t_environment *env, t_var var)
 		free (new_var);
 		return (NULL);
 	}
-	ft_lstadd_back(&last_node, new_node);
+	ft_lstadd_back(&env->vars, new_node);
 	return (env);
 }
 

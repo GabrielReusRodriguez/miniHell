@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: greus-ro <greus-ro@student.42barcel>       +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 22:15:15 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/06/06 21:30:26 by greus-ro         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:06:52 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	runner_get_status(t_minishell *shell, t_cmd_set *cmd_set)
 	{
 		if (waitpid(cmd_set->cmds[i].pid, &status, 0) < 0)
 		{
-			//TODO: We can return with status failure when waitpid fails
-			//or  we can exit like system crash.
 			perror("Error");
 			shell->status.return_status = EXIT_FAILURE;
 			return ;
@@ -61,30 +59,3 @@ void	runner_get_status(t_minishell *shell, t_cmd_set *cmd_set)
 	}
 	shell->status.return_status = runner_determine_status(status);
 }
-
-/*
-void	runner_get_status(t_minishell *shell, t_cmd_set *cmd_set)
-{
-	pid_t	pid;
-	pid_t	greater_pid;
-	size_t	i;
-	int		status;
-
-	if (shell->status.return_status >= 0)
-		return ;
-	greater_pid = 0;
-	i = 0;
-	while (i < cmd_set->cmd_count)
-	{
-		pid = wait(&status);
-		if (pid > greater_pid)
-		{
-			shell->status.return_status = status;
-			greater_pid = pid;
-		}
-		i++;
-	}
-	shell->status.return_status = runner_determine_status(\
-			shell->status.return_status);
-}
-*/

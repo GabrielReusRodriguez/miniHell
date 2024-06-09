@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: greus-ro <greus-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:42:50 by abluis-m          #+#    #+#             */
-/*   Updated: 2024/06/07 23:22:38 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:55:02 by greus-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*build_cmd_line(char **vector, int argc)
 {
 	int			i;
 	t_string	line;
-	t_string	aux;
 
 	if (argc != 3 || ft_strcmp("-c", vector[1]) != 0)
 	{
@@ -31,13 +30,9 @@ char	*build_cmd_line(char **vector, int argc)
 	ptr_check_malloc_return(line, "Error at memory malloc.");
 	while (vector[++i])
 	{
-		aux = line;
-		line = gnl_strjoin(aux, " ");
-		free (aux);
+		line = gnl_strjoin(line, " ");
 		ptr_check_malloc_return(line, "Error at memory malloc.");
-		aux = line;
-		line = gnl_strjoin(aux, vector[i]);
-		free (aux);
+		line = gnl_strjoin(line, vector[i]);
 		ptr_check_malloc_return(line, "Error at memory malloc.");
 	}
 	return (line);
