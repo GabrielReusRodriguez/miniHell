@@ -6,7 +6,7 @@
 /*   By: gabriel <gabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:47:03 by greus-ro          #+#    #+#             */
-/*   Updated: 2024/05/17 19:40:04 by gabriel          ###   ########.fr       */
+/*   Updated: 2024/06/12 18:02:26 by gabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_expansor
 {
 	size_t		i;
 	size_t		init;
+	bool		is_quoted;
 	t_string	str;
 }	t_expansor;
 
@@ -42,12 +43,19 @@ t_string	expansor_vars_join_chunks(t_string *chunks);
 /*
 	expansor_var2.c
 */
-void		expansor_vars_replace_vars(t_token *token, t_token *next_t, \
-				t_minishell shell);
+
+t_string	expansor_vars_treat_dollar(t_expansor *limits, \
+				t_string expanded, t_minishell shell, t_token *next_t);
+t_string	expansor_vars_treat_tilde(t_expansor *limits, \
+				t_string expanded, t_minishell shell);
 
 /*
 	expansor_var3.c
 */
 t_string	expansor_vars_join_acumulated(t_string acum, t_expansor limits);
+void		expansor_vars_replace_vars(t_token *token, t_token *next_t, \
+				t_minishell shell);
+t_string	expansor_vars_replace_vars_init(t_expansor	*limits, \
+				t_token token);
 
 #endif
